@@ -1,0 +1,13 @@
+{
+  "require": {
+    "apache/log4php": "2.3.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "com\\realexpayments\\remote\\sdk\\": [
+        "src/main/php/com-realexpayments-remote-sdk",
+        "test/main/php/com-realexpayments-remote-sdk"
+      ]
+    }
+  }
+}
