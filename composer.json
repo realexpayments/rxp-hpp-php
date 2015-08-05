@@ -4,9 +4,9 @@
   },
   "autoload": {
     "psr-4": {
-      "com\\realexpayments\\remote\\sdk\\": [
-        "src/main/php/com-realexpayments-remote-sdk",
-        "test/main/php/com-realexpayments-remote-sdk"
+      "com\\realexpayments\\hpp\\sdk\\": [
+        "src/main/php/com-realexpayments-hpp-sdk",
+        "test/main/php/com-realexpayments-hpp-sdk"
       ]
     }
   }
