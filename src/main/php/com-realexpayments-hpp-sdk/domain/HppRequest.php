@@ -68,6 +68,10 @@ class HppRequest {
 	/**
 	 * @var String A three-letter currency code (Eg. EUR, GBP). A list of currency codes can be provided
 	 * by your account manager.
+	 *
+	 * @Assert\Length(min = 3, max = 3, exactMessage = ValidationMessages::hppRequest_currency_size)
+	 * @Assert\NotBlank(message= ValidationMessages::hppRequest_currency_size)
+	 * @Assert\Regex(pattern="/^[a-zA-Z]*$/", message=ValidationMessages::hppRequest_currency_pattern )
 	 */
 	private $currency;
 

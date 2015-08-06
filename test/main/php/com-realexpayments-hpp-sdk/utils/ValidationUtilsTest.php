@@ -267,4 +267,56 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 		// TODO: RealVault iteration cases
 	}
 
+	/**
+	 * Currency test
+	 */
+	public function testCurrency() {
+
+		$hppRequest = SampleJsonData::generateValidHppRequest( false );
+		$hppRequest->generateDefaults( SampleJsonData::SECRET );
+
+		$hppRequest->setCurrency( "" );
+
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_currency_size, $validationMessages[0] );
+		}
+
+
+		$hppRequest->setCurrency( "EuR" );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
+
+
+		$hppRequest->setCurrency( "abcd" );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_currency_size, $validationMessages[0] );
+		}
+
+		$hppRequest->setCurrency( "ab1" );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_currency_pattern, $validationMessages[0] );
+		}
+
+
+	}
+
 }
