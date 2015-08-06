@@ -2,8 +2,10 @@
 
 
 namespace com\realexpayments\hpp\sdk\domain;
-use com\realexpayments\hpp\sdk\utils\GenerationUtils;
 
+use com\realexpayments\hpp\sdk\utils\GenerationUtils;
+use Symfony\Component\Validator\Constraints as Assert;
+use com\realexpayments\hpp\sdk\validators\ValidationMessages;
 
 /**
  * <p>
@@ -29,6 +31,10 @@ class HppRequest {
 	/**
 	 * @var String The merchant ID supplied by Realex Payments – note this is not the merchant number
 	 * supplied by your bank.
+	 *
+	 * @Assert\Length(min = 1, max = 50, minMessage = ValidationMessages::hppRequest_merchantId_size, maxMessage = ValidationMessages::hppRequest_merchantId_size)
+	 * @Assert\NotBlank(message= ValidationMessages::hppRequest_merchantId_size)
+	 * @Assert\Regex(pattern="/^[a-zA-Z0-9\.]*$/", message=ValidationMessages::hppRequest_merchantId_pattern )
 	 */
 	private $merchantId;
 
@@ -886,6 +892,7 @@ class HppRequest {
 	 * Generates default values for fields such as hash, timestamp and order ID.
 	 *
 	 * @param String $secret
+	 *
 	 * @return HppRequest
 	 */
 	public function generateDefaults( $secret ) {
@@ -916,13 +923,13 @@ class HppRequest {
 	public function hash( $secret ) {
 
 		//check for any null values and set them to empty string for hashing
-		$timeStamp  = null == $this->timeStamp ? "" : $this->timeStamp;
-		$merchantId = null == $this->merchantId ? "" : $this->merchantId;
-		$orderId    = null == $this->orderId ? "" : $this->orderId;
-		$amount     = null == $this->amount ? "" : $this->amount;
-		$currency   = null == $this->currency ? "" : $this->currency;
-		$payerReference ="";   //= null == $this->payerReference ? "" : $this->payerReference; //TODO: Next iteration
-		$paymentReference  ="";// = null == $this->paymentReference ? "" : $this->paymentReference;
+		$timeStamp        = null == $this->timeStamp ? "" : $this->timeStamp;
+		$merchantId       = null == $this->merchantId ? "" : $this->merchantId;
+		$orderId          = null == $this->orderId ? "" : $this->orderId;
+		$amount           = null == $this->amount ? "" : $this->amount;
+		$currency         = null == $this->currency ? "" : $this->currency;
+		$payerReference   = "";   //= null == $this->payerReference ? "" : $this->payerReference; //TODO: Next iteration
+		$paymentReference = "";// = null == $this->paymentReference ? "" : $this->paymentReference;
 
 		//create String to hash
 

@@ -7,10 +7,12 @@ namespace com\realexpayments\hpp\sdk\utils;
 use com\realexpayments\hpp\sdk\domain\HppRequest;
 use com\realexpayments\hpp\sdk\RealexValidationException;
 use com\realexpayments\hpp\sdk\RPXLogger;
+use Doctrine\Common\Annotations\AnnotationRegistry;
 use Logger;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+
 
 /**
  * Class validates HPP request and response objects.
@@ -50,7 +52,12 @@ class ValidationUtils {
 				$validationMessages[] = $violation->getMessage();
 			}
 
-			self::$logger->info( "HppRequest failed validation with the following errors: " . $validationMessages );
+			$message = "HppRequest failed validation with the following errors:";
+			foreach ( $validationMessages as $validationMessage ) {
+				$message .= $validationMessage . '.';
+			}
+
+			self::$logger->info( $message );
 			throw new RealexValidationException( "HppRequest failed validation", $validationMessages );
 		}
 
@@ -62,9 +69,17 @@ class ValidationUtils {
 			return;
 		}
 
+		$vendor_dir = __DIR__ . "/../../../../../vendor";
+		$loader     = require $vendor_dir . '/autoload.php';
+
+		AnnotationRegistry::registerLoader( array( $loader, 'loadClass' ) );
+
 		self::$logger = RPXLogger::getLogger( __CLASS__ );
 
-		self::$validator = Validation::createValidator();
+		self::$validator = Validation::createValidatorBuilder()
+		                             ->enableAnnotationMapping()
+		                             ->getValidator();
+
 
 		self::$initialised = true;
 	}
