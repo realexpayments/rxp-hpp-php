@@ -203,7 +203,68 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 			$validationMessages = $e->getValidationMessages();
 			$this->assertEquals( ValidationMessages::hppRequest_orderId_pattern, $validationMessages[0] );
 		}
+	}
 
+	/**
+	 * Test amount
+	 */
+	public function testAmount() {
+
+		$hppRequest = SampleJsonData::generateValidHppRequest( false );
+		$hppRequest->generateDefaults( SampleJsonData::SECRET );
+
+		$hppRequest->setAmount( "" );
+
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_amount_size, $validationMessages[0] );
+		}
+
+		$charsAtMax = str_repeat( "1",11 );
+		$hppRequest->setAmount( $charsAtMax );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
+
+		$charsOverMax = str_repeat( "1", 12 );
+		$hppRequest->setAmount( $charsOverMax );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_amount_size, $validationMessages[0] );
+		}
+
+		$hppRequest->setAmount( "abc" );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_amount_pattern, $validationMessages[0] );
+		}
+
+		$hppRequest->setAmount( "$&^*" );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_amount_pattern, $validationMessages[0] );
+		}
+
+		// TODO: RealVault iteration cases
 	}
 
 }

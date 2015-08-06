@@ -58,6 +58,10 @@ class HppRequest {
 	 * @var String Total amount to authorise in the lowest unit of the currency – i.e. 100 euro would be entered as 10000.
 	 * If there is no decimal in the currency (e.g. JPY Yen) then contact Realex Payments. No decimal points are allowed.
 	 * Amount should be set to 0 for OTB transactions (i.e. where validate card only is set to 1).
+	 *
+	 * @Assert\Length(min = 1, max = 11, minMessage = ValidationMessages::hppRequest_amount_size, maxMessage = ValidationMessages::hppRequest_amount_size)
+	 * @Assert\NotBlank(message= ValidationMessages::hppRequest_amount_size)
+	 * @Assert\Regex(pattern="/^[0-9]*$/", message=ValidationMessages::hppRequest_amount_pattern )
 	 */
 	private $amount;
 
