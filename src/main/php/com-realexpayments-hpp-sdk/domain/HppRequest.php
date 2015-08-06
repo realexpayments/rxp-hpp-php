@@ -40,6 +40,9 @@ class HppRequest {
 
 	/**
 	 * @var String The sub-account to use for this transaction. If not present, the default sub-account will be used.
+	 *
+	 * @Assert\Length(min = 0, max = 30, maxMessage = ValidationMessages::hppRequest_account_size)
+	 * @Assert\Regex(pattern="/^[a-zA-Z0-9\.]*$/", message=ValidationMessages::hppRequest_account_pattern )
 	 */
 	private $account;
 
