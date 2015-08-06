@@ -1,6 +1,7 @@
 {
   "require": {
-    "apache/log4php": "2.3.0"
+    "apache/log4php": "2.3.0",
+    "symfony/validator": "2.7.3"
   },
   "autoload": {
     "psr-4": {
