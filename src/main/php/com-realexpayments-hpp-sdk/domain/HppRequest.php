@@ -42,12 +42,15 @@ class HppRequest {
 	 * @var String The sub-account to use for this transaction. If not present, the default sub-account will be used.
 	 *
 	 * @Assert\Length(min = 0, max = 30, maxMessage = ValidationMessages::hppRequest_account_size)
-	 * @Assert\Regex(pattern="/^[a-zA-Z0-9\.]*$/", message=ValidationMessages::hppRequest_account_pattern )
+	 * @Assert\Regex(pattern="/^[a-zA-Z0-9\s]*$/", message=ValidationMessages::hppRequest_account_pattern )
 	 */
 	private $account;
 
 	/**
 	 * @var String A unique alphanumeric id that’s used to identify the transaction. No spaces are allowed.
+	 *
+	 * @Assert\Length(min = 0, max = 50, maxMessage = ValidationMessages::hppRequest_orderId_size)
+	 * @Assert\Regex(pattern="/^[a-zA-Z0-9_\-]*$/", message=ValidationMessages::hppRequest_orderId_pattern )
 	 */
 	private $orderId;
 

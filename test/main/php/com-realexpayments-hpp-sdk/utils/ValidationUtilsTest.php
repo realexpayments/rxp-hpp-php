@@ -135,14 +135,6 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 			$this->assertEquals( ValidationMessages::hppRequest_account_size, $validationMessages[0] );
 		}
 
-		$hppRequest->setAccount( "azAZ09." );
-
-		try {
-			ValidationUtils::validate( $hppRequest );
-		} catch ( RealexValidationException $e ) {
-			$this->fail( "This HppRequest should have no validation errors." );
-		}
-
 		$hppRequest->setAccount( "$&^*" );
 
 		try {
@@ -152,7 +144,65 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 			$validationMessages = $e->getValidationMessages();
 			$this->assertEquals( ValidationMessages::hppRequest_account_pattern, $validationMessages[0] );
 		}
+	}
 
+	/**
+	 * Test Order Id
+	 */
+	public function testOrderId() {
+
+		$hppRequest = SampleJsonData::generateValidHppRequest( false );
+		$hppRequest->generateDefaults( SampleJsonData::SECRET );
+
+		$hppRequest->setOrderId( "" );
+
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+
+			$this->fail( "This HppRequest should have no validation errors." );
+		}
+
+		$hppRequest->setOrderId( "azAZ09_-" );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+
+			$this->fail( "This HppRequest should have no validation errors." );
+		}
+
+		$charsAtMax = str_repeat( "1", 50 );
+		$hppRequest->setOrderId( $charsAtMax );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
+
+		$charsOverMax = str_repeat( "1", 51 );
+		$hppRequest->setOrderId( $charsOverMax );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_orderId_size, $validationMessages[0] );
+		}
+
+
+		$hppRequest->setOrderId( "$&^*" );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_orderId_pattern, $validationMessages[0] );
+		}
 
 	}
 
