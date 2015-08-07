@@ -1026,4 +1026,63 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 		}
 	}
 
+
+	/**
+	 * Test product id
+	 */
+	public function testProductId() {
+		$hppRequest = SampleJsonData::generateValidHppRequest( false );
+		$hppRequest->generateDefaults( SampleJsonData::SECRET );
+
+		$hppRequest->setProductId( "" );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+
+			$this->fail( "This HppRequest should have no validation errors." );
+		}
+
+
+		$hppRequest->setProductId( "az AZ 09 - _ . ,+ @ " );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
+
+
+		$charsAtMax = str_repeat( "a", 50 );
+		$hppRequest->setProductId( $charsAtMax );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
+
+		$charsOverMax = str_repeat( "a", 51 );
+		$hppRequest->setProductId( $charsOverMax );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_productId_size, $validationMessages[0] );
+		}
+
+
+		$hppRequest->setProductId( "&" );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_productId_pattern, $validationMessages[0] );
+		}
+	}
+
 }
