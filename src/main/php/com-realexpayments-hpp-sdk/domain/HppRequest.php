@@ -101,11 +101,15 @@ class HppRequest {
 	 * This option can be used if a merchant wishes to delay the payment until after the goods have been shipped.
 	 * Transactions can be settled for up to 115% of the original amount and must be settled within a certain period
 	 * of time agreed with your issuing bank.
+	 *
+	 * @Assert\Regex(pattern="/(?i)^on$|^off$|^$|^multi$|^1$|^0$/", message=ValidationMessages::hppRequest_autoSettleFlag_pattern )
+	 *
 	 */
 	private $autoSettleFlag;
 
 	/**
 	 * @var String A freeform comment to describe the transaction.
+	 *
 	 */
 	private $commentOne;
 
