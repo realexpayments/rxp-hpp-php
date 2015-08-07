@@ -125,6 +125,9 @@ class HppRequest {
 	/**
 	 * @var String Used to signify whether or not you want a Transaction Suitability Score for this transaction.
 	 * Can be "0" for no and "1" for yes.
+	 *
+	 * @Assert\Length(min = 0, max = 1, maxMessage = ValidationMessages::hppRequest_returnTss_size)
+	 * @Assert\Regex(pattern="/^[01]*$/", message=ValidationMessages::hppRequest_returnTss_pattern )
 	 */
 	private $returnTss;
 
