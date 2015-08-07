@@ -195,6 +195,8 @@ class HppRequest {
 	 * @var String Used to set what language HPP is displayed in. Currently HPP is available in English, Spanish and
 	 * German, with other languages to follow. If the field is not sent in, the default language is the language
 	 * that is set in your account configuration. This can be set by your account manager.
+	 *
+	 * @Assert\Regex(pattern="/^[a-zA-Z]{2}$|^[a-zA-Z]{0}$/", message=ValidationMessages::hppRequest_language_pattern )
 	 */
 	private $language;
 

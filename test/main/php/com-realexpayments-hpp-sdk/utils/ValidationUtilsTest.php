@@ -1085,4 +1085,64 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 		}
 	}
 
+	/**
+	 * Test language
+	 */
+	public function testLanguage() {
+		$hppRequest = SampleJsonData::generateValidHppRequest( false );
+		$hppRequest->generateDefaults( SampleJsonData::SECRET );
+
+		$hppRequest->setLanguage( null );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+
+			$this->fail( "This HppRequest should have no validation errors." );
+		}
+
+
+		$hppRequest->setLanguage( "" );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
+
+
+
+		$hppRequest->setLanguage( "a" );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_language_pattern, $validationMessages[0] );
+		}
+
+
+		$hppRequest->setLanguage( "abc" );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_language_pattern, $validationMessages[0] );
+		}
+
+
+		$hppRequest->setLanguage( "%&" );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_language_pattern, $validationMessages[0] );
+		}
+	}
+
 }
