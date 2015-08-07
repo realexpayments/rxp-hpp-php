@@ -176,6 +176,9 @@ class HppRequest {
 	 * @var String A variable reference also associated with this customer. You can send in any additional
 	 * information about the transaction in this field, which will be visible under the transaction in
 	 * the RealControl application.
+	 *
+	 * @Assert\Length(min = 0, max = 50, maxMessage = ValidationMessages::hppRequest_variableReference_size)
+	 * @Assert\Regex(pattern="/^[a-zA-Z0-9\.\_\-\,\+\@ \s]*$/", message=ValidationMessages::hppRequest_variableReference_pattern )
 	 */
 	private $variableReference;
 
