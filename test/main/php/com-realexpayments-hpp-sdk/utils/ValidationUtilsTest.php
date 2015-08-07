@@ -315,8 +315,61 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 			$validationMessages = $e->getValidationMessages();
 			$this->assertEquals( ValidationMessages::hppRequest_currency_pattern, $validationMessages[0] );
 		}
+	}
 
+
+	/**
+	 * Test time stamp
+	 */
+	public function testTimeStamp() {
+
+		$hppRequest = SampleJsonData::generateValidHppRequest( false );
+		$hppRequest->generateDefaults( SampleJsonData::SECRET );
+
+		$hppRequest->setTimeStamp( "" );
+
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_timestamp_size, $validationMessages[0] );
+		}
+
+
+		$charsAtMax = str_repeat( "1",14 );
+		$hppRequest->setTimeStamp( $charsAtMax );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
+
+		$charsOverMax = str_repeat( "1", 15 );
+		$hppRequest->setTimeStamp( $charsOverMax );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_timestamp_size, $validationMessages[0] );
+		}
+
+		$hppRequest->setTimeStamp( "1234567890123a" );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_timestamp_pattern, $validationMessages[0] );
+		}
 
 	}
+
+
 
 }

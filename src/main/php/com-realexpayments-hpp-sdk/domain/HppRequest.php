@@ -78,6 +78,10 @@ class HppRequest {
 	/**
 	 * @var String Date and time of the transaction. Entered in the following format: YYYYMMDDHHMMSS.
 	 * Must be within 24 hours of the current time.
+	 *
+	 * @Assert\Length(min = 14, max = 14, exactMessage = ValidationMessages::hppRequest_timestamp_size)
+	 * @Assert\NotBlank(message= ValidationMessages::hppRequest_timestamp_size)
+	 * @Assert\Regex(pattern="/^[0-9]*$/", message=ValidationMessages::hppRequest_timestamp_pattern )
 	 */
 	private $timeStamp;
 
