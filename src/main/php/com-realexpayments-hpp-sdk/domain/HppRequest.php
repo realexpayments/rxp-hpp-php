@@ -29,7 +29,7 @@ use com\realexpayments\hpp\sdk\validators\ValidationMessages;
 class HppRequest {
 
 	/**
-	 * @var String The merchant ID supplied by Realex Payments – note this is not the merchant number
+	 * @var String The merchant ID supplied by Realex Payments â€“ note this is not the merchant number
 	 * supplied by your bank.
 	 *
 	 * @Assert\Length(min = 1, max = 50, minMessage = ValidationMessages::hppRequest_merchantId_size, maxMessage = ValidationMessages::hppRequest_merchantId_size)
@@ -47,7 +47,7 @@ class HppRequest {
 	private $account;
 
 	/**
-	 * @var String A unique alphanumeric id that’s used to identify the transaction. No spaces are allowed.
+	 * @var String A unique alphanumeric id thatâ€™s used to identify the transaction. No spaces are allowed.
 	 *
 	 * @Assert\Length(min = 0, max = 50, maxMessage = ValidationMessages::hppRequest_orderId_size)
 	 * @Assert\Regex(pattern="/^[a-zA-Z0-9_\-]*$/", message=ValidationMessages::hppRequest_orderId_pattern )
@@ -55,7 +55,7 @@ class HppRequest {
 	private $orderId;
 
 	/**
-	 * @var String Total amount to authorise in the lowest unit of the currency – i.e. 100 euro would be entered as 10000.
+	 * @var String Total amount to authorise in the lowest unit of the currency â€“ i.e. 100 euro would be entered as 10000.
 	 * If there is no decimal in the currency (e.g. JPY Yen) then contact Realex Payments. No decimal points are allowed.
 	 * Amount should be set to 0 for OTB transactions (i.e. where validate card only is set to 1).
 	 *
@@ -109,8 +109,8 @@ class HppRequest {
 
 	/**
 	 * @var String A freeform comment to describe the transaction.
-	 * @Assert\Length(min = 0, max = 255, maxMessage = ValidationMessages::hppRequest_comment1_size, charset="ISO-8859-1")*
-	 * @Assert\Regex(pattern="/^[\s  -; = ?-~ ¡-ÿ€‚ƒ„…†‡ˆ‰Š‹ŒŽ‘’“”•–—˜™š›œžŸ]*$/", message=ValidationMessages::hppRequest_comment1_pattern )
+	 * @Assert\Length(min = 0, max = 255, maxMessage = ValidationMessages::hppRequest_comment1_size, charset="ISO-8859-1")
+	 * @Assert\Regex(pattern="/^[\s \x{0020}-\x{003B} \x{003D} \x{003F}-\x{007E} \x{00A1}-\x{00FF}\x{20AC}\x{201A}\x{0192}\x{201E}\x{2026}\x{2020}\x{2021}\x{02C6}\x{2030}\x{0160}\x{2039}\x{0152}\x{017D}\x{2018}\x{2019}\x{201C}\x{201D}\x{2022}\x{2013}\x{2014}\x{02DC}\x{2122}\x{0161}\x{203A}\x{0153}\x{017E}\x{0178}]*$/iu", message=ValidationMessages::hppRequest_comment1_pattern )
 	 */
 	private $commentOne;
 
@@ -118,7 +118,7 @@ class HppRequest {
 	 * @var String A freeform comment to describe the transaction.
 	 *
 	 * @Assert\Length(min = 0, max = 255, maxMessage = ValidationMessages::hppRequest_comment2_size, charset="ISO-8859-1")
-	 * @Assert\Regex(pattern="/^[\s  -; = ?-~ ¡-ÿ€‚ƒ„…†‡ˆ‰Š‹ŒŽ‘’“”•–—˜™š›œžŸ]*$/", message=ValidationMessages::hppRequest_comment2_pattern )
+	 * @Assert\Regex(pattern="/^[\s \x{0020}-\x{003B} \x{003D} \x{003F}-\x{007E} \x{00A1}-\x{00FF}\x{20AC}\x{201A}\x{0192}\x{201E}\x{2026}\x{2020}\x{2021}\x{02C6}\x{2030}\x{0160}\x{2039}\x{0152}\x{017D}\x{2018}\x{2019}\x{201C}\x{201D}\x{2022}\x{2013}\x{2014}\x{02DC}\x{2122}\x{0161}\x{203A}\x{0153}\x{017E}\x{0178}]*$/iu", message=ValidationMessages::hppRequest_comment2_pattern )
 	 */
 	private $commentTwo;
 
@@ -203,6 +203,9 @@ class HppRequest {
 	/**
 	 * @var String Used to set what text is displayed on the payment button for card transactions.
 	 * If this field is not sent in, "Pay Now" is displayed on the button by default.
+	 *
+	 * @Assert\Length(min = 0, max = 25, maxMessage = ValidationMessages::hppRequest_cardPaymentButtonText_size)
+	 * @Assert\Regex(pattern = "/^[\x{00C0}\x{00C1}\x{00C2}\x{00C3}\x{00C4}\x{00C5}\x{00C6}\x{00C7}\x{00C8}\x{00C9}\x{00CA}\x{00CB}\x{00CC}\x{00CD}\x{00CE}\x{00CF}\x{00D0}\x{00D1}\x{00D2}\x{00D3}\x{00D4}\x{00D5}\x{00D6}\x{00D7}\x{00D8}\x{00D9}\x{00DA}\x{00DB}\x{00DC}\x{00DD}\x{00DE}\x{00DF}\x{00E0}\x{00E1}\x{00E2}\x{00E3}\x{00E4}\x{00E5}\x{00E6}\x{00E7}\x{00E8}\x{00E9}\x{00EA}\x{00EB}\x{00EC}\x{00ED}\x{00EE}\x{00EF}\x{00F0}\x{00F1}\x{00F2}\x{00F3}\x{00F4}\x{00F5}\x{00F6}\x{00F7}\x{00F8}\x{00A4}\x{00F9}\x{00FA}\x{00FB}\x{00FC}\x{00FD}\x{00FE}\x{00FF}\x{0152}\x{017D}\x{0161}\x{0153}\x{017E}\x{0178}\x{00A5}a-zA-Z0-9\'\,\+\x{0022}\.\_\-\&\/\@\!\?\%\()\*\:\x{00A3}\$\&\x{20AC}\#\[\]\|\=\\\x{201C}\x{201D}\x{201C} ]*$/iu" , message=ValidationMessages::hppRequest_cardPaymentButtonText_pattern )
 	 */
 	private $cardPaymentButtonText;
 

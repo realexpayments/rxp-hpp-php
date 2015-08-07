@@ -26,7 +26,7 @@ class SampleJsonData {
 	const SECRET = "mysecret";
 	const ACCOUNT = "myAccount";
 	const AMOUNT = 100;
-	const COMMENT_ONE = "a-z A-Z 0-9 ' \", + “” ._ - & \\ / @ ! ? % ( )* : £ $ & € # [ ] | = ;ΐΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡÒΣΤΥΦΧΨΩΪΫάέήίΰαβγδεζηθικλμνξοπρςστυφχψ¤ωϊϋόύώÿ¥";
+	const COMMENT_ONE = "a-z A-Z 0-9 ' \", + β€β€ ._ - & \\ / @ ! ? % ( )* : Β£ $ & β‚¬ # [ ] | = ;Γ€ΓΓ‚ΓƒΓ„Γ…Γ†Γ‡ΓΓ‰ΓΓ‹ΓΓΓΓΓΓ‘Γ’Γ“Γ”Γ•Γ–Γ—ΓΓ™ΓΓ›ΓΓΓΓΓ Γ΅ΓΆΓ£Γ¤Γ¥Γ¦Γ§Γ¨Γ©ΓªΓ«Γ¬Γ­Γ®Γ―Γ°Γ±Γ²Γ³Γ΄ΓµΓ¶Γ·ΓΈΒ¤ΓΉΓΊΓ»ΓΌΓ½ΓΎΓΏΕ’Ε½Ε΅Ε“ΕΎΕΈΒ¥";
 	const COMMENT_TWO = "Comment Two";
 
 	//valid JSON constants HppRequest

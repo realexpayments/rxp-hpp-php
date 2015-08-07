@@ -63,7 +63,7 @@ class ValidationMessages {
 	const hppRequest_language_pattern = "Language must be 2 alphabetic characters only";
 
 	const hppRequest_cardPaymentButtonText_size = "Card payment button text must not contain more than 25 characters";
-	const hppRequest_cardPaymentButtonText_pattern = "Card payment button text must only contain the characters a-z A-Z 0-9 ' , + \\u201C\\u201D ._ - & \\ / @!? % ( ) * :£ $ & \\u20AC # [] | =\"";
+	const hppRequest_cardPaymentButtonText_pattern = "Card payment button text must only contain the characters a-z A-Z 0-9 ' , + \\u201C \\u201D ._ - & \\ / @!? % ( ) * :£ $ & \\u20AC # [] | =\"";
 
 	const hppRequest_cardStorageEnable_size = "Card storage enable flag must not be more than 1 character in length";
 	const hppRequest_cardStorageEnable_pattern = "Card storage enable flag must be 1 or 0";
