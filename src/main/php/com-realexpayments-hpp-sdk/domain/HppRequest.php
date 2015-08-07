@@ -109,12 +109,16 @@ class HppRequest {
 
 	/**
 	 * @var String A freeform comment to describe the transaction.
-	 *
+	 * @Assert\Length(min = 0, max = 255, maxMessage = ValidationMessages::hppRequest_comment1_size, charset="ISO-8859-1")*
+	 * @Assert\Regex(pattern="/^[\s  -; = ?-~ ¡-ÿ€‚ƒ„…†‡ˆ‰Š‹ŒŽ‘’“”•–—˜™š›œžŸ]*$/", message=ValidationMessages::hppRequest_comment1_pattern )
 	 */
 	private $commentOne;
 
 	/**
 	 * @var String A freeform comment to describe the transaction.
+	 *
+	 * @Assert\Length(min = 0, max = 255, maxMessage = ValidationMessages::hppRequest_comment2_size, charset="ISO-8859-1")
+	 * @Assert\Regex(pattern="/^[\s  -; = ?-~ ¡-ÿ€‚ƒ„…†‡ˆ‰Š‹ŒŽ‘’“”•–—˜™š›œžŸ]*$/", message=ValidationMessages::hppRequest_comment2_pattern )
 	 */
 	private $commentTwo;
 

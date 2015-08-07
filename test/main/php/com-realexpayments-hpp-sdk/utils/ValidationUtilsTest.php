@@ -224,7 +224,7 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 			$this->assertEquals( ValidationMessages::hppRequest_amount_size, $validationMessages[0] );
 		}
 
-		$charsAtMax = str_repeat( "1",11 );
+		$charsAtMax = str_repeat( "1", 11 );
 		$hppRequest->setAmount( $charsAtMax );
 
 		try {
@@ -338,7 +338,7 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 		}
 
 
-		$charsAtMax = str_repeat( "1",14 );
+		$charsAtMax = str_repeat( "1", 14 );
 		$hppRequest->setTimeStamp( $charsAtMax );
 
 		try {
@@ -371,7 +371,6 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 	}
 
 
-
 	/**
 	 * Test hash
 	 */
@@ -392,7 +391,7 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 		}
 
 
-		$charsAtMax = str_repeat( "a",40 );
+		$charsAtMax = str_repeat( "a", 40 );
 		$hppRequest->setHash( $charsAtMax );
 
 		try {
@@ -484,7 +483,6 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 		}
 
 
-
 		$hppRequest->setAutoSettleFlag( "multi" );
 
 		try {
@@ -508,7 +506,6 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 		} catch ( RealexValidationException $e ) {
 			$this->fail( "This HppRequest should not have validation errors." );
 		}
-
 
 
 		$hppRequest->setAutoSettleFlag( "MULTI" );
@@ -536,12 +533,99 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 			$validationMessages = $e->getValidationMessages();
 			$this->assertEquals( ValidationMessages::hppRequest_autoSettleFlag_pattern, $validationMessages[0] );
 		}
-
-
 	}
 
+	/**
+	 * Test comment one
+	 */
+	public function testCommentOne() {
+		$hppRequest = SampleJsonData::generateValidHppRequest( false );
+		$hppRequest->generateDefaults( SampleJsonData::SECRET );
+
+		$hppRequest->setCommentOne( "" );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+
+			$this->fail( "This HppRequest should have no validation errors." );
+		}
 
 
+		$hppRequest->setCommentOne( "a-z A-Z 0-9 ' \", + “” ._ - & \\ / @ ! ? % ( )* : £ $ & € # [ ] | = ;ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷ø¤ùúûüýþÿŒŽšœžŸ¥" );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
 
 
+		$charsAtMax = str_repeat( "1", 255 );
+		$hppRequest->setCommentOne( $charsAtMax );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
+
+		$charsOverMax = str_repeat( "1", 256 );
+		$hppRequest->setCommentOne( $charsOverMax );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_comment1_size, $validationMessages[0] );
+		}
+	}
+
+	/**
+	 * Test comment two
+	 */
+	public function testCommentTwo() {
+		$hppRequest = SampleJsonData::generateValidHppRequest( false );
+		$hppRequest->generateDefaults( SampleJsonData::SECRET );
+
+		$hppRequest->setCommentTwo( "" );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+
+			$this->fail( "This HppRequest should have no validation errors." );
+		}
+
+
+		$hppRequest->setCommentTwo( "a-z A-Z 0-9 ' \", + “” ._ - & \\ / @ ! ? % ( )* : £ $ & € # [ ] | = ;ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷ø¤ùúûüýþÿŒŽšœžŸ¥" );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
+
+
+		$charsAtMax = str_repeat( "1", 255 );
+		$hppRequest->setCommentTwo( $charsAtMax );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
+
+		$charsOverMax = str_repeat( "1", 256 );
+		$hppRequest->setCommentTwo( $charsOverMax );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_comment2_size, $validationMessages[0] );
+		}
+	}
 }
