@@ -133,21 +133,33 @@ class HppRequest {
 
 	/**
 	 * @var String The postcode or ZIP of the shipping address.
+	 *
+	 * @Assert\Length(min = 0, max = 30, maxMessage = ValidationMessages::hppRequest_shippingCode_size)
+	 * @Assert\Regex(pattern="/^[A-Za-z0-9\,\.\-\/\| ]*$/", message=ValidationMessages::hppRequest_shippingCode_pattern )
 	 */
 	private $shippingCode;
 
 	/**
 	 * @var String The country of the shipping address.
+	 *
+	 * @Assert\Length(min = 0, max = 50, maxMessage = ValidationMessages::hppRequest_shippingCountry_size)
+	 * @Assert\Regex(pattern="/^[A-Za-z0-9\,\.\- ]*$/", message=ValidationMessages::hppRequest_shippingCountry_pattern )
 	 */
 	private $shippingCountry;
 
 	/**
 	 * @var String The postcode or ZIP of the billing address.
+	 *
+	 * @Assert\Length(min = 0, max = 60, maxMessage = ValidationMessages::hppRequest_billingCode_size)
+	 * @Assert\Regex(pattern="/^[A-Za-z0-9\,\.\-\/\| ]*$/", message=ValidationMessages::hppRequest_billingCode_pattern )
 	 */
 	private $billingCode;
 
 	/**
 	 * @var String The country of the billing address.
+	 *
+	 * @Assert\Length(min = 0, max = 50, maxMessage = ValidationMessages::hppRequest_billingCountry_size)
+	 * @Assert\Regex(pattern="/^[A-Za-z0-9\,\.\- ]*$/", message=ValidationMessages::hppRequest_billingCountry_pattern )
 	 */
 	private $billingCountry;
 
