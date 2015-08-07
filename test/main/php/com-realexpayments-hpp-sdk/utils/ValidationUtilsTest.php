@@ -372,4 +372,59 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 
 
 
+	/**
+	 * Test hash
+	 */
+	public function testHash() {
+
+		$hppRequest = SampleJsonData::generateValidHppRequest( false );
+		$hppRequest->generateDefaults( SampleJsonData::SECRET );
+
+		$hppRequest->setHash( "" );
+
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_hash_size, $validationMessages[0] );
+		}
+
+
+		$charsAtMax = str_repeat( "a",40 );
+		$hppRequest->setHash( $charsAtMax );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
+
+		$charsOverMax = str_repeat( "a", 41 );
+		$hppRequest->setHash( $charsOverMax );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_hash_size, $validationMessages[0] );
+		}
+
+		$hppRequest->setHash( "5d8f05abd618e50db4861a61cc940112786474c_" );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_hash_pattern, $validationMessages[0] );
+		}
+
+	}
+
+
+
+
 }

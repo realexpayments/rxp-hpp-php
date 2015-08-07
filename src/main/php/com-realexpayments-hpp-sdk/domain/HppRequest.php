@@ -87,6 +87,10 @@ class HppRequest {
 
 	/**
 	 * @var String A digital signature generated using the SHA-1 algorithm.
+	 *
+	 * @Assert\Length(min = 40, max =40, exactMessage = ValidationMessages::hppRequest_hash_size)
+	 * @Assert\NotBlank(message= ValidationMessages::hppRequest_hash_size)
+	 * @Assert\Regex(pattern="/^[a-f0-9]*$/", message=ValidationMessages::hppRequest_hash_pattern )
 	 */
 	private $hash;
 
