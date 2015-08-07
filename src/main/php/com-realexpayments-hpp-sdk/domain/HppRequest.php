@@ -223,12 +223,18 @@ class HppRequest {
 
 	/**
 	 * @var String Used to identify an OTB transaction.
+	 *
+	 * @Assert\Length(min = 0, max = 1, maxMessage = ValidationMessages::hppRequest_validateCardOnly_size)
+	 * @Assert\Regex(pattern="/^[01]*$/", message=ValidationMessages::hppRequest_validateCardOnly_pattern )
 	 */
 	private $validateCardOnly;
 
 	/**
 	 * @var String Transaction level configuration to enable/disable a DCC request.
 	 * (Only if the merchant is configured).
+	 *
+	 * @Assert\Length(min = 0, max = 1, maxMessage = ValidationMessages::hppRequest_dccEnable_size)
+	 * @Assert\Regex(pattern="/^[01]*$/", message=ValidationMessages::hppRequest_dccEnable_pattern )
 	 */
 	private $dccEnable;
 
