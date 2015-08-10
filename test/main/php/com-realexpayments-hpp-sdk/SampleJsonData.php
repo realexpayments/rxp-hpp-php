@@ -5,6 +5,7 @@ namespace com\realexpayments\hpp\sdk;
 
 use com\realexpayments\hpp\sdk\domain\Flag;
 use com\realexpayments\hpp\sdk\domain\HppRequest;
+use com\realexpayments\hpp\sdk\domain\HppResponse;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -69,7 +70,7 @@ class SampleJsonData
     const PAS_REF = "3737468273643";
     const RESULT = "00";
     const XID = "654564564";
-//public static final Map<String, String> TSS = generateTssResult();
+    private static $TSS;
     const TSS_ONE_KEY = "TSS_1";
     const TSS_ONE_VALUE = "TSS_1_VALUE";
     const TSS_TWO_KEY = "TSS_2";
@@ -85,7 +86,7 @@ class SampleJsonData
     const UNKNOWN_THREE_VALUE = "Unknown value 3";
     const UNKNOWN_FOUR_KEY = "UNKNOWN_4";
     const UNKNOWN_FOUR_VALUE = "Unknown value 4";
-    private static $SUPPLEMENTARY_DATA;// = generateSupplementaryData();
+    private static $SUPPLEMENTARY_DATA;
 
 
     /**
@@ -159,6 +160,7 @@ class SampleJsonData
     static function Init()
     {
         self::$SUPPLEMENTARY_DATA = self::generateSupplementaryData();
+        self::$TSS = self::generateTSS();
     }
 
     /**
@@ -173,6 +175,16 @@ class SampleJsonData
         $data[self::UNKNOWN_TWO_KEY] = self::UNKNOWN_TWO_VALUE;
         $data[self::UNKNOWN_THREE_KEY] = self::UNKNOWN_THREE_VALUE;
         $data[self::UNKNOWN_FOUR_KEY] = self::UNKNOWN_FOUR_VALUE;
+
+        return $data;
+    }
+
+    public static function generateTSS()
+    {
+        $data = array();
+        $data[self::TSS_ONE_KEY] = self::TSS_ONE_VALUE;
+        $data[self::TSS_TWO_KEY] = self::TSS_TWO_VALUE;
+
 
         return $data;
     }
@@ -262,6 +274,76 @@ class SampleJsonData
         $testCase->assertEquals(self::UNKNOWN_FOUR_VALUE,
             $supplementaryData[self::UNKNOWN_FOUR_KEY], "Json conversion incorrect Unknown one");
     }
+
+    /**
+     * Generates valid {@link HppResponse} object.
+     *
+     * @return HppResponse
+     */
+    public static function generateValidHppResponse()
+    {
+        $hppResponse = new HppResponse();
+
+        $hppResponse->setAccount(self::ACCOUNT);
+        $hppResponse->setAmount(self::AMOUNT);
+        $hppResponse->setAuthCode(self::AUTH_CODE);
+        $hppResponse->setBatchId(self::BATCH_ID);
+        $hppResponse->setCavv(self::CAVV);
+        $hppResponse->setCommentOne(self::COMMENT_ONE);
+        $hppResponse->setCommentTwo(self::COMMENT_TWO);
+        $hppResponse->setCvnResult(self::CVN_RESULT);
+        $hppResponse->setEci(self::ECI);
+        $hppResponse->setHash(self::HASH_RESPONSE);
+        $hppResponse->setMerchantId(self::MERCHANT_ID_RESPONSE);
+        $hppResponse->setMessage(self::MESSAGE);
+        $hppResponse->setOrderId(self::ORDER_ID_RESPONSE);
+        $hppResponse->setPasRef(self::PAS_REF);
+        $hppResponse->setResult(self::RESULT);
+        $hppResponse->setTimeStamp(self::TIMESTAMP_RESPONSE);
+        $hppResponse->setTss(self::$TSS);
+        $hppResponse->setXid(self::XID);
+        foreach (self::$SUPPLEMENTARY_DATA as $key => $value) {
+            $hppResponse->setSupplementaryDataValue($key, $value);
+        }
+
+        return $hppResponse;
+    }
+
+    /**
+     * @param HppResponse $hppResponseExpected
+     * @param HppResponse $hppResponseConverted
+     * @param PHPUnit_Framework_TestCase $testCase
+     */
+    public static function checkValidHppResponse(HppResponse $hppResponseExpected, HppResponse $hppResponseConverted,
+                                                 PHPUnit_Framework_TestCase $testCase)
+    {
+        $testCase->assertEquals($hppResponseExpected->getAccount(), $hppResponseConverted->getAccount(), "Json conversion incorrect Account");
+        $testCase->assertEquals($hppResponseExpected->getAmount(), $hppResponseConverted->getAmount(), "Json conversion incorrect Amount");
+        $testCase->assertEquals($hppResponseExpected->getCommentOne(), $hppResponseConverted->getCommentOne(), "Json conversion incorrect Comment One");
+        $testCase->assertEquals($hppResponseExpected->getCommentTwo(), $hppResponseConverted->getCommentTwo(), "Json conversion incorrect Comment Two");
+        $testCase->assertEquals($hppResponseExpected->getMerchantId(), $hppResponseConverted->getMerchantId(), "Json conversion incorrect Merchant ID");
+        $testCase->assertEquals($hppResponseExpected->getTimeStamp(), $hppResponseConverted->getTimeStamp(), "Json conversion incorrect Time Stamp");
+        $testCase->assertEquals($hppResponseExpected->getHash(), $hppResponseConverted->getHash(), "Json conversion incorrect Hash");
+        $testCase->assertEquals($hppResponseExpected->getOrderId(), $hppResponseConverted->getOrderId(), "Json conversion incorrect Order ID");
+        $testCase->assertEquals($hppResponseExpected->getAuthCode(), $hppResponseConverted->getAuthCode(), "Json conversion incorrect Auth Code");
+        $testCase->assertEquals($hppResponseExpected->getBatchId(), $hppResponseConverted->getBatchId(), "Json conversion incorrect Batch ID");
+        $testCase->assertEquals($hppResponseExpected->getCavv(), $hppResponseConverted->getCavv(), "Json conversion incorrect CAVV");
+        $testCase->assertEquals($hppResponseExpected->getCvnResult(), $hppResponseConverted->getCvnResult(), "Json conversion incorrect CVN Result");
+        $testCase->assertEquals($hppResponseExpected->getEci(), $hppResponseConverted->getEci(), "Json conversion incorrect ECI");
+        $testCase->assertEquals($hppResponseExpected->getMessage(), $hppResponseConverted->getMessage(), "Json conversion incorrect Message");
+        $testCase->assertEquals($hppResponseExpected->getPasRef(), $hppResponseConverted->getPasRef(), "Json conversion incorrect Pas Ref");
+        $testCase->assertEquals($hppResponseExpected->getResult(), $hppResponseConverted->getResult(), "Json conversion incorrect Result");
+        $testCase->assertEquals($hppResponseExpected->getXid(), $hppResponseConverted->getXid(), "Json conversion incorrect XID");
+
+        $tss = $hppResponseExpected->getTss();
+        $convertedTss = $hppResponseConverted->getTss();
+        $testCase->assertEquals($tss[self::TSS_ONE_KEY],
+            $convertedTss[self::TSS_ONE_KEY], "Json conversion incorrect TSS Entry");
+        $testCase->assertEquals($tss[self::TSS_TWO_KEY],
+            $convertedTss[self::TSS_TWO_KEY], "Json conversion incorrect TSS Entry");
+    }
+
+
 }
 
 SampleJsonData::Init();
