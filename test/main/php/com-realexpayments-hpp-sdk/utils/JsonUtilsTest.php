@@ -2,6 +2,7 @@
 
 
 namespace com\realexpayments\hpp\sdk\utils;
+use com\realexpayments\hpp\sdk\SampleJsonData;
 
 
 /**
@@ -17,17 +18,12 @@ class JsonUtilsTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testToJsonHppRequest() {
 
-		/*
-
 		$hppRequestExpected = SampleJsonData::generateValidHppRequest(false);
-		$json = JsonUtils.toJson($hppRequestExpected);
-		$hppRequestConverted = JsonUtils.fromJsonHppRequest(json);
+		$json = JsonUtils::toJson($hppRequestExpected);
+		$hppRequestConverted = JsonUtils::fromJsonHppRequest($json);
 
-		SampleJsonData::checkValidHppRequest($hppRequestExpected, $hppRequestConverted, true);
-		SampleJsonData::checkValidHppRequestSupplementaryData($hppRequestConverted);
-
-
-		 */
+		SampleJsonData::checkValidHppRequest($hppRequestExpected, $hppRequestConverted, true,$this);
+		SampleJsonData::checkValidHppRequestSupplementaryData($hppRequestConverted,$this);
 
 	}
 }
