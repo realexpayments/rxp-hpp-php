@@ -46,6 +46,9 @@ class JsonUtilsTest extends \PHPUnit_Framework_TestCase
 
     }
 
+    /**
+     *
+     */
     public function testFromJsonHppRequestUnknownData()
     {
         $path = SampleJsonData::UNKNOWN_DATA_HPP_REQUEST_JSON_PATH;
@@ -58,12 +61,45 @@ class JsonUtilsTest extends \PHPUnit_Framework_TestCase
         SampleJsonData::checkValidHppRequestSupplementaryData($hppRequestConverted, $this);
     }
 
+    /**
+     * Test converting {@link HppResponse} to JSON.
+     */
     public function testToJsonHppResponse()
     {
 
         $hppResponseExpected = SampleJsonData::generateValidHppResponse();
         $json = JsonUtils::toJson($hppResponseExpected);
         $hppResponseConverted = JsonUtils::fromJsonHppResponse($json);
-        SampleJsonData::checkValidHppResponse($hppResponseExpected,$hppResponseConverted, $this);
+        SampleJsonData::checkValidHppResponse($hppResponseExpected, $hppResponseConverted, $this);
+    }
+
+    /**
+     * Test converting JSON to {@link HppResponse}.
+     */
+    public function  testFromJsonHppResponse()
+    {
+        $path = SampleJsonData::VALID_HPP_RESPONSE_JSON_PATH;
+        $prefix = __DIR__ . '/../../../resources';
+        $json = file_get_contents($prefix . $path);
+
+        $hppResponseExpected = SampleJsonData::generateValidHppResponse();
+        $hppResponseConverted = JsonUtils::fromJsonHppResponse($json);
+        SampleJsonData::checkValidHppResponse($hppResponseExpected, $hppResponseConverted, $this);
+    }
+
+
+    /**
+     * Test converting JSON with unknown data to {@link HppResponse}.
+     */
+    public function  testFromJsonHppResponseUnknownData()
+    {
+        $path = SampleJsonData::UNKNOWN_DATA_HPP_RESPONSE_JSON_PATH;
+        $prefix = __DIR__ . '/../../../resources';
+        $json = file_get_contents($prefix . $path);
+
+        $hppResponseExpected = SampleJsonData::generateValidHppResponse();
+        $hppResponseConverted = JsonUtils::fromJsonHppResponse($json);
+        SampleJsonData::checkValidHppResponse($hppResponseExpected, $hppResponseConverted, $this);
+        SampleJsonData::checkValidHppResponseSupplementaryData($hppResponseConverted, $this);
     }
 }

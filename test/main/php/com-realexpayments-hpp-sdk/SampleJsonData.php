@@ -343,6 +343,27 @@ class SampleJsonData
             $convertedTss[self::TSS_TWO_KEY], "Json conversion incorrect TSS Entry");
     }
 
+    /**
+     * Checks request supplementary data matches expected values.
+     *
+     * @param HppResponse $hppResponse
+     * @param PHPUnit_Framework_TestCase $testCase
+     */
+    public static function checkValidHppResponseSupplementaryData(HppResponse $hppResponse,
+                                                                  PHPUnit_Framework_TestCase $testCase)
+    {
+        $supplementaryData = $hppResponse->getSupplementaryData();
+
+        $testCase->assertEquals(self::UNKNOWN_ONE_VALUE,
+            $supplementaryData[self::UNKNOWN_ONE_KEY], "Json conversion incorrect Unknown one");
+        $testCase->assertEquals(self::UNKNOWN_TWO_VALUE,
+            $supplementaryData[self::UNKNOWN_TWO_KEY], "Json conversion incorrect Unknown one");
+        $testCase->assertEquals(self::UNKNOWN_THREE_VALUE,
+            $supplementaryData[self::UNKNOWN_THREE_KEY], "Json conversion incorrect Unknown one");
+        $testCase->assertEquals(self::UNKNOWN_FOUR_VALUE,
+            $supplementaryData[self::UNKNOWN_FOUR_KEY], "Json conversion incorrect Unknown one");
+    }
+
 
 }
 
