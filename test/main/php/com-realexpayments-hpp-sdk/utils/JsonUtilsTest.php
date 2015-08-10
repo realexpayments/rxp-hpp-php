@@ -45,4 +45,16 @@ class JsonUtilsTest extends \PHPUnit_Framework_TestCase
         SampleJsonData::checkValidHppRequest($hppRequestExpected, $hppRequestConverted, true, $this);
 
     }
+
+    public function testFromJsonHppRequestUnknownDataTest()
+    {
+        $path = SampleJsonData::UNKNOWN_DATA_HPP_REQUEST_JSON_PATH;
+        $prefix = __DIR__ . '/../../../resources';
+        $json = file_get_contents($prefix . $path);
+
+        $hppRequestExpected = SampleJsonData::generateValidHppRequest(false);
+        $hppRequestConverted = JsonUtils::fromJsonHppRequest($json);
+        SampleJsonData::checkValidHppRequest($hppRequestExpected, $hppRequestConverted, true, $this);
+        SampleJsonData::checkValidHppRequestSupplementaryData($hppRequestConverted, $this);
+    }
 }
