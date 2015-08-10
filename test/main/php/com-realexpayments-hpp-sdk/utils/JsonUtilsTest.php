@@ -2,6 +2,7 @@
 
 
 namespace com\realexpayments\hpp\sdk\utils;
+
 use com\realexpayments\hpp\sdk\SampleJsonData;
 
 
@@ -11,19 +12,37 @@ use com\realexpayments\hpp\sdk\SampleJsonData;
  * @author vicpada
  *
  */
-class JsonUtilsTest extends \PHPUnit_Framework_TestCase {
+class JsonUtilsTest extends \PHPUnit_Framework_TestCase
+{
 
-	/**
-	 * Test converting {@link HppRequest} to JSON.
-	 */
-	public function testToJsonHppRequest() {
+    /**
+     * Test converting {@link HppRequest} to JSON.
+     */
+    public function testToJsonHppRequest()
+    {
 
-		$hppRequestExpected = SampleJsonData::generateValidHppRequest(false);
-		$json = JsonUtils::toJson($hppRequestExpected);
-		$hppRequestConverted = JsonUtils::fromJsonHppRequest($json);
+        $hppRequestExpected = SampleJsonData::generateValidHppRequest(false);
+        $json = JsonUtils::toJson($hppRequestExpected);
+        $hppRequestConverted = JsonUtils::fromJsonHppRequest($json);
 
-		SampleJsonData::checkValidHppRequest($hppRequestExpected, $hppRequestConverted, true,$this);
-		SampleJsonData::checkValidHppRequestSupplementaryData($hppRequestConverted,$this);
+        SampleJsonData::checkValidHppRequest($hppRequestExpected, $hppRequestConverted, true, $this);
+        SampleJsonData::checkValidHppRequestSupplementaryData($hppRequestConverted, $this);
 
-	}
+    }
+
+    /**
+     * Test converting JSON to {@link HppRequest}.
+     *
+     */
+    public function testFromJsonHppRequest()
+    {
+        $path = SampleJsonData::VALID_HPP_REQUEST_JSON_PATH;
+        $prefix = __DIR__ . '/../../../resources';
+        $json = file_get_contents($prefix . $path);
+
+        $hppRequestExpected = SampleJsonData::generateValidHppRequest(false);
+        $hppRequestConverted = JsonUtils::fromJsonHppRequest($json);
+        SampleJsonData::checkValidHppRequest($hppRequestExpected, $hppRequestConverted, true, $this);
+
+    }
 }
