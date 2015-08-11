@@ -12,7 +12,7 @@ use RuntimeException;
  * @author vicpada
  *
  */
-class RealexValidationException extends RuntimeException {
+class RealexValidationException extends RealexException {
 
 	const serialVersionUID = - 5328243688578577594;
 

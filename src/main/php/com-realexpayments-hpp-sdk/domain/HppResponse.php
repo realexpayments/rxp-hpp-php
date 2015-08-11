@@ -3,6 +3,9 @@
 
 namespace com\realexpayments\hpp\sdk\domain;
 
+use com\realexpayments\hpp\sdk\utils\GenerationUtils;
+use Exception;
+
 
 /**
  * Class representing the HPP response.
@@ -517,9 +520,9 @@ class HppResponse
      * @param string $name
      * @param string $value
      */
-    public function setSupplementaryDataValue($name,$value)
+    public function setSupplementaryDataValue($name, $value)
     {
-        $this->supplementaryData[$name]= $value;
+        $this->supplementaryData[$name] = $value;
     }
 
 
@@ -746,6 +749,84 @@ class HppResponse
     public static function GetClassName()
     {
         return __CLASS__;
+    }
+
+    public function hash($secret)
+    {
+        $this->hash = $this->generateHash($secret);
+        return $this;
+    }
+
+    /**
+     * Creates the security hash from a number of fields and the shared secret.
+     *
+     * @param string $secret
+     * @return String
+     */
+    public function generateHash($secret)
+    {
+        //check for any null values and set them to empty string for hashing
+        $timeStamp = null == $this->timeStamp ? "" : $this->timeStamp;
+        $merchantId = null == $this->merchantId ? "" : $this->merchantId;
+        $orderId = null == $this->orderId ? "" : $this->orderId;
+        $result = null == $this->result ? "" : $this->result;
+        $message = null == $this->message ? "" : $this->message;
+        $pasRef = null == $this->pasRef ? "" : $this->pasRef;
+        $authCode = null == $this->authCode ? "" : $this->authCode;
+
+        //create $to hash
+        $toHash = $timeStamp
+            . "."
+            . $merchantId
+            . "."
+            . $orderId
+            . "."
+            . $result
+            . "."
+            . $message
+            . "."
+            . $pasRef
+            . "."
+            . $authCode;
+
+
+        return GenerationUtils::generateHash($toHash, $secret);
+    }
+
+    /**
+     * Helper method to determine if the HPP response security hash is valid.
+     *
+     * @param string $secret
+     * @return bool
+     */
+    public function isHashValid($secret)
+    {
+        $generatedHash = $this->generateHash($secret);
+        return $generatedHash == $this->hash;
+    }
+
+    /**
+     * Base64 encodes the HPP response values.
+     *
+     * @param string $charset
+     * @return HppResponse
+     * @throws Exception
+     */
+    public function encode($charset)
+    {
+
+
+    }
+
+    /**
+     * Base64 decodes the HPP response values.
+     *
+     * @param string $charset
+     * @return HppResponse
+     * @throws Exception
+     */
+    public function decode($charset)
+    {
     }
 
 }

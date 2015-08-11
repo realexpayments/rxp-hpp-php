@@ -4,6 +4,7 @@
 namespace com\realexpayments\hpp\sdk\domain;
 
 use com\realexpayments\hpp\sdk\utils\GenerationUtils;
+use Exception;
 use Symfony\Component\Validator\Constraints as Assert;
 use com\realexpayments\hpp\sdk\validators\ValidationMessages;
 
@@ -1104,14 +1105,86 @@ class HppRequest
 
     }
 
+    /**
+     * Base64 encodes all Hpp Request values.
+     *
+     * @param string $charSet
+     * @return HppRequest
+     */
     public function encode($charSet)
     {
-        //TODO
+        $this->account = base64_encode($this->account);
+        $this->amount = base64_encode($this->amount);
+        $this->autoSettleFlag = base64_encode($this->autoSettleFlag);
+        $this->billingCode = base64_encode($this->billingCode);
+        $this->billingCountry = base64_encode($this->billingCountry);
+        $this->cardPaymentButtonText = base64_encode($this->cardPaymentButtonText);
+        //$this->cardStorageEnable = base64_encode($this->cardStorageEnable);
+        $this->commentOne = base64_encode($this->commentOne);
+        $this->commentTwo = base64_encode($this->commentTwo);
+        $this->currency = base64_encode($this->currency);
+        $this->customerNumber = base64_encode($this->customerNumber);
+        $this->hash = base64_encode($this->hash);
+        $this->language = base64_encode($this->language);
+        $this->merchantId = base64_encode($this->merchantId);
+        //	$this->offerSaveCard = base64_encode($this->offerSaveCard);
+        $this->orderId = base64_encode($this->orderId);
+        //$this->payerExists = base64_encode($this->payerExists);
+        //$this->payerReference = base64_encode($this->payerReference);
+        //$this->paymentReference = base64_encode($this->paymentReference);
+        $this->productId = base64_encode($this->productId);
+        $this->returnTss = base64_encode($this->returnTss);
+        $this->shippingCode = base64_encode($this->shippingCode);
+        $this->shippingCountry = base64_encode($this->shippingCountry);
+        $this->timeStamp = base64_encode($this->timeStamp);
+        $this->variableReference = base64_encode($this->variableReference);
+        foreach ($this->supplementaryData as $key => $value) {
+            $this->supplementaryData[$key] = base64_encode($value);
+        }
+        $this->validateCardOnly = base64_encode($this->validateCardOnly);
+        $this->dccEnable = base64_encode($this->dccEnable);
+
+        return $this;
     }
 
+    /**
+     * Base64 decodes all Hpp Request values.
+     *
+     * @param string $charSet
+     * @return HppRequest
+     */
     public function decode($charSet)
     {
-        //TODO
+        $this->account = base64_decode($this->account);
+        $this->amount = base64_decode($this->amount);
+        $this->autoSettleFlag = base64_decode($this->autoSettleFlag);
+        $this->billingCode = base64_decode($this->billingCode);
+        $this->billingCountry = base64_decode($this->billingCountry);
+        $this->cardPaymentButtonText = base64_decode($this->cardPaymentButtonText);
+        //$this->cardStorageEnable = base64_decode($this->cardStorageEnable);
+        $this->commentOne = base64_decode($this->commentOne);
+        $this->commentTwo = base64_decode($this->commentTwo);
+        $this->currency = base64_decode($this->currency);
+        $this->customerNumber = base64_decode($this->customerNumber);
+        $this->hash = base64_decode($this->hash);
+        $this->language = base64_decode($this->language);
+        $this->merchantId = base64_decode($this->merchantId);
+        //	$this->offerSaveCard = base64_decode($this->offerSaveCard);
+        $this->orderId = base64_decode($this->orderId);
+        //$this->payerExists = base64_decode($this->payerExists);
+        //$this->payerReference = base64_decode($this->payerReference);
+        //$this->paymentReference = base64_decode($this->paymentReference);
+        $this->productId = base64_decode($this->productId);
+        $this->returnTss = base64_decode($this->returnTss);
+        $this->shippingCode = base64_decode($this->shippingCode);
+        $this->shippingCountry = base64_decode($this->shippingCountry);
+        $this->timeStamp = base64_decode($this->timeStamp);
+        $this->variableReference = base64_decode($this->variableReference);
+        foreach ($this->supplementaryData as $key => $value) {
+            $this->supplementaryData[$key] = base64_decode($value);
+        }
+        $this->validateCardOnly = base64_decode($this->validateCardOnly);
+        $this->dccEnable = base64_decode($this->dccEnable);
     }
 
     /**
