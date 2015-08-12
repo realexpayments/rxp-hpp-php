@@ -223,7 +223,7 @@ class HppRequest
     /**
      * @var array Supplementary data to be sent to Realex Payments. This will be returned in the HPP response.
      */
-    private $supplementaryData;
+    private $supplementaryData = array();
 
     /**
      * @var String Used to identify an OTB transaction.
