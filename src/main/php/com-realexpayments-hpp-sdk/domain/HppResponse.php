@@ -814,8 +814,32 @@ class HppResponse
      */
     public function encode($charset)
     {
+        $this->merchantId = base64_encode($this->merchantId);
+        $this->account = base64_encode($this->account);
+        $this->amount = base64_encode($this->amount);
+        $this->authCode = base64_encode($this->authCode);
+        $this->batchId = base64_encode($this->batchId);
+        $this->cavv = base64_encode($this->cavv);
+        $this->cvnResult = base64_encode($this->cvnResult);
+        $this->eci = base64_encode($this->eci);
+        $this->commentOne = base64_encode($this->commentOne);
+        $this->commentTwo = base64_encode($this->commentTwo);
+        $this->message = base64_encode($this->message);
+        $this->pasRef = base64_encode($this->pasRef);
+        $this->hash = base64_encode($this->hash);
+        $this->result = base64_encode($this->result);
+        $this->xid = base64_encode($this->xid);
+        $this->orderId = base64_encode($this->orderId);
+        $this->timeStamp = base64_encode($this->timeStamp);
 
+        foreach ($this->tss as $key => $value) {
+            $this->tss[$key] = base64_encode($value);
+        }
+        foreach ($this->supplementaryData as $key => $value) {
+            $this->supplementaryData[$key] = base64_encode($value);
+        }
 
+        return $this;
     }
 
     /**
@@ -827,6 +851,32 @@ class HppResponse
      */
     public function decode($charset)
     {
+        $this->merchantId = base64_decode($this->merchantId);
+        $this->account = base64_decode($this->account);
+        $this->amount = base64_decode($this->amount);
+        $this->authCode = base64_decode($this->authCode);
+        $this->batchId = base64_decode($this->batchId);
+        $this->cavv = base64_decode($this->cavv);
+        $this->cvnResult = base64_decode($this->cvnResult);
+        $this->eci = base64_decode($this->eci);
+        $this->commentOne = base64_decode($this->commentOne);
+        $this->commentTwo = base64_decode($this->commentTwo);
+        $this->message = base64_decode($this->message);
+        $this->pasRef = base64_decode($this->pasRef);
+        $this->hash = base64_decode($this->hash);
+        $this->result = base64_decode($this->result);
+        $this->xid = base64_decode($this->xid);
+        $this->orderId = base64_decode($this->orderId);
+        $this->timeStamp = base64_decode($this->timeStamp);
+
+        foreach ($this->tss as $key => $value) {
+            $this->tss[$key] = base64_decode($value);
+        }
+        foreach ($this->supplementaryData as $key => $value) {
+            $this->supplementaryData[$key] = base64_decode($value);
+        }
+
+        return $this;
     }
 
 }

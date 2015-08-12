@@ -1185,6 +1185,8 @@ class HppRequest
         }
         $this->validateCardOnly = base64_decode($this->validateCardOnly);
         $this->dccEnable = base64_decode($this->dccEnable);
+
+        return $this;
     }
 
     /**
