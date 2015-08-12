@@ -1,12 +1,15 @@
 {
   "require": {
-    "apache/log4php": "2.3.0"
+    "apache/log4php": "2.3.0",
+    "symfony/validator": "2.7.3",
+    "doctrine/annotations":"1.2.6",
+    "doctrine/cache":"1.4.1"
   },
   "autoload": {
     "psr-4": {
-      "com\\realexpayments\\remote\\sdk\\": [
-        "src/main/php/com-realexpayments-remote-sdk",
-        "test/main/php/com-realexpayments-remote-sdk"
+      "com\\realexpayments\\hpp\\sdk\\": [
+        "src/main/php/com-realexpayments-hpp-sdk",
+        "test/main/php/com-realexpayments-hpp-sdk"
       ]
     }
   }
