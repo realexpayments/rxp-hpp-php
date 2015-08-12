@@ -1,2 +1,3 @@
-# rxp-hpp-php
-The official Realex Payments HPP PHP SDK
+# Realex HPP Java SDK
+You can sign up for a Realex account at https://www.realexpayments.com.
+## Requirements
