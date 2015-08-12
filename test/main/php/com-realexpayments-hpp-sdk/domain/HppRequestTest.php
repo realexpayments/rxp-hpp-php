@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: victor
- * Date: 11/08/2015
- * Time: 16:08
- */
 
 namespace com\realexpayments\hpp\sdk\domain;
 use com\realexpayments\hpp\sdk\SampleJsonData;

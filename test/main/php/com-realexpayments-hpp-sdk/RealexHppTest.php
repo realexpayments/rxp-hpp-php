@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: victor
- * Date: 11/08/2015
- * Time: 18:46
- */
 
 namespace com\realexpayments\hpp\sdk;
 

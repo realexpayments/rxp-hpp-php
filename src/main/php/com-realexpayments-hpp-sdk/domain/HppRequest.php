@@ -6,6 +6,7 @@ namespace com\realexpayments\hpp\sdk\domain;
 use com\realexpayments\hpp\sdk\utils\GenerationUtils;
 use Exception;
 use Symfony\Component\Validator\Constraints as Assert;
+use com\realexpayments\hpp\sdk\validators as AssertHPP;
 use com\realexpayments\hpp\sdk\validators\ValidationMessages;
 
 /**
@@ -26,6 +27,7 @@ use com\realexpayments\hpp\sdk\validators\ValidationMessages;
  * </p>
  *
  * @author vicpada
+ * @AssertHPP\OtbAmount
  */
 class HppRequest
 {

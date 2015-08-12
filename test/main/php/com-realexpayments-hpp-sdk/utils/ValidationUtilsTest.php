@@ -3,6 +3,7 @@
 
 namespace com\realexpayments\hpp\sdk\utils;
 
+use com\realexpayments\hpp\sdk\domain\Flag;
 use com\realexpayments\hpp\sdk\RealexValidationException;
 use com\realexpayments\hpp\sdk\SampleJsonData;
 use com\realexpayments\hpp\sdk\validators\ValidationMessages;
@@ -264,7 +265,25 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 			$this->assertEquals( ValidationMessages::hppRequest_amount_pattern, $validationMessages[0] );
 		}
 
-		// TODO: RealVault iteration cases
+		$hppRequest->setValidateCardOnly(Flag::TRUE);
+		$hppRequest->setAmount("0");
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
+
+		$hppRequest->setValidateCardOnly(Flag::TRUE);
+		$hppRequest->setAmount("1");
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_amount_otb, $validationMessages[0] );
+		}
 	}
 
 	/**
