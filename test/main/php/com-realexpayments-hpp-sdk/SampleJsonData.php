@@ -35,18 +35,18 @@ class SampleJsonData
     //valid JSON constants HppRequest
     const MERCHANT_ID = "MerchantID";
     const TIMESTAMP = "20990101120000";
-    //const AUTO_SETTLE_FLAG = Flag.TRUE.getFlag();
+    const AUTO_SETTLE_FLAG = Flag::TRUE;
     const BILLING_CODE = "123|56";
     const BILLING_COUNTRY = "IRELAND";
     const CARD_PAYMENT_BUTTON_TEXT = "Submit Payment";
-    //const CARD_STORAGE_ENABLE = Flag.FALSE.getFlag();
+    const CARD_STORAGE_ENABLE = Flag::FALSE;
     const CURRENCY = "EUR";
     const CUSTOMER_NUMBER = "123456";
     const HASH_REQUEST = "5d8f05abd618e50db4861a61cc940112786474cf";
     const LANGUAGE = "EN";
-    //const OFFER_SAVE_CARD = Flag.FALSE.getFlag();
+    const OFFER_SAVE_CARD = Flag::FALSE;
     const ORDER_ID = "OrderID";
-    //const PAYER_EXISTS = Flag.FALSE.getFlag();
+    const PAYER_EXISTS = Flag::FALSE;
     const PAYER_REF = "PayerRef";
     const PAYMENT_REF = "PaymentRef";
     const PRODUCT_ID = "ProductID";
@@ -116,40 +116,38 @@ class SampleJsonData
      */
     public static function generateValidHppRequestWithEmptyDefaults($cardStorage)
     {
-        // TODO: Fill Real Vault on next iteration
-
         $hppRequest = new HppRequest();
         $hppRequest->addAccount(self::ACCOUNT)
             ->addAmount(self::AMOUNT)
-            ->addAutoSettleFlag(Flag::TRUE)
+            ->addAutoSettleFlag(self::AUTO_SETTLE_FLAG == Flag::TRUE ? 1 : 0)
             ->addBillingCode(self::BILLING_CODE)
             ->addBillingCountry(self::BILLING_COUNTRY)
             ->addCardPaymentButtonText(self::CARD_PAYMENT_BUTTON_TEXT)
-            //->addCardStorageEnable(self::CARD_STORAGE_ENABLE->equals(self::Flag->TRUE->getFlag(self::)))
+            ->addCardStorageEnable(self::CARD_STORAGE_ENABLE == Flag::TRUE ? 1 : 0)
             ->addCommentOne(self::COMMENT_ONE)
             ->addCommentTwo(self::COMMENT_TWO)
             ->addCurrency(self::CURRENCY)
             ->addCustomerNumber(self::CUSTOMER_NUMBER)
             ->addLanguage(self::LANGUAGE)
             ->addMerchantId(self::MERCHANT_ID)
-            //->addOfferSaveCard(self::OFFER_SAVE_CARD->equals(self::Flag->TRUE->getFlag(self::)))
-            //->addPayerExists(self::PAYER_EXISTS->equals(self::Flag->TRUE->getFlag(self::)))
-            //->addPayerReference(self::PAYER_REF)
-            //->addPaymentReference(self::PAYMENT_REF)
+            ->addOfferSaveCard(self::OFFER_SAVE_CARD == Flag::TRUE ? 1 : 0)
+            ->addPayerExists(self::PAYER_EXISTS == Flag::TRUE ? 1 : 0)
+            ->addPayerReference(self::PAYER_REF)
+            ->addPaymentReference(self::PAYMENT_REF)
             ->addProductId(self::PRODUCT_ID)
-            ->addReturnTss(self::RETURN_TSS)
+            ->addReturnTss(self::RETURN_TSS == Flag::TRUE ? 1 : 0)
             ->addShippingCode(self::SHIPPING_CODE)
             ->addShippingCountry(self::SHIPPING_COUNTRY)
             ->addVariableReference(self::VARIABLE_REFERENCE)
             ->addValidateCardOnly(self::VALIDATE_CARD_ONLY)
             ->addDccEnable(self::DCC_ENABLE);
 
-        /*
-         if ($cardStorage) {
-            hppRequest.setCardStorageEnable(Flag::TRUE);
-            hppRequest.setOfferSaveCard(Flag::TRUE);
+
+        if ($cardStorage) {
+            $hppRequest->setCardStorageEnable(Flag::TRUE);
+            $hppRequest->setOfferSaveCard(Flag::TRUE);
         }
-         */
+
 
         $hppRequest->setSupplementaryData(self::$SUPPLEMENTARY_DATA);
 
@@ -210,9 +208,9 @@ class SampleJsonData
             $hppRequestConverted->getBillingCountry(), "Json conversion incorrect Billing Country");
         $testCase->assertEquals($hppRequestExpected->getCardPaymentButtonText(),
             $hppRequestConverted->getCardPaymentButtonText(), "Json conversion incorrect Card Payment Button Text");
-        /* TODO: Next iteration
-         $testCase->assertEquals("Json conversion incorrect Card Storage Enable", $hppRequestExpected->getCardStorageEnable(),
-            $hppRequestConverted->getCardStorageEnable());*/
+
+         $testCase->assertEquals($hppRequestExpected->getCardStorageEnable(),
+            $hppRequestConverted->getCardStorageEnable(),"Json conversion incorrect Card Storage Enable");
         $testCase->assertEquals($hppRequestExpected->getCommentOne(), $hppRequestConverted->getCommentOne(), "Json conversion incorrect Comment One");
         $testCase->assertEquals($hppRequestExpected->getCommentTwo(), $hppRequestConverted->getCommentTwo(), "Json conversion incorrect Comment Two");
         $testCase->assertEquals($hppRequestExpected->getCurrency(), $hppRequestConverted->getCurrency(), "Json conversion incorrect Currency");
@@ -220,15 +218,15 @@ class SampleJsonData
             $hppRequestConverted->getCustomerNumber(), "Json conversion incorrect Customer Number");
         $testCase->assertEquals($hppRequestExpected->getLanguage(), $hppRequestConverted->getLanguage(), "Json conversion incorrect HPP Language");
         $testCase->assertEquals($hppRequestExpected->getMerchantId(), $hppRequestConverted->getMerchantId(), "Json conversion incorrect Merchant ID");
-        /* TODO: Next iteration
-        $testCase->assertEquals("Json conversion incorrect Offer Save Card", $hppRequestExpected->getOfferSaveCard(),
-            $hppRequestConverted->getOfferSaveCard());
-        $testCase->assertEquals("Json conversion incorrect Payer Exists", $hppRequestExpected->getPayerExists(), $hppRequestConverted->getPayerExists());
-        $testCase->assertEquals("Json conversion incorrect Payer Reference", $hppRequestExpected->getPayerReference(),
-            $hppRequestConverted->getPayerReference());
-        $testCase->assertEquals("Json conversion incorrect Payment Reference", $hppRequestExpected->getPaymentReference(),
-            $hppRequestConverted->getPaymentReference());
-        */
+
+        $testCase->assertEquals($hppRequestExpected->getOfferSaveCard(),
+            $hppRequestConverted->getOfferSaveCard(),"Json conversion incorrect Offer Save Card");
+        $testCase->assertEquals( $hppRequestExpected->getPayerExists(), $hppRequestConverted->getPayerExists(),"Json conversion incorrect Payer Exists");
+        $testCase->assertEquals($hppRequestExpected->getPayerReference(),
+            $hppRequestConverted->getPayerReference(),"Json conversion incorrect Payer Reference");
+        $testCase->assertEquals( $hppRequestExpected->getPaymentReference(),
+            $hppRequestConverted->getPaymentReference(),"Json conversion incorrect Payment Reference");
+
         $testCase->assertEquals($hppRequestExpected->getProductId(), $hppRequestConverted->getProductId(), "Json conversion incorrect Product ID");
         $testCase->assertEquals($hppRequestExpected->getReturnTss(), $hppRequestConverted->getReturnTss(), "Json conversion incorrect Return TSS");
         $testCase->assertEquals($hppRequestExpected->getShippingCode(), $hppRequestConverted->getShippingCode(), "Json conversion incorrect Shipping Code");

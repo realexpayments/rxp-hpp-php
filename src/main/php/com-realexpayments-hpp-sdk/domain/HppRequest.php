@@ -213,12 +213,46 @@ class HppRequest
      */
     private $cardPaymentButtonText;
 
-    //TODO: Next iteration
-    //private $cardStorageEnable;
-    //private $offerSaveCard;
-    //private $payerReference;
-    //private $paymentReference;
-    //private $payerExists;
+
+    /**
+     * @var string Enable card storage.
+     *
+     * @Assert\Length(min = 0, max = 1, maxMessage = ValidationMessages::hppRequest_cardStorageEnable_size)
+     * @Assert\Regex(pattern = "/^[10]*$/" , message=ValidationMessages::hppRequest_cardStorageEnable_pattern )
+     */
+    private $cardStorageEnable;
+
+    /**
+     * @var string Offer to save the card.
+     *
+     * @Assert\Length(min = 0, max = 1, maxMessage = ValidationMessages::hppRequest_offerSaveCard_size)
+     * @Assert\Regex(pattern = "/^[10]*$/" , message=ValidationMessages::hppRequest_offerSaveCard_pattern )
+     */
+    private $offerSaveCard;
+
+    /**
+     * @var string The payer reference.
+     *
+     * @Assert\Length(min = 0, max = 50, maxMessage = ValidationMessages::hppRequest_payerReference_size)
+     * @Assert\Regex(pattern = "/^[A-Za-z0-9\_\-\\ ]*$/" , message=ValidationMessages::hppRequest_payerReference_pattern )
+     */
+    private $payerReference;
+
+    /**
+     * @var string The payment reference.
+     *
+     * @Assert\Length(min = 0, max = 50, maxMessage = ValidationMessages::hppRequest_paymentReference_size)
+     * @Assert\Regex(pattern = "/^[A-Za-z0-9\_\-]*$/" , message=ValidationMessages::hppRequest_paymentReference_pattern )
+     */
+    private $paymentReference;
+
+    /**
+     * @var string Flag to indicate if the payer exists.
+     *
+     * @Assert\Length(min = 0, max = 1, maxMessage = ValidationMessages::hppRequest_payerExists_size)
+     * @Assert\Regex(pattern = "/^[102]*$/" , message=ValidationMessages::hppRequest_payerExists_pattern )
+     */
+    private $payerExists;
 
     /**
      * @var array Supplementary data to be sent to Realex Payments. This will be returned in the HPP response.
@@ -702,6 +736,106 @@ class HppRequest
         $this->dccEnable = $dccEnable;
     }
 
+    /**
+     * Getter for cardStorageEnable
+     *
+     * @return mixed
+     */
+    public function getCardStorageEnable()
+    {
+        return $this->cardStorageEnable;
+    }
+
+    /**
+     * Setter for cardStorageEnable
+     *
+     * @param mixed $cardStorageEnable
+     */
+    public function setCardStorageEnable($cardStorageEnable)
+    {
+        $this->cardStorageEnable = $cardStorageEnable;
+    }
+
+    /**
+     * Getter for offerSaveCard
+     *
+     * @return string
+     */
+    public function getOfferSaveCard()
+    {
+        return $this->offerSaveCard;
+    }
+
+    /**
+     * Setter for offerSaveCard
+     *
+     * @param string $offerSaveCard
+     */
+    public function setOfferSaveCard($offerSaveCard)
+    {
+        $this->offerSaveCard = $offerSaveCard;
+    }
+
+    /**
+     * Getter for payerReference
+     *
+     * @return string
+     */
+    public function getPayerReference()
+    {
+        return $this->payerReference;
+    }
+
+    /**
+     * Setter for payerReference
+     *
+     * @param string $payerReference
+     */
+    public function setPayerReference($payerReference)
+    {
+        $this->payerReference = $payerReference;
+    }
+
+    /**
+     * Getter for paymentReference
+     *
+     * @return string
+     */
+    public function getPaymentReference()
+    {
+        return $this->paymentReference;
+    }
+
+    /**
+     * Setter for paymentReference
+     *
+     * @param string $paymentReference
+     */
+    public function setPaymentReference($paymentReference)
+    {
+        $this->paymentReference = $paymentReference;
+    }
+
+    /**
+     * Getter for payerExists
+     *
+     * @return string
+     */
+    public function getPayerExists()
+    {
+        return $this->payerExists;
+    }
+
+    /**
+     * Setter for payerExists
+     *
+     * @param string $payerExists
+     */
+    public function setPayerExists($payerExists)
+    {
+        $this->payerExists = $payerExists;
+    }
+
 
     /**
      * Helper method for adding a merchantId
@@ -804,13 +938,17 @@ class HppRequest
     /**
      * Helper method for adding a autoSettleFlag
      *
-     * @param String $autoSettleFlag
+     * @param String|bool $autoSettleFlag
      *
      * @return HppRequest
      */
     public function addAutoSettleFlag($autoSettleFlag)
     {
-        $this->autoSettleFlag = $autoSettleFlag;
+        if (is_bool($autoSettleFlag)) {
+            $this->autoSettleFlag = $autoSettleFlag ? Flag::TRUE : Flag::FALSE;
+        } else {
+            $this->autoSettleFlag = $autoSettleFlag;
+        }
 
         return $this;
     }
@@ -846,13 +984,17 @@ class HppRequest
     /**
      * Helper method for adding a returnTss
      *
-     * @param String $returnTss
+     * @param String|bool $returnTss
      *
      * @return HppRequest
      */
     public function addReturnTss($returnTss)
     {
-        $this->returnTss = $returnTss;
+        if (is_bool($returnTss)) {
+            $this->returnTss = $returnTss ? Flag::TRUE : Flag::FALSE;
+        } else {
+            $this->returnTss = $returnTss;
+        }
 
         return $this;
     }
@@ -1000,14 +1142,17 @@ class HppRequest
     /**
      * Helper method for adding a validateCardOnly
      *
-     * @param String $validateCardOnly
+     * @param String|bool $validateCardOnly
      *
      * @return HppRequest
      */
     public function addValidateCardOnly($validateCardOnly)
     {
-        $this->validateCardOnly = $validateCardOnly;
-
+        if (is_bool($validateCardOnly)) {
+            $this->validateCardOnly = $validateCardOnly ? Flag::TRUE : Flag::FALSE;
+        } else {
+            $this->validateCardOnly = $validateCardOnly;
+        }
         return $this;
     }
 
@@ -1020,8 +1165,83 @@ class HppRequest
      */
     public function addDccEnable($dccEnable)
     {
-        $this->dccEnable = $dccEnable;
+        if (is_bool($dccEnable)) {
+            $this->dccEnable = $dccEnable ? Flag::TRUE : Flag::FALSE;
+        } else {
+            $this->dccEnable = $dccEnable;
+        }
+        return $this;
+    }
 
+    /**
+     * Helper method for adding a cardStorageEnable
+     *
+     * @param mixed|bool $cardStorageEnable
+     * @return HppRequest
+     */
+    public function addCardStorageEnable($cardStorageEnable)
+    {
+        if (is_bool($cardStorageEnable)) {
+            $this->cardStorageEnable = $cardStorageEnable ? Flag::TRUE : Flag::FALSE;
+        } else {
+            $this->cardStorageEnable = $cardStorageEnable;
+        }
+        return $this;
+    }
+
+    /**
+     * Helper method for adding a offerSaveCard
+     *
+     * @param string|bool $offerSaveCard
+     * @return HppRequest
+     */
+    public function addOfferSaveCard($offerSaveCard)
+    {
+        if (is_bool($offerSaveCard)) {
+            $this->offerSaveCard = $offerSaveCard ? Flag::TRUE : Flag::FALSE;
+        } else {
+            $this->offerSaveCard = $offerSaveCard;
+        }
+        return $this;
+    }
+
+    /**
+     * Helper method for adding a payerReference
+     *
+     * @param string $payerReference
+     * @return HppRequest
+     */
+    public function addPayerReference($payerReference)
+    {
+        $this->payerReference = $payerReference;
+        return $this;
+    }
+
+    /**
+     * Helper method for adding a paymentReference
+     *
+     * @param string $paymentReference
+     * @return HppRequest
+     */
+    public function addPaymentReference($paymentReference)
+    {
+        $this->paymentReference = $paymentReference;
+        return $this;
+    }
+
+    /**
+     * Helper method for adding a payerExists
+     *
+     * @param string|bool $payerExists
+     * @return HppRequest
+     */
+    public function addPayerExists($payerExists)
+    {
+        if (is_bool($payerExists)) {
+            $this->payerExists = $payerExists ? Flag::TRUE : Flag::FALSE;
+        } else {
+            $this->payerExists = $payerExists;
+        }
         return $this;
     }
 
@@ -1068,38 +1288,37 @@ class HppRequest
         $orderId = null == $this->orderId ? "" : $this->orderId;
         $amount = null == $this->amount ? "" : $this->amount;
         $currency = null == $this->currency ? "" : $this->currency;
-        $payerReference = "";   //= null == $this->payerReference ? "" : $this->payerReference; //TODO: Next iteration
-        $paymentReference = "";// = null == $this->paymentReference ? "" : $this->paymentReference;
+        $payerReference = null == $this->payerReference ? "" : $this->payerReference;
+        $paymentReference = null == $this->paymentReference ? "" : $this->paymentReference;
 
         //create String to hash
 
-        //TODO: Next iteration
-        /*if ($this->cardStorageEnable) {
+
+        if ($this->cardStorageEnable) {
             $toHash = $timeStamp
-                      . "."
-                      . $merchantId
-                      . "."
-                      . $orderId
-                      . "."
-                      . $amount
-                      . "."
-                      . $currency
-                      . "."
-                      . $payerReference
-                      . "."
-                      . $paymentReference;
-        } else */
-
-        $toHash = $timeStamp
-            . "."
-            . $merchantId
-            . "."
-            . $orderId
-            . "."
-            . $amount
-            . "."
-            . $currency;
-
+                . "."
+                . $merchantId
+                . "."
+                . $orderId
+                . "."
+                . $amount
+                . "."
+                . $currency
+                . "."
+                . $payerReference
+                . "."
+                . $paymentReference;
+        } else {
+            $toHash = $timeStamp
+                . "."
+                . $merchantId
+                . "."
+                . $orderId
+                . "."
+                . $amount
+                . "."
+                . $currency;
+        }
 
         $this->hash = GenerationUtils::generateHash($toHash, $secret);
 
@@ -1121,7 +1340,7 @@ class HppRequest
         $this->billingCode = base64_encode($this->billingCode);
         $this->billingCountry = base64_encode($this->billingCountry);
         $this->cardPaymentButtonText = base64_encode($this->cardPaymentButtonText);
-        //$this->cardStorageEnable = base64_encode($this->cardStorageEnable);
+        $this->cardStorageEnable = base64_encode($this->cardStorageEnable);
         $this->commentOne = base64_encode($this->commentOne);
         $this->commentTwo = base64_encode($this->commentTwo);
         $this->currency = base64_encode($this->currency);
@@ -1129,11 +1348,11 @@ class HppRequest
         $this->hash = base64_encode($this->hash);
         $this->language = base64_encode($this->language);
         $this->merchantId = base64_encode($this->merchantId);
-        //	$this->offerSaveCard = base64_encode($this->offerSaveCard);
+        $this->offerSaveCard = base64_encode($this->offerSaveCard);
         $this->orderId = base64_encode($this->orderId);
-        //$this->payerExists = base64_encode($this->payerExists);
-        //$this->payerReference = base64_encode($this->payerReference);
-        //$this->paymentReference = base64_encode($this->paymentReference);
+        $this->payerExists = base64_encode($this->payerExists);
+        $this->payerReference = base64_encode($this->payerReference);
+        $this->paymentReference = base64_encode($this->paymentReference);
         $this->productId = base64_encode($this->productId);
         $this->returnTss = base64_encode($this->returnTss);
         $this->shippingCode = base64_encode($this->shippingCode);
@@ -1163,7 +1382,7 @@ class HppRequest
         $this->billingCode = base64_decode($this->billingCode);
         $this->billingCountry = base64_decode($this->billingCountry);
         $this->cardPaymentButtonText = base64_decode($this->cardPaymentButtonText);
-        //$this->cardStorageEnable = base64_decode($this->cardStorageEnable);
+        $this->cardStorageEnable = base64_decode($this->cardStorageEnable);
         $this->commentOne = base64_decode($this->commentOne);
         $this->commentTwo = base64_decode($this->commentTwo);
         $this->currency = base64_decode($this->currency);
@@ -1171,11 +1390,11 @@ class HppRequest
         $this->hash = base64_decode($this->hash);
         $this->language = base64_decode($this->language);
         $this->merchantId = base64_decode($this->merchantId);
-        //	$this->offerSaveCard = base64_decode($this->offerSaveCard);
+        $this->offerSaveCard = base64_decode($this->offerSaveCard);
         $this->orderId = base64_decode($this->orderId);
-        //$this->payerExists = base64_decode($this->payerExists);
-        //$this->payerReference = base64_decode($this->payerReference);
-        //$this->paymentReference = base64_decode($this->paymentReference);
+        $this->payerExists = base64_decode($this->payerExists);
+        $this->payerReference = base64_decode($this->payerReference);
+        $this->paymentReference = base64_decode($this->paymentReference);
         $this->productId = base64_decode($this->productId);
         $this->returnTss = base64_decode($this->returnTss);
         $this->shippingCode = base64_decode($this->shippingCode);

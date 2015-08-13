@@ -12,7 +12,7 @@ class RequestMapper implements iMapper
     private static $KNOWN_FIELDS = array('MERCHANT_ID', 'ACCOUNT', 'ORDER_ID', 'AMOUNT', 'CURRENCY', 'TIMESTAMP',
         'SHA1HASH', 'AUTO_SETTLE_FLAG', 'COMMENT1', 'COMMENT2', 'RETURN_TSS', 'SHIPPING_CODE', 'SHIPPING_CO',
         'BILLING_CODE', 'BILLING_CO', 'CUST_NUM', 'VAR_REF', 'PROD_ID', 'HPP_LANG', 'CARD_PAYMENT_BUTTON',
-        'CARD_STORAGE_ENABLE', 'OFFER_SAVE_CARD', 'PAYER_REF', 'PMT_REF', 'PAYER_EXIST', 'CARD_STORAGE_ENABLE',
+        'CARD_STORAGE_ENABLE', 'OFFER_SAVE_CARD', 'PAYER_REF', 'PMT_REF', 'PAYER_EXIST',
         'VALIDATE_CARD_ONLY', 'DCC_ENABLE');
 
     /**
@@ -45,16 +45,11 @@ class RequestMapper implements iMapper
             'PROD_ID' => $hppRequest->getProductId(),
             'HPP_LANG' => $hppRequest->getLanguage(),
             'CARD_PAYMENT_BUTTON' => $hppRequest->getCardPaymentButtonText(),
-            /*
-             * TODO: Next Iteration
-            'CARD_STORAGE_ENABLE'=>$hppRequest->,
-            'OFFER_SAVE_CARD'=>$hppRequest-,
-            'PAYER_REF'=>$hppRequest-,
-            'PMT_REF'=>$hppRequest-,
-            'PAYER_EXIST'=>$hppRequest-,
-
-            'CARD_STORAGE_ENABLE'=>$hppRequest->getCar,
-            */
+            'CARD_STORAGE_ENABLE' => $hppRequest->getCardStorageEnable(),
+            'OFFER_SAVE_CARD' => $hppRequest->getOfferSaveCard(),
+            'PAYER_REF' => $hppRequest->getPayerReference(),
+            'PMT_REF' => $hppRequest->getPaymentReference(),
+            'PAYER_EXIST' => $hppRequest->getPayerExists(),
             'VALIDATE_CARD_ONLY' => $hppRequest->getValidateCardOnly(),
             'DCC_ENABLE' => $hppRequest->getDccEnable()
         );
@@ -104,6 +99,11 @@ class RequestMapper implements iMapper
             $hppRequest->setCardPaymentButtonText($array['CARD_PAYMENT_BUTTON']);
             $hppRequest->setValidateCardOnly($array['VALIDATE_CARD_ONLY']);
             $hppRequest->setDccEnable($array['DCC_ENABLE']);
+            $hppRequest->setCardStorageEnable($array['CARD_STORAGE_ENABLE']);
+            $hppRequest->setOfferSaveCard($array['OFFER_SAVE_CARD']);
+            $hppRequest->setPayerReference($array['PAYER_REF']);
+            $hppRequest->setPaymentReference($array['PMT_REF']);
+            $hppRequest->setPayerExists($array['PAYER_EXIST']);
 
             $supplementaryData = array();
 
@@ -115,10 +115,6 @@ class RequestMapper implements iMapper
             }
 
             $hppRequest->setSupplementaryData($supplementaryData);
-
-            /*
-             * TODO: Add remaining fields on next iteration
-             */
 
             return $hppRequest;
         }
