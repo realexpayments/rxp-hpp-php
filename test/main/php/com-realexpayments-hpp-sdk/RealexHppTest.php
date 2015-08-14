@@ -70,11 +70,10 @@ class RealexHppTest extends \PHPUnit_Framework_TestCase
         SampleJsonData::checkValidHppRequest($hppRequestExpected, $hppRequestConverted, false, $this);
     }
 
-    /*
-    TODO: Next iteration
+
     public function testRequestFromJsonCardStorageSuccess()
     {
-        $hppRequestExpected = SampleJsonData::generateValidHppRequest(false);
+        $hppRequestExpected = SampleJsonData::generateValidHppRequest(true);
 
         $path = SampleJsonData::VALID_HPP_REQUEST_CARD_STORAGE_JSON_PATH;
         $prefix = __DIR__ . '/../../resources';
@@ -83,7 +82,7 @@ class RealexHppTest extends \PHPUnit_Framework_TestCase
         $realexHPP = self::$realex_HPP;
         $hppRequestConverted = $realexHPP->requestFromJson($json, false);
         SampleJsonData::checkValidHppRequest($hppRequestExpected, $hppRequestConverted, false, $this);
-    }*/
+    }
 
     /**
      * Test converting {@link HppResponse} to JSON.  Includes hash validation.
