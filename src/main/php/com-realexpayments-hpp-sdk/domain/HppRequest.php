@@ -689,6 +689,18 @@ class HppRequest
     /**
      * Setter for supplementaryData
      *
+     * <p>
+     * Example usage:
+     * <code><pre>
+     * $data = array();
+     * $data["key1"] = "value1";
+     * $data["key2"] = "value2";
+     *
+     * $request = (new HppRequest());
+     * $request->setSupplementaryData($data);
+     * </pre></code>
+     * </p>
+     *
      * @param array $supplementaryData
      */
     public function setSupplementaryData(array $supplementaryData)
@@ -1127,6 +1139,21 @@ class HppRequest
 
     /**
      * Helper method for adding a supplementaryData
+     *
+     * <p>
+     * Example usage:
+     * <code><pre>
+     * $data = array();
+     * $data["key1"] = "value1";
+     * $data["key2"] = "value2";
+     *
+     * $request = (new HppRequest())
+     *    ->addAmount(100)
+     *    ->addCurrency("EUR")
+     *    ->addMerchantId("merchantId");
+     *    ->addSupplementaryData($data);
+     * </pre></code>
+     * </p>
      *
      * @param array $supplementaryData
      *
