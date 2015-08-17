@@ -61,7 +61,7 @@ class RealexHpp
      */
     public function __construct($secret)
     {
-        $this->logger = RPXLogger::getLogger(__CLASS__);
+        $this->logger = RXPLogger::getLogger(__CLASS__);
         $this->secret = $secret;
     }
 

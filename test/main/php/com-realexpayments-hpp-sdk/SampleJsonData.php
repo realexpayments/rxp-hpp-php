@@ -271,6 +271,9 @@ class SampleJsonData
             $supplementaryData[self::UNKNOWN_THREE_KEY], "Json conversion incorrect Unknown one");
         $testCase->assertEquals(self::UNKNOWN_FOUR_VALUE,
             $supplementaryData[self::UNKNOWN_FOUR_KEY], "Json conversion incorrect Unknown one");
+
+        $testCase->assertEquals(sizeof(self::$SUPPLEMENTARY_DATA),
+            sizeof($supplementaryData), "Json conversion incorrect size");
     }
 
     /**
@@ -339,6 +342,12 @@ class SampleJsonData
             $convertedTss[self::TSS_ONE_KEY], "Json conversion incorrect TSS Entry");
         $testCase->assertEquals($tss[self::TSS_TWO_KEY],
             $convertedTss[self::TSS_TWO_KEY], "Json conversion incorrect TSS Entry");
+
+        $testCase->assertEquals(sizeof(self::$TSS),
+            sizeof($convertedTss), "Json conversion incorrect size");
+
+        $testCase->assertEquals(sizeof($tss),
+            sizeof($convertedTss), "Json conversion incorrect size");
     }
 
     /**
@@ -360,6 +369,9 @@ class SampleJsonData
             $supplementaryData[self::UNKNOWN_THREE_KEY], "Json conversion incorrect Unknown one");
         $testCase->assertEquals(self::UNKNOWN_FOUR_VALUE,
             $supplementaryData[self::UNKNOWN_FOUR_KEY], "Json conversion incorrect Unknown one");
+
+        $testCase->assertEquals(sizeof(self::$SUPPLEMENTARY_DATA),
+            sizeof($supplementaryData), "Json conversion incorrect size");
     }
 
 
