@@ -10,7 +10,7 @@ class ResponseMapper implements iMapper {
 		'MERCHANT_ID',
 		'ACCOUNT',
 		'ORDER_ID',
-		'AUTH_CODE',
+		'AUTHCODE',
 		'AMOUNT',
 		'AUTH_CODE',
 		'TIMESTAMP',
