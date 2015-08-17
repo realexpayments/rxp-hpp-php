@@ -6,7 +6,7 @@ namespace com\realexpayments\hpp\sdk\utils;
 
 use com\realexpayments\hpp\sdk\domain\HppRequest;
 use com\realexpayments\hpp\sdk\domain\HppResponse;
-use com\realexpayments\hpp\sdk\RPXLogger;
+use com\realexpayments\hpp\sdk\RXPLogger;
 use Logger;
 
 class JsonUtils
@@ -76,7 +76,7 @@ class JsonUtils
         }
 
 
-        self::$logger = RPXLogger::getLogger(__CLASS__);
+        self::$logger = RXPLogger::getLogger(__CLASS__);
 
         self::$mappers = array();
 
