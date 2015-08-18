@@ -19,5 +19,7 @@
   "TSS":{
     "TSS_2":"TSS_2_VALUE",
     "TSS_1":"TSS_1_VALUE"
-  }
+  },
+  "AVSADDRESSRESULT": "M",
+  "AVSPOSTCODERESULT": "P"
 }

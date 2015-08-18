@@ -25,7 +25,10 @@ class ResponseMapper implements iMapper {
 		'XID',
 		'COMMENT1',
 		'COMMENT2',
-		'TSS'
+		'TSS',
+		'AVSADDRESSRESULT',
+		'AVSPOSTCODERESULT'
+
 	);
 
 	/**
@@ -39,24 +42,26 @@ class ResponseMapper implements iMapper {
 	public function  WriteValueAsString( $hppResponse ) {
 
 		$prop = array(
-			'MERCHANT_ID' => $hppResponse->getMerchantId(),
-			'ACCOUNT'     => $hppResponse->getAccount(),
-			'ORDER_ID'    => $hppResponse->getOrderId(),
-			'AMOUNT'      => $hppResponse->getAmount(),
-			'AUTHCODE'    => $hppResponse->getAuthCode(),
-			'TIMESTAMP'   => $hppResponse->getTimeStamp(),
-			'SHA1HASH'    => $hppResponse->getHash(),
-			'RESULT'      => $hppResponse->getResult(),
-			'MESSAGE'     => $hppResponse->getMessage(),
-			'CVNRESULT'   => $hppResponse->getCvnResult(),
-			'PASREF'      => $hppResponse->getPasRef(),
-			'BATCHID'     => $hppResponse->getBatchId(),
-			'ECI'         => $hppResponse->getEci(),
-			'CAVV'        => $hppResponse->getCavv(),
-			'XID'         => $hppResponse->getXid(),
-			'COMMENT1'    => $hppResponse->getCommentOne(),
-			'COMMENT2'    => $hppResponse->getCommentTwo(),
-			'TSS'         => $hppResponse->getTss()
+			'MERCHANT_ID'       => $hppResponse->getMerchantId(),
+			'ACCOUNT'           => $hppResponse->getAccount(),
+			'ORDER_ID'          => $hppResponse->getOrderId(),
+			'AMOUNT'            => $hppResponse->getAmount(),
+			'AUTHCODE'          => $hppResponse->getAuthCode(),
+			'TIMESTAMP'         => $hppResponse->getTimeStamp(),
+			'SHA1HASH'          => $hppResponse->getHash(),
+			'RESULT'            => $hppResponse->getResult(),
+			'MESSAGE'           => $hppResponse->getMessage(),
+			'CVNRESULT'         => $hppResponse->getCvnResult(),
+			'PASREF'            => $hppResponse->getPasRef(),
+			'BATCHID'           => $hppResponse->getBatchId(),
+			'ECI'               => $hppResponse->getEci(),
+			'CAVV'              => $hppResponse->getCavv(),
+			'XID'               => $hppResponse->getXid(),
+			'COMMENT1'          => $hppResponse->getCommentOne(),
+			'COMMENT2'          => $hppResponse->getCommentTwo(),
+			'TSS'               => $hppResponse->getTss(),
+			'AVSADDRESSRESULT'  => $hppResponse->getAVSAddressResult(),
+			'AVSPOSTCODERESULT' => $hppResponse->getAVSPostCodesResult()
 		);
 
 
@@ -101,6 +106,8 @@ class ResponseMapper implements iMapper {
 			$hppResponse->setCommentOne( $array['COMMENT1'] );
 			$hppResponse->setCommentTwo( $array['COMMENT2'] );
 			$hppResponse->setTss( $array['TSS'] );
+			$hppResponse->setAVSAddressResult( $array['AVSADDRESSRESULT'] );
+			$hppResponse->setAVSPostCodesResult( $array['AVSPOSTCODERESULT'] );
 
 
 			foreach ( $array as $key => $value ) {

@@ -256,6 +256,7 @@ class HppRequest
 
     /**
      * @var array Supplementary data to be sent to Realex Payments. This will be returned in the HPP response.
+     * Fields will be 255 char max
      */
     private $supplementaryData = array();
 
