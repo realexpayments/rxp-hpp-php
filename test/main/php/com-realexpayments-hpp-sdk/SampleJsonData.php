@@ -88,6 +88,9 @@ class SampleJsonData
     const UNKNOWN_FOUR_VALUE = "Unknown value 4";
     private static $SUPPLEMENTARY_DATA;
 
+    const AVS_ADDRESS = "M";
+    const AVS_POSTCODE = "P";
+
 
     /**
      * Generates {@link HppRequest} object.
@@ -141,6 +144,7 @@ class SampleJsonData
             ->addVariableReference(self::VARIABLE_REFERENCE)
             ->addValidateCardOnly(self::VALIDATE_CARD_ONLY)
             ->addDccEnable(self::DCC_ENABLE);
+
 
 
         if ($cardStorage) {
@@ -303,6 +307,9 @@ class SampleJsonData
         $hppResponse->setTimeStamp(self::TIMESTAMP_RESPONSE);
         $hppResponse->setTss(self::$TSS);
         $hppResponse->setXid(self::XID);
+        $hppResponse->setAVSAddressResult(self::AVS_ADDRESS);
+        $hppResponse->setAVSPostCodesResult(self::AVS_POSTCODE);
+
         foreach (self::$SUPPLEMENTARY_DATA as $key => $value) {
             $hppResponse->setSupplementaryDataValue($key, $value);
         }
@@ -335,6 +342,9 @@ class SampleJsonData
         $testCase->assertEquals($hppResponseExpected->getPasRef(), $hppResponseConverted->getPasRef(), "Json conversion incorrect Pas Ref");
         $testCase->assertEquals($hppResponseExpected->getResult(), $hppResponseConverted->getResult(), "Json conversion incorrect Result");
         $testCase->assertEquals($hppResponseExpected->getXid(), $hppResponseConverted->getXid(), "Json conversion incorrect XID");
+
+        $testCase->assertEquals($hppResponseExpected->getAVSAddressResult(), $hppResponseConverted->getAVSAddressResult(), "Json conversion incorrect AVS Address Result");
+        $testCase->assertEquals($hppResponseExpected->getAVSPostCodesResult(), $hppResponseConverted->getAVSPostCodesResult(), "Json conversion incorrect AVS Address Postcode");
 
         $tss = $hppResponseExpected->getTss();
         $convertedTss = $hppResponseConverted->getTss();
