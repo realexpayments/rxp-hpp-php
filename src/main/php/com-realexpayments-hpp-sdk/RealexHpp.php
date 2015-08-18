@@ -153,17 +153,18 @@ class RealexHpp
 
     /**
      * <p>
-     * Method produces <code>HppRequest</code> object from JSON.
+     * Method produces JSON from <code>HppResponse</code> object.
      * Carries out the following actions:
      * <ul>
-     * <li>Deserialises JSON to request object</li>
-     * <li>Decodes Base64 inputs</li>
      * <li>Validates inputs</li>
+     * <li>Generates defaults for security hash, order ID and time stamp (if required)</li>
+     * <li>Base64 encodes inputs</li>
+     * <li>Serialises response object to JSON</li>
      * </ul>
      * </p>
      *
      * @param HppResponse $hppResponse
-     * @return HppRequest
+     * @return string
      */
     public function responseToJson(HppResponse $hppResponse)
     {
