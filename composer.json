@@ -1,5 +1,5 @@
 {
-  "name": "Realex HPP PHP SDK",
+  "name": "vicpada/rxp-hpp-php",
   "type": "library",
   "description": "SDK to send requests and parse responses from Realex using HPP",
   "keywords": [
