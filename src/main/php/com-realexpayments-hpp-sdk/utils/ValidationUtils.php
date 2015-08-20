@@ -109,7 +109,7 @@ class ValidationUtils {
 
 		if ( ! $hppResponse->isHashValid( $secret ) ) {
 			self::$logger->error( "HppResponse contains an invalid security hash." );
-			throw new RealexValidationException( "HppResponse contains an invalid security hash" );
+			throw new RealexValidationException( "HppResponse contains an invalid security hash", array( "HppResponse contains an invalid security hash" ) );
 		}
 	}
 }
