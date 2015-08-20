@@ -265,8 +265,8 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 			$this->assertEquals( ValidationMessages::hppRequest_amount_pattern, $validationMessages[0] );
 		}
 
-		$hppRequest->setValidateCardOnly(Flag::TRUE);
-		$hppRequest->setAmount("0");
+		$hppRequest->setValidateCardOnly( Flag::TRUE );
+		$hppRequest->setAmount( "0" );
 
 		try {
 			ValidationUtils::validate( $hppRequest );
@@ -274,8 +274,8 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 			$this->fail( "This HppRequest should not have validation errors." );
 		}
 
-		$hppRequest->setValidateCardOnly(Flag::TRUE);
-		$hppRequest->setAmount("1");
+		$hppRequest->setValidateCardOnly( Flag::TRUE );
+		$hppRequest->setAmount( "1" );
 
 		try {
 			ValidationUtils::validate( $hppRequest );
@@ -692,7 +692,6 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 			$this->assertEquals( ValidationMessages::hppRequest_returnTss_pattern, $validationMessages[0] );
 		}
 	}
-
 
 
 	/**
@@ -1130,7 +1129,6 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 		}
 
 
-
 		$hppRequest->setLanguage( "a" );
 
 		try {
@@ -1163,7 +1161,6 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 			$this->assertEquals( ValidationMessages::hppRequest_language_pattern, $validationMessages[0] );
 		}
 	}
-
 
 
 	/**
@@ -1216,7 +1213,6 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 		} catch ( RealexValidationException $e ) {
 			$this->fail( "This HppRequest should not have validation errors." );
 		}
-
 
 
 		$hppRequest->setCardPaymentButtonText( "çèéêëìíîïðñòóôõö÷ø¤ù" );
@@ -1285,7 +1281,6 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 		}
 
 
-
 		$hppRequest->setValidateCardOnly( "11" );
 
 		try {
@@ -1344,7 +1339,6 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 		}
 
 
-
 		$hppRequest->setDccEnable( "11" );
 
 		try {
@@ -1370,8 +1364,7 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * Test card storage enable.
 	 */
-	public function testCardStorageEnable()
-	{
+	public function testCardStorageEnable() {
 		$hppRequest = SampleJsonData::generateValidHppRequest( false );
 		$hppRequest->generateDefaults( SampleJsonData::SECRET );
 
@@ -1409,8 +1402,7 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * Test offer save card.
 	 */
-	public function testOfferSaveCard()
-	{
+	public function testOfferSaveCard() {
 		$hppRequest = SampleJsonData::generateValidHppRequest( false );
 		$hppRequest->generateDefaults( SampleJsonData::SECRET );
 
@@ -1464,128 +1456,127 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 	}
 
 
-    /**
-     * Test payer reference
-     */
-    public function testPayerReference() {
-        $hppRequest = SampleJsonData::generateValidHppRequest( false );
-        $hppRequest->generateDefaults( SampleJsonData::SECRET );
+	/**
+	 * Test payer reference
+	 */
+	public function testPayerReference() {
+		$hppRequest = SampleJsonData::generateValidHppRequest( false );
+		$hppRequest->generateDefaults( SampleJsonData::SECRET );
 
-        $hppRequest->setPayerReference( "" );
+		$hppRequest->setPayerReference( "" );
 
-        try {
-            ValidationUtils::validate( $hppRequest );
-        } catch ( RealexValidationException $e ) {
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
 
-            $this->fail( "This HppRequest should have no validation errors." );
-        }
-
-
-        $hppRequest->setPayerReference( "azAZ09\\ _" );
-
-        try {
-            ValidationUtils::validate( $hppRequest );
-        } catch ( RealexValidationException $e ) {
-            $this->fail( "This HppRequest should not have validation errors." );
-        }
+			$this->fail( "This HppRequest should have no validation errors." );
+		}
 
 
-        $charsAtMax = str_repeat( "a", 50 );
-        $hppRequest->setPayerReference( $charsAtMax );
+		$hppRequest->setPayerReference( "azAZ09\\ _" );
 
-        try {
-            ValidationUtils::validate( $hppRequest );
-        } catch ( RealexValidationException $e ) {
-            $this->fail( "This HppRequest should not have validation errors." );
-        }
-
-        $charsOverMax = str_repeat( "a", 51 );
-        $hppRequest->setPayerReference( $charsOverMax );
-
-        try {
-            ValidationUtils::validate( $hppRequest );
-            $this->fail( "This HppRequest should have validation errors." );
-        } catch ( RealexValidationException $e ) {
-            $validationMessages = $e->getValidationMessages();
-            $this->assertEquals( ValidationMessages::hppRequest_payerReference_size, $validationMessages[0] );
-        }
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
 
 
-        $hppRequest->setPayerReference( "+" );
+		$charsAtMax = str_repeat( "a", 50 );
+		$hppRequest->setPayerReference( $charsAtMax );
 
-        try {
-            ValidationUtils::validate( $hppRequest );
-            $this->fail( "This HppRequest should have validation errors." );
-        } catch ( RealexValidationException $e ) {
-            $validationMessages = $e->getValidationMessages();
-            $this->assertEquals( ValidationMessages::hppRequest_payerReference_pattern, $validationMessages[0] );
-        }
-    }
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
 
+		$charsOverMax = str_repeat( "a", 51 );
+		$hppRequest->setPayerReference( $charsOverMax );
 
-    /**
-     * Test payment reference
-     */
-    public function testPaymentReference() {
-        $hppRequest = SampleJsonData::generateValidHppRequest( false );
-        $hppRequest->generateDefaults( SampleJsonData::SECRET );
-
-        $hppRequest->setPaymentReference( "" );
-
-        try {
-            ValidationUtils::validate( $hppRequest );
-        } catch ( RealexValidationException $e ) {
-
-            $this->fail( "This HppRequest should have no validation errors." );
-        }
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_payerReference_size, $validationMessages[0] );
+		}
 
 
-        $hppRequest->setPaymentReference( "azAZ09-_" );
+		$hppRequest->setPayerReference( "+" );
 
-        try {
-            ValidationUtils::validate( $hppRequest );
-        } catch ( RealexValidationException $e ) {
-            $this->fail( "This HppRequest should not have validation errors." );
-        }
-
-
-        $charsAtMax = str_repeat( "1", 50 );
-        $hppRequest->setPaymentReference( $charsAtMax );
-
-        try {
-            ValidationUtils::validate( $hppRequest );
-        } catch ( RealexValidationException $e ) {
-            $this->fail( "This HppRequest should not have validation errors." );
-        }
-
-        $charsOverMax = str_repeat( "a", 51 );
-        $hppRequest->setPaymentReference( $charsOverMax );
-
-        try {
-            ValidationUtils::validate( $hppRequest );
-            $this->fail( "This HppRequest should have validation errors." );
-        } catch ( RealexValidationException $e ) {
-            $validationMessages = $e->getValidationMessages();
-            $this->assertEquals( ValidationMessages::hppRequest_paymentReference_size, $validationMessages[0] );
-        }
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_payerReference_pattern, $validationMessages[0] );
+		}
+	}
 
 
-        $hppRequest->setPaymentReference( "+" );
+	/**
+	 * Test payment reference
+	 */
+	public function testPaymentReference() {
+		$hppRequest = SampleJsonData::generateValidHppRequest( false );
+		$hppRequest->generateDefaults( SampleJsonData::SECRET );
 
-        try {
-            ValidationUtils::validate( $hppRequest );
-            $this->fail( "This HppRequest should have validation errors." );
-        } catch ( RealexValidationException $e ) {
-            $validationMessages = $e->getValidationMessages();
-            $this->assertEquals( ValidationMessages::hppRequest_paymentReference_pattern, $validationMessages[0] );
-        }
-    }
+		$hppRequest->setPaymentReference( "" );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+
+			$this->fail( "This HppRequest should have no validation errors." );
+		}
+
+
+		$hppRequest->setPaymentReference( "azAZ09-_" );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
+
+
+		$charsAtMax = str_repeat( "1", 50 );
+		$hppRequest->setPaymentReference( $charsAtMax );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
+
+		$charsOverMax = str_repeat( "a", 51 );
+		$hppRequest->setPaymentReference( $charsOverMax );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_paymentReference_size, $validationMessages[0] );
+		}
+
+
+		$hppRequest->setPaymentReference( "+" );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_paymentReference_pattern, $validationMessages[0] );
+		}
+	}
 
 	/**
 	 * Test payer exists
 	 */
-	public function testPayerExists()
-	{
+	public function testPayerExists() {
 		$hppRequest = SampleJsonData::generateValidHppRequest( false );
 		$hppRequest->generateDefaults( SampleJsonData::SECRET );
 
@@ -1647,6 +1638,277 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 		}
 	}
 
+
+	/**
+	 * Test supplementary data first field
+	 */
+	public function testCardSupplementaryData1() {
+		$hppRequest = SampleJsonData::generateValidHppRequest( false );
+		$hppRequest->generateDefaults( SampleJsonData::SECRET );
+
+		$supplementaryData1  = "";
+		$supplementaryData   = array();
+		$supplementaryData[] = $supplementaryData1;
+
+		$hppRequest->setSupplementaryData( $supplementaryData );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+
+			$this->fail( "This HppRequest should have no validation errors." );
+		}
+
+		$supplementaryData1  = " azAZ09'\",+“”._- & ";
+		$supplementaryData   = array();
+		$supplementaryData[] = $supplementaryData1;
+
+		$hppRequest->setSupplementaryData( $supplementaryData );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
+
+		$supplementaryData1  = "\\/@!?%()*:£$&€#[]|";
+		$supplementaryData   = array();
+		$supplementaryData[] = $supplementaryData1;
+
+		$hppRequest->setSupplementaryData( $supplementaryData );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
+
+		$supplementaryData1  = "=ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒ";
+		$supplementaryData   = array();
+		$supplementaryData[] = $supplementaryData1;
+
+		$hppRequest->setSupplementaryData( $supplementaryData );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
+
+
+		$supplementaryData1  = "ÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæ";
+		$supplementaryData   = array();
+		$supplementaryData[] = $supplementaryData1;
+
+		$hppRequest->setSupplementaryData( $supplementaryData );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
+
+		$supplementaryData1  = "çèéêëìíîïðñòóôõö÷ø¤ù";
+		$supplementaryData   = array();
+		$supplementaryData[] = $supplementaryData1;
+
+		$hppRequest->setSupplementaryData( $supplementaryData );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
+
+
+		$supplementaryData1  = "úûüýþÿŒŽšœžŸ¥";
+		$supplementaryData   = array();
+		$supplementaryData[] = $supplementaryData1;
+
+		$hppRequest->setSupplementaryData( $supplementaryData );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
+
+
+		$charsAtMax          = str_repeat( "1", 255 );
+		$supplementaryData   = array();
+		$supplementaryData[] = $charsAtMax;
+
+		$hppRequest->setSupplementaryData( $supplementaryData );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
+
+		$charsOverMax        = str_repeat( "a", 256 );
+		$supplementaryData   = array();
+		$supplementaryData[] = $charsOverMax;
+
+		$hppRequest->setSupplementaryData( $supplementaryData );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_supplementary_data_size, $validationMessages[0] );
+		}
+
+	}
+
+	/**
+	 * Test supplementary data second field
+	 */
+	public function testCardSupplementaryData2() {
+		$hppRequest = SampleJsonData::generateValidHppRequest( false );
+		$hppRequest->generateDefaults( SampleJsonData::SECRET );
+
+		$supplementaryData1 = "";
+		$supplementaryData2 = "";
+		$supplementaryData  = array();
+
+		$supplementaryData[] = $supplementaryData1;
+		$supplementaryData[] = $supplementaryData2;
+
+		$hppRequest->setSupplementaryData( $supplementaryData );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+
+			$this->fail( "This HppRequest should have no validation errors." );
+		}
+
+		$supplementaryData1 = "";
+		$supplementaryData2  = " azAZ09'\",+“”._- & ";
+		$supplementaryData   = array();
+
+		$supplementaryData[] = $supplementaryData1;
+		$supplementaryData[] = $supplementaryData2;
+
+		$hppRequest->setSupplementaryData( $supplementaryData );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
+
+		$supplementaryData1 = "";
+		$supplementaryData2  = "\\/@!?%()*:£$&€#[]|";
+		$supplementaryData   = array();
+
+		$supplementaryData[] = $supplementaryData1;
+		$supplementaryData[] = $supplementaryData2;
+
+		$hppRequest->setSupplementaryData( $supplementaryData );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
+
+		$supplementaryData1 = "";
+		$supplementaryData2  = "=ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒ";
+		$supplementaryData   = array();
+
+		$supplementaryData[] = $supplementaryData1;
+		$supplementaryData[] = $supplementaryData2;
+
+		$hppRequest->setSupplementaryData( $supplementaryData );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
+
+
+		$supplementaryData1 = "";
+		$supplementaryData2  = "ÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæ";
+		$supplementaryData   = array();
+
+		$supplementaryData[] = $supplementaryData1;
+		$supplementaryData[] = $supplementaryData2;
+
+		$hppRequest->setSupplementaryData( $supplementaryData );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
+
+		$supplementaryData1 = "";
+		$supplementaryData2  = "çèéêëìíîïðñòóôõö÷ø¤ù";
+		$supplementaryData   = array();
+
+		$supplementaryData[] = $supplementaryData1;
+		$supplementaryData[] = $supplementaryData2;
+
+		$hppRequest->setSupplementaryData( $supplementaryData );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
+
+		$supplementaryData1 = "";
+		$supplementaryData2  = "úûüýþÿŒŽšœžŸ¥";
+		$supplementaryData   = array();
+
+		$supplementaryData[] = $supplementaryData1;
+		$supplementaryData[] = $supplementaryData2;
+
+		$hppRequest->setSupplementaryData( $supplementaryData );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
+
+		$supplementaryData1 = "";
+		$charsAtMax          = str_repeat( "1", 255 );
+		$supplementaryData   = array();
+
+		$supplementaryData[] = $supplementaryData1;
+		$supplementaryData[] = $charsAtMax;
+
+		$hppRequest->setSupplementaryData( $supplementaryData );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
+
+		$supplementaryData1 = "";
+		$charsOverMax        = str_repeat( "a", 256 );
+		$supplementaryData   = array();
+
+		$supplementaryData[] = $supplementaryData1;
+		$supplementaryData[] = $charsOverMax;
+
+		$hppRequest->setSupplementaryData( $supplementaryData );
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_supplementary_data_size, $validationMessages[0] );
+		}
+
+	}
 
 
 }

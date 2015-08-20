@@ -25,7 +25,8 @@ class OtbAmountValidator extends ConstraintValidator
      *
      * @param HppRequest $hppRequest
      * @param Constraint $constraint
-     * @return bool
+     *
+     * @api
      */
     public function validate($hppRequest, Constraint $constraint)
     {

@@ -31,10 +31,10 @@ class ValidationMessages {
 	const hppRequest_autoSettleFlag_pattern = "Auto settle flag must be 0, 1, on, off or multi";
 
 	const hppRequest_comment1_size = "Comment 1 must be less than 255 characters in length";
-	const hppRequest_comment1_pattern = "Comment 1 must only contain the characters a-z A-Z 0-9 ' \", + \\u201C\\u201D ._ - & \\ / @ ! ? % ( ) * : £ $ & \\u20AC # [ ] | =\" ; ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏĞÑÒÓÔÕÖ×ØÙÚÛÜİŞßàáâãäåæçèéêëìíîïğñòóôõö÷ø¤ùúûüışÿ\\u0152\\u017D\\u0161\\u0153\\u017E\\u0178¥";
+	const hppRequest_comment1_pattern = "Comment 1 must only contain the characters a-z A-Z 0-9 ' \", + \\u201C\\u201D ._ - & \\ / @ ! ? % ( ) * : ï¿½ $ & \\u20AC # [ ] | =\" ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\\u0152\\u017D\\u0161\\u0153\\u017E\\u0178ï¿½";
 
 	const hppRequest_comment2_size = "Comment 2 must be less than 255 characters in length";
-	const hppRequest_comment2_pattern = "Comment 2 must only contain the characters a-z A-Z 0-9 ' \", + \\u201C\\u201D ._ - & \\ / @ ! ? % ( ) * : £ $ & \\u20AC # [ ] | =\" ; ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏĞÑÒÓÔÕÖ×ØÙÚÛÜİŞßàáâãäåæçèéêëìíîïğñòóôõö÷ø¤ùúûüışÿ\\u0152\\u017D\\u0161\\u0153\\u017E\\u0178¥";
+	const hppRequest_comment2_pattern = "Comment 2 must only contain the characters a-z A-Z 0-9 ' \", + \\u201C\\u201D ._ - & \\ / @ ! ? % ( ) * : ï¿½ $ & \\u20AC # [ ] | =\" ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\\u0152\\u017D\\u0161\\u0153\\u017E\\u0178ï¿½";
 
 	const hppRequest_returnTss_size = "Return TSS flag must not be more than 1 character in length";
 	const hppRequest_returnTss_pattern = "Return TSS must be 1 or 0";
@@ -63,7 +63,7 @@ class ValidationMessages {
 	const hppRequest_language_pattern = "Language must be 2 alphabetic characters only";
 
 	const hppRequest_cardPaymentButtonText_size = "Card payment button text must not contain more than 25 characters";
-	const hppRequest_cardPaymentButtonText_pattern = "Card payment button text must only contain the characters a-z A-Z 0-9 ' , + \\u201C \\u201D ._ - & \\ / @!? % ( ) * :£ $ & \\u20AC # [] | =\"";
+	const hppRequest_cardPaymentButtonText_pattern = "Card payment button text must only contain the characters a-z A-Z 0-9 ' , + \\u201C \\u201D ._ - & \\ / @!? % ( ) * :ï¿½ $ & \\u20AC # [] | =\"";
 
 	const hppRequest_cardStorageEnable_size = "Card storage enable flag must not be more than 1 character in length";
 	const hppRequest_cardStorageEnable_pattern = "Card storage enable flag must be 1 or 0";
@@ -85,5 +85,8 @@ class ValidationMessages {
 
 	const hppRequest_dccEnable_size = "DCC enable flag must not be more than 1 character in length";
 	const hppRequest_dccEnable_pattern = "DCC enable flag must be 1 or 0";
+
+	const hppRequest_supplementary_data_pattern = "Supplementary data text must only contain the characters a-z A-Z 0-9 ' , + \\u201C \\u201D ._ - & \\ / @!? % ( ) * :ï¿½ $ & \\u20AC # [] | =\"";
+	const hppRequest_supplementary_data_size = "Supplementary data must not be more than 255 character in length";
 
 }
