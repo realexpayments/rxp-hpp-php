@@ -72,6 +72,7 @@ class RequestMapper implements iMapper
     public function  ReadValue($value)
     {
         $array = json_decode($value, true);
+        $array = new SafeArrayAccess( $array, "" );
 
         if ($array) {
 
@@ -107,7 +108,7 @@ class RequestMapper implements iMapper
 
             $supplementaryData = array();
 
-            foreach ($array as $key => $value) {
+            foreach ($array->getUnderLayingArray() as $key => $value) {
 
                 if (!$this->isKnownProperty($key)) {
                     $supplementaryData[$key] = $value;

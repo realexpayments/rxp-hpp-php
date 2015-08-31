@@ -24,6 +24,8 @@ class SampleJsonData
     const UNKNOWN_DATA_HPP_REQUEST_JSON_PATH = "/sample-json/hpp-request-unknown-data.json";
     const UNKNOWN_DATA_HPP_RESPONSE_JSON_PATH = "/sample-json/hpp-response-unknown-data.json";
     const VALID_HPP_REQUEST_CARD_STORAGE_JSON_PATH = "/sample-json/hpp-request-card-storage.json";
+    const VALID_HPP_RESPONSE_EMPTY_ECI_JSON_PATH = "/sample-json/hpp-response-empty-ECI.json";
+    const VALID_HPP_RESPONSE_NO_ECI_FIELD_JSON_PATH = "/sample-json/hpp-response-no-ECI-field.json";
 
     //valid JSON constants
     const SECRET = "mysecret";
@@ -308,7 +310,7 @@ class SampleJsonData
         $hppResponse->setTss(self::$TSS);
         $hppResponse->setXid(self::XID);
         $hppResponse->setAVSAddressResult(self::AVS_ADDRESS);
-        $hppResponse->setAVSPostCodesResult(self::AVS_POSTCODE);
+        $hppResponse->setAVSPostCodeResult(self::AVS_POSTCODE);
 
         foreach (self::$SUPPLEMENTARY_DATA as $key => $value) {
             $hppResponse->setSupplementaryDataValue($key, $value);
@@ -344,7 +346,7 @@ class SampleJsonData
         $testCase->assertEquals($hppResponseExpected->getXid(), $hppResponseConverted->getXid(), "Json conversion incorrect XID");
 
         $testCase->assertEquals($hppResponseExpected->getAVSAddressResult(), $hppResponseConverted->getAVSAddressResult(), "Json conversion incorrect AVS Address Result");
-        $testCase->assertEquals($hppResponseExpected->getAVSPostCodesResult(), $hppResponseConverted->getAVSPostCodesResult(), "Json conversion incorrect AVS Address Postcode");
+        $testCase->assertEquals($hppResponseExpected->getAVSPostCodeResult(), $hppResponseConverted->getAVSPostCodeResult(), "Json conversion incorrect AVS Address Postcode");
 
         $tss = $hppResponseExpected->getTss();
         $convertedTss = $hppResponseConverted->getTss();

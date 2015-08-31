@@ -61,7 +61,7 @@ class ResponseMapper implements iMapper {
 			'COMMENT2'          => $hppResponse->getCommentTwo(),
 			'TSS'               => $hppResponse->getTss(),
 			'AVSADDRESSRESULT'  => $hppResponse->getAVSAddressResult(),
-			'AVSPOSTCODERESULT' => $hppResponse->getAVSPostCodesResult()
+			'AVSPOSTCODERESULT' => $hppResponse->getAVSPostCodeResult()
 		);
 
 
@@ -83,6 +83,7 @@ class ResponseMapper implements iMapper {
 	 */
 	public function  ReadValue( $value ) {
 		$array = json_decode( $value, true );
+		$array = new SafeArrayAccess( $array, "" );
 
 		if ( $array ) {
 
@@ -107,10 +108,10 @@ class ResponseMapper implements iMapper {
 			$hppResponse->setCommentTwo( $array['COMMENT2'] );
 			$hppResponse->setTss( $array['TSS'] );
 			$hppResponse->setAVSAddressResult( $array['AVSADDRESSRESULT'] );
-			$hppResponse->setAVSPostCodesResult( $array['AVSPOSTCODERESULT'] );
+			$hppResponse->setAVSPostCodeResult( $array['AVSPOSTCODERESULT'] );
 
 
-			foreach ( $array as $key => $value ) {
+			foreach ( $array->getUnderLayingArray() as $key => $value ) {
 
 				if ( ! $this->isKnownProperty( $key ) ) {
 					$hppResponse->setSupplementaryDataValue( $key, $value );
