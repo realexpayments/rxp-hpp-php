@@ -143,7 +143,7 @@ class HppResponse {
 	/**
 	 * @var string Address Verification Service result for cardholder billing code
 	 */
-	private $AVSPostCodesResult;
+	private $AVSPostCodeResult;
 
 
 	/**
@@ -514,21 +514,21 @@ class HppResponse {
 	}
 
 	/**
-	 * Getter for AVSPostCodesResult
+	 * Getter for AVSPostCodeResult
 	 *
 	 * @return string
 	 */
-	public function getAVSPostCodesResult() {
-		return $this->AVSPostCodesResult;
+	public function getAVSPostCodeResult() {
+		return $this->AVSPostCodeResult;
 	}
 
 	/**
-	 * Setter for AVSPostCodesResult
+	 * Setter for AVSPostCodeResult
 	 *
-	 * @param string $AVSPostCodesResult
+	 * @param string $AVSPostCodeResult
 	 */
-	public function setAVSPostCodesResult( $AVSPostCodesResult ) {
-		$this->AVSPostCodesResult = $AVSPostCodesResult;
+	public function setAVSPostCodeResult( $AVSPostCodeResult ) {
+		$this->AVSPostCodeResult = $AVSPostCodeResult;
 	}
 
 
@@ -767,14 +767,14 @@ class HppResponse {
 	}
 
 	/**
-	 * Helper method for adding a AVSPostCodesResult
+	 * Helper method for adding a AVSPostCodeResult
 	 *
-	 * @param string $AVSPostCodesResult
+	 * @param string $AVSPostCodeResult
 	 *
 	 * @return HppResponse
 	 */
-	public function addAVSPostCodesResult( $AVSPostCodesResult ) {
-		$this->AVSPostCodesResult = $AVSPostCodesResult;
+	public function addAVSPostCodeResult( $AVSPostCodeResult ) {
+		$this->AVSPostCodeResult = $AVSPostCodeResult;
 
 		return $this;
 	}
@@ -883,7 +883,7 @@ class HppResponse {
 		$this->orderId            = base64_encode( $this->orderId );
 		$this->timeStamp          = base64_encode( $this->timeStamp );
 		$this->AVSAddressResult   = base64_encode( $this->AVSAddressResult );
-		$this->AVSPostCodesResult = base64_encode( $this->AVSPostCodesResult );
+		$this->AVSPostCodeResult = base64_encode( $this->AVSPostCodeResult );
 
 		foreach ( $this->tss as $key => $value ) {
 			$this->tss[ $key ] = base64_encode( $value );
@@ -922,7 +922,7 @@ class HppResponse {
 		$this->orderId            = base64_decode( $this->orderId );
 		$this->timeStamp          = base64_decode( $this->timeStamp );
 		$this->AVSAddressResult   = base64_decode( $this->AVSAddressResult );
-		$this->AVSPostCodesResult = base64_decode( $this->AVSPostCodesResult );
+		$this->AVSPostCodeResult = base64_decode( $this->AVSPostCodeResult );
 
 		foreach ( $this->tss as $key => $value ) {
 			$this->tss[ $key ] = base64_decode( $value );

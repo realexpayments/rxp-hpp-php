@@ -310,7 +310,7 @@ class SampleJsonData
         $hppResponse->setTss(self::$TSS);
         $hppResponse->setXid(self::XID);
         $hppResponse->setAVSAddressResult(self::AVS_ADDRESS);
-        $hppResponse->setAVSPostCodesResult(self::AVS_POSTCODE);
+        $hppResponse->setAVSPostCodeResult(self::AVS_POSTCODE);
 
         foreach (self::$SUPPLEMENTARY_DATA as $key => $value) {
             $hppResponse->setSupplementaryDataValue($key, $value);
@@ -346,7 +346,7 @@ class SampleJsonData
         $testCase->assertEquals($hppResponseExpected->getXid(), $hppResponseConverted->getXid(), "Json conversion incorrect XID");
 
         $testCase->assertEquals($hppResponseExpected->getAVSAddressResult(), $hppResponseConverted->getAVSAddressResult(), "Json conversion incorrect AVS Address Result");
-        $testCase->assertEquals($hppResponseExpected->getAVSPostCodesResult(), $hppResponseConverted->getAVSPostCodesResult(), "Json conversion incorrect AVS Address Postcode");
+        $testCase->assertEquals($hppResponseExpected->getAVSPostCodeResult(), $hppResponseConverted->getAVSPostCodeResult(), "Json conversion incorrect AVS Address Postcode");
 
         $tss = $hppResponseExpected->getTss();
         $convertedTss = $hppResponseConverted->getTss();

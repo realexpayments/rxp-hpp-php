@@ -61,7 +61,7 @@ class ResponseMapper implements iMapper {
 			'COMMENT2'          => $hppResponse->getCommentTwo(),
 			'TSS'               => $hppResponse->getTss(),
 			'AVSADDRESSRESULT'  => $hppResponse->getAVSAddressResult(),
-			'AVSPOSTCODERESULT' => $hppResponse->getAVSPostCodesResult()
+			'AVSPOSTCODERESULT' => $hppResponse->getAVSPostCodeResult()
 		);
 
 
@@ -108,7 +108,7 @@ class ResponseMapper implements iMapper {
 			$hppResponse->setCommentTwo( $array['COMMENT2'] );
 			$hppResponse->setTss( $array['TSS'] );
 			$hppResponse->setAVSAddressResult( $array['AVSADDRESSRESULT'] );
-			$hppResponse->setAVSPostCodesResult( $array['AVSPOSTCODERESULT'] );
+			$hppResponse->setAVSPostCodeResult( $array['AVSPOSTCODERESULT'] );
 
 
 			foreach ( $array->getUnderLayingArray() as $key => $value ) {
