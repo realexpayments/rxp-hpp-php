@@ -3,6 +3,7 @@
 
 namespace com\realexpayments\hpp\sdk\utils;
 
+use com\realexpayments\hpp\sdk\RealexHpp;
 use com\realexpayments\hpp\sdk\SampleJsonData;
 
 
@@ -123,5 +124,49 @@ class JsonUtilsTest extends \PHPUnit_Framework_TestCase {
 		$hppResponseConverted = JsonUtils::fromJsonHppResponse( $json );
 
 		$this->assertEquals( "", $hppResponseConverted->getEci() );
+	}
+
+	/**
+	 * Test converting JSON with empty ECI to {@link HppResponse}.
+	 */
+	public function  testFromJsonHppResponseNoECIFieldEncoded() {
+		$path   = SampleJsonData::VALID_HPP_RESPONSE_NO_ECI_FIELD_ENCODED_JSON_PATH;
+		$prefix = __DIR__ . '/../../../resources';
+		$json   = file_get_contents( $prefix . $path );
+
+
+		$hppResponseConverted = JsonUtils::fromJsonHppResponse( $json );
+		$hppResponseConverted = $hppResponseConverted->decode(RealexHpp::ENCODING_CHARSET);
+
+		$this->assertEquals( "", $hppResponseConverted->getEci() );
+	}
+
+	/**
+	 * Test converting JSON with no TSS Information to {@link HppResponse}.
+	 */
+	public function  testFromJsonHppResponseNoTSS() {
+		$path   = SampleJsonData::VALID_HPP_RESPONSE_NO_TSS_JSON_PATH;
+		$prefix = __DIR__ . '/../../../resources';
+		$json   = file_get_contents( $prefix . $path );
+
+
+		$hppResponseConverted = JsonUtils::fromJsonHppResponse( $json );
+
+		$this->assertEquals( "", $hppResponseConverted->getTss() );
+	}
+
+	/**
+	 * Test converting JSON with no TSS Information to {@link HppResponse}.
+	 */
+	public function  testFromJsonHppResponseNoTSSEncoded() {
+		$path   = SampleJsonData::VALID_HPP_RESPONSE_NO_TSS_JSON_PATH;
+		$prefix = __DIR__ . '/../../../resources';
+		$json   = file_get_contents( $prefix . $path );
+
+
+		$hppResponseConverted = JsonUtils::fromJsonHppResponse( $json );
+		$hppResponseConverted = $hppResponseConverted->decode(RealexHpp::ENCODING_CHARSET);
+
+		$this->assertEquals( "", $hppResponseConverted->getTss() );
 	}
 }

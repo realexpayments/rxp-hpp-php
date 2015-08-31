@@ -65,9 +65,14 @@ class ResponseMapper implements iMapper {
 		);
 
 
-		foreach ( $hppResponse->getSupplementaryData() as $key => $value ) {
-			$prop[ $key ] = $value;
+		$supplementaryData = $hppResponse->getSupplementaryData();
+
+		if ( is_array( $supplementaryData ) ) {
+			foreach ( $supplementaryData as $key => $value ) {
+				$prop[ $key ] = $value;
+			}
 		}
+
 
 		return json_encode( $prop );
 	}

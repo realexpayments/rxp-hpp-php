@@ -26,7 +26,9 @@ class SampleJsonData
     const VALID_HPP_REQUEST_CARD_STORAGE_JSON_PATH = "/sample-json/hpp-request-card-storage.json";
     const VALID_HPP_RESPONSE_EMPTY_ECI_JSON_PATH = "/sample-json/hpp-response-empty-ECI.json";
     const VALID_HPP_RESPONSE_NO_ECI_FIELD_JSON_PATH = "/sample-json/hpp-response-no-ECI-field.json";
-
+    const VALID_HPP_RESPONSE_NO_ECI_FIELD_ENCODED_JSON_PATH = "/sample-json/hpp-response-no-ECI-field-encoded.json";
+    const VALID_HPP_RESPONSE_NO_TSS_JSON_PATH = "/sample-json/hpp-response-no-TSS.json";
+    const VALID_HPP_RESPONSE_NO_TSS_ENCODED_JSON_PATH = "/sample-json/hpp-response-no-TSS-encoded.json";
     //valid JSON constants
     const SECRET = "mysecret";
     const ACCOUNT = "myAccount";
@@ -72,6 +74,7 @@ class SampleJsonData
     const PAS_REF = "3737468273643";
     const RESULT = "00";
     const XID = "654564564";
+
     private static $TSS;
     const TSS_ONE_KEY = "TSS_1";
     const TSS_ONE_VALUE = "TSS_1_VALUE";
