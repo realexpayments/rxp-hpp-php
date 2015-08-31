@@ -31,10 +31,10 @@ class ValidationMessages {
 	const hppRequest_autoSettleFlag_pattern = "Auto settle flag must be 0, 1, on, off or multi";
 
 	const hppRequest_comment1_size = "Comment 1 must be less than 255 characters in length";
-	const hppRequest_comment1_pattern = "Comment 1 must only contain the characters a-z A-Z 0-9 ' \", + \\u201C\\u201D ._ - & \\ / @ ! ? % ( ) * : � $ & \\u20AC # [ ] | =\" ; �����������������������������������������������������������������\\u0152\\u017D\\u0161\\u0153\\u017E\\u0178�";
+	const hppRequest_comment1_pattern = "Comment 1 must only contain the characters a-z A-Z 0-9 ' \", + \\u201C\\u201D ._ - & \\ / @ ! ? % ( ) * : £ $ & \\u20AC # [ ] | = ; ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷ø¤ùúûüýþÿ\\u0152\\u017D\\u0161\\u0153\\u017E\\u0178¥";
 
 	const hppRequest_comment2_size = "Comment 2 must be less than 255 characters in length";
-	const hppRequest_comment2_pattern = "Comment 2 must only contain the characters a-z A-Z 0-9 ' \", + \\u201C\\u201D ._ - & \\ / @ ! ? % ( ) * : � $ & \\u20AC # [ ] | =\" ; �����������������������������������������������������������������\\u0152\\u017D\\u0161\\u0153\\u017E\\u0178�";
+	const hppRequest_comment2_pattern = "Comment 2 must only contain the characters a-z A-Z 0-9 ' \", + \\u201C\\u201D ._ - & \\ / @ ! ? % ( ) * : £ $ & \\u20AC # [ ] | = ; ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷ø¤ùúûüýþÿ\\u0152\\u017D\\u0161\\u0153\\u017E\\u0178¥";
 
 	const hppRequest_returnTss_size = "Return TSS flag must not be more than 1 character in length";
 	const hppRequest_returnTss_pattern = "Return TSS must be 1 or 0";
