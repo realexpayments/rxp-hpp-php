@@ -83,6 +83,7 @@ class ResponseMapper implements iMapper {
 	 */
 	public function  ReadValue( $value ) {
 		$array = json_decode( $value, true );
+		$array = new SafeArrayAccess( $array, "" );
 
 		if ( $array ) {
 
@@ -110,7 +111,7 @@ class ResponseMapper implements iMapper {
 			$hppResponse->setAVSPostCodesResult( $array['AVSPOSTCODERESULT'] );
 
 
-			foreach ( $array as $key => $value ) {
+			foreach ( $array->getUnderLayingArray() as $key => $value ) {
 
 				if ( ! $this->isKnownProperty( $key ) ) {
 					$hppResponse->setSupplementaryDataValue( $key, $value );

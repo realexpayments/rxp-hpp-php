@@ -24,6 +24,8 @@ class SampleJsonData
     const UNKNOWN_DATA_HPP_REQUEST_JSON_PATH = "/sample-json/hpp-request-unknown-data.json";
     const UNKNOWN_DATA_HPP_RESPONSE_JSON_PATH = "/sample-json/hpp-response-unknown-data.json";
     const VALID_HPP_REQUEST_CARD_STORAGE_JSON_PATH = "/sample-json/hpp-request-card-storage.json";
+    const VALID_HPP_RESPONSE_EMPTY_ECI_JSON_PATH = "/sample-json/hpp-response-empty-ECI.json";
+    const VALID_HPP_RESPONSE_NO_ECI_FIELD_JSON_PATH = "/sample-json/hpp-response-no-ECI-field.json";
 
     //valid JSON constants
     const SECRET = "mysecret";
