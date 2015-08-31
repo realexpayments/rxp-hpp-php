@@ -885,11 +885,16 @@ class HppResponse {
 		$this->AVSAddressResult   = base64_encode( $this->AVSAddressResult );
 		$this->AVSPostCodeResult = base64_encode( $this->AVSPostCodeResult );
 
-		foreach ( $this->tss as $key => $value ) {
-			$this->tss[ $key ] = base64_encode( $value );
+		if (is_array($this->tss)) {
+			foreach ( $this->tss as $key => $value ) {
+				$this->tss[ $key ] = base64_encode( $value );
+			}
 		}
-		foreach ( $this->supplementaryData as $key => $value ) {
-			$this->supplementaryData[ $key ] = base64_encode( $value );
+
+		if (is_array($this->supplementaryData)) {
+			foreach ( $this->supplementaryData as $key => $value ) {
+				$this->supplementaryData[ $key ] = base64_encode( $value );
+			}
 		}
 
 		return $this;
@@ -924,11 +929,16 @@ class HppResponse {
 		$this->AVSAddressResult   = base64_decode( $this->AVSAddressResult );
 		$this->AVSPostCodeResult = base64_decode( $this->AVSPostCodeResult );
 
-		foreach ( $this->tss as $key => $value ) {
-			$this->tss[ $key ] = base64_decode( $value );
+		if (is_array($this->tss)) {
+			foreach ( $this->tss as $key => $value ) {
+				$this->tss[ $key ] = base64_decode( $value );
+			}
 		}
-		foreach ( $this->supplementaryData as $key => $value ) {
-			$this->supplementaryData[ $key ] = base64_decode( $value );
+
+		if (is_array($this->supplementaryData)) {
+			foreach ( $this->supplementaryData as $key => $value ) {
+				$this->supplementaryData[ $key ] = base64_decode( $value );
+			}
 		}
 
 		return $this;
