@@ -28,6 +28,8 @@ use com\realexpayments\hpp\sdk\validators\ValidationMessages;
  *
  * @author vicpada
  * @AssertHPP\OtbAmount
+ * @AssertHPP\SupplementaryDataLength
+ * @AssertHPP\SupplementaryDataPattern
  */
 class HppRequest
 {
@@ -255,7 +257,7 @@ class HppRequest
     private $payerExists;
 
     /**
-     * @var array Supplementary data to be sent to Realex Payments. This will be returned in the HPP response.
+     * @var string[] Supplementary data to be sent to Realex Payments. This will be returned in the HPP response.
      * Fields will be 255 char max
      */
     private $supplementaryData = array();
@@ -680,7 +682,7 @@ class HppRequest
     /**
      * Getter for supplementaryData
      *
-     * @return array
+     * @return string[]
      */
     public function getSupplementaryData()
     {
@@ -702,7 +704,7 @@ class HppRequest
      * </pre></code>
      * </p>
      *
-     * @param array $supplementaryData
+     * @param string[] $supplementaryData
      */
     public function setSupplementaryData(array $supplementaryData)
     {
@@ -1156,7 +1158,7 @@ class HppRequest
      * </pre></code>
      * </p>
      *
-     * @param array $supplementaryData
+     * @param string[] $supplementaryData
      *
      * @return HppRequest
      */
