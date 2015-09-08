@@ -7,19 +7,26 @@ You can sign up for a Realex account at https://www.realexpayments.com.
 ## Instructions ##
 
 1. In you application root folder checkout the latest version of the project from Git:
-	```
-	    git clone https://github.com/realexpayments-developers/rxp-hpp-php.git
-	```
+	
+    ```
+    git clone https://github.com/realexpayments-developers/rxp-hpp-php.git
+    ```
+
 2. Inside the rxp-hpp-php directory run composer:
-	```
-	    composer update
-	```
+
+    ```
+    composer update
+    ```
+
 3. Add a reference to the autoloader class anywhere where you need to use the sdk
-	```
-	    require __DIR__ . "/rxp-hpp-php/vendor/autoload.php";
-	```
+
+    ```
+    require __DIR__ . "/rxp-hpp-php/vendor/autoload.php";    
+    ```
+
 4. Use the sdk <br/>
-	```php
+	
+    ```php
 	$hppRequest = new HppRequest();
 	$hppRequest->addAmount(100)
 	         ->addCurrency("EUR")
@@ -29,7 +36,8 @@ You can sign up for a Realex account at https://www.realexpayments.com.
 
 ## Usage
 ### Creating Request JSON for Realex JS SDK
-	```php
+
+    ```php
 	require __DIR__ . "/rxp-remote-php/vendor/autoload.php";
 	
 	$hppRequest = new HppRequest();
@@ -46,12 +54,15 @@ You can sign up for a Realex account at https://www.realexpayments.com.
 	
 	$realexHpp = new RealexHpp("secret");
 	$requestJson = $realexHpp->requestToJson($hppRequest);
-	```
+    ```
+
 ### Consuming Response JSON from Realex JS SDK
-	```php
+
+    ```php
 	$realexHpp = new RealexHpp("secret");
 	$hppResponse = $realexHpp->responseFromJson(responseJson);
-	```
+    ```
+
 ## License
 See the LICENSE file.
 
