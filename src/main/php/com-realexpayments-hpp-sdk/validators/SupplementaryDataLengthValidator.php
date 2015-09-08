@@ -18,7 +18,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 class SupplementaryDataLengthValidator extends ConstraintValidator {
 
 
-	private $maxLenght = 255;
+	private $maxLength = 255;
 
 	/**
 	 * Checks if the passed value is valid.
@@ -31,7 +31,7 @@ class SupplementaryDataLengthValidator extends ConstraintValidator {
 	public function validate( $hppRequest, Constraint $constraint ) {
 
 		foreach ( $hppRequest->getSupplementaryData() as $supplementaryData ) {
-			if ( strlen( $supplementaryData ) > $this->maxLenght ) {
+			if ( strlen( $supplementaryData ) > $this->maxLength ) {
 				$this->context->buildViolation( $constraint->message )
 				              ->atPath( 'supplementaryData' )
 				              ->addViolation();
