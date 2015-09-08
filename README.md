@@ -37,31 +37,31 @@ You can sign up for a Realex account at https://www.realexpayments.com.
 ## Usage
 ### Creating Request JSON for Realex JS SDK
 
-    ```php
-	require __DIR__ . "/rxp-remote-php/vendor/autoload.php";
-	
-	$hppRequest = new HppRequest();
-	$hppRequest->addAmount(100)
-	    ->addCurrency("EUR")
-	    ->addMerchantId("merchantid");
-	
-	$supplementaryData = array();
-	$supplementaryData['key1'] = 'value1';
-	$supplementaryData['key2'] = 'value2';
+```php
+require __DIR__ . "/rxp-remote-php/vendor/autoload.php";
 
-	$hppRequest->addSupplementaryData($supplementaryData);
-	
-	
-	$realexHpp = new RealexHpp("secret");
-	$requestJson = $realexHpp->requestToJson($hppRequest);
-    ```
+$hppRequest = new HppRequest();
+$hppRequest->addAmount(100)
+    ->addCurrency("EUR")
+    ->addMerchantId("merchantid");
+
+$supplementaryData = array();
+$supplementaryData['key1'] = 'value1';
+$supplementaryData['key2'] = 'value2';
+
+$hppRequest->addSupplementaryData($supplementaryData);
+
+
+$realexHpp = new RealexHpp("secret");
+$requestJson = $realexHpp->requestToJson($hppRequest);
+```
 
 ### Consuming Response JSON from Realex JS SDK
 
-    ```php
-	$realexHpp = new RealexHpp("secret");
-	$hppResponse = $realexHpp->responseFromJson(responseJson);
-    ```
+```php
+$realexHpp = new RealexHpp("secret");
+$hppResponse = $realexHpp->responseFromJson(responseJson);
+```
 
 ## License
 See the LICENSE file.
