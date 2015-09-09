@@ -1,7 +1,7 @@
 {
-  "name": "realexpayments/rxp-hpp-php",
+  "name": "vicpada/rxp-hpp-php",
   "type": "library",
-  "description": "SDK to send requests and parse responses from Realex Payments using HPP",
+  "description": "SDK to send requests and parse responses from Realex using HPP",
   "keywords": [
     "realex",
     "payments",
@@ -9,13 +9,10 @@
   ],
   "authors": [
     {
-      "name": "Realex Payments",
-      "homepage": "https://www.realexpayments.com",
-    },
-	  {
       "name": "Victor Palomares",
+      "email": "victor.palomares@softwaredesign.ie",
       "homepage": "http://www.softwaredesign.ie",
-	    "role": "Developer"
+      "role": "Developer"
     }
   ],
   "license": "MIT",
