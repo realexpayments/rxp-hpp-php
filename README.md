@@ -1,69 +1,88 @@
-# Realex HPP PHP SDK
-You can sign up for a Realex account at https://www.realexpayments.com.
+# Realex Payments HPP PHP SDK
+You can sign up for a free Realex Payments sandbox account at https://www.realexpayments.co.uk/developers
 
-- PHP >= 5.3
+## Requirements ##
+- PHP >= 5.3.9
 - Composer (https://getcomposer.org/)
 
 ## Instructions ##
 
-1. In you application root folder checkout the latest version of the project from Git:
-	
+1. Add the following to your 'composer.json' file
+
     ```
-    git clone https://github.com/realexpayments-developers/rxp-hpp-php.git
+    {
+        "require": {
+            "realexpayments/rxp-hpp-php": "1.0.0"
+        }    
+    }
     ```
 
-2. Inside the rxp-hpp-php directory run composer:
+2. Inside the application directory run composer:
 
     ```
     composer update
     ```
 
-3. Add a reference to the autoloader class anywhere where you need to use the sdk
+    OR (depending on your server configuration)
 
     ```
-    require __DIR__ . "/rxp-hpp-php/vendor/autoload.php";    
+    php composer.phar update
+    ```
+
+3. Add a reference to the autoloader class anywhere you need to use the sdk
+
+    ```php
+    require_once ( 'vendor/autoload.php' );
     ```
 
 4. Use the sdk <br/>
-	
+
     ```php
-	$hppRequest = new HppRequest();
-	$hppRequest->addAmount(100)
-	         ->addCurrency("EUR")
-	         ....
+	$hppRequest = ( new HppRequest() )
+		->addMerchantId( "myMerchantId" )
+		->addAccount( "mySubAccount" )
+        ....
 	```
 
+##SDK Example##
 
-## Usage
 ### Creating Request JSON for Realex JS SDK
 
 ```php
-require __DIR__ . "/rxp-remote-php/vendor/autoload.php";
+require_once ( 'vendor/autoload.php' );
 
-$hppRequest = new HppRequest();
-$hppRequest->addAmount(100)
-    ->addCurrency("EUR")
-    ->addMerchantId("merchantid");
+use com\realexpayments\hpp\sdk\domain\HppRequest;
+use com\realexpayments\hpp\sdk\RealexHpp;
+
+$hppRequest = ( new HppRequest() )
+	->addMerchantId( "myMerchantId" )
+	->addAccount( "mySubAccount" )
+	->addAmount( "1001" )
+	->addCurrency( "EUR" )
+	->addAutoSettleFlag( "1" );
 
 $supplementaryData = array();
 $supplementaryData['key1'] = 'value1';
 $supplementaryData['key2'] = 'value2';
 
-$hppRequest->addSupplementaryData($supplementaryData);
-
-
-$realexHpp = new RealexHpp("secret");
-$requestJson = $realexHpp->requestToJson($hppRequest);
+$hppRequest->addSupplementaryData( $supplementaryData );	
+	
+$realexHpp = new RealexHpp( "mySecret" );
+$requestJson = $realexHpp->requestToJson( $hppRequest );
 ```
 
-### Consuming Response JSON from Realex JS SDK
+### Consuming Response JSON from Realex Payments JS SDK
 
 ```php
-$realexHpp = new RealexHpp("secret");
-$hppResponse = $realexHpp->responseFromJson(responseJson);
+require_once ( 'vendor/autoload.php' );
+
+use com\realexpayments\hpp\sdk\domain\HppResponse;
+use com\realexpayments\hpp\sdk\RealexHpp;
+
+$realexHpp = new RealexHpp( "mySecret" );
+$hppResponse = $realexHpp->responseFromJson( responseJson );
 ```
 
 ## License
+
 See the LICENSE file.
-
-
