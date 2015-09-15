@@ -1,0 +1,37 @@
+{
+  "name": "realexpayments/rxp-hpp-php",
+  "type": "library",
+  "description": "SDK to send requests and parse responses from Realex Payments using HPP",
+  "keywords": [
+    "realex",
+    "payments",
+    "HPP"
+  ],
+  "authors": [
+    {
+      "name": "Realex Payments",
+      "homepage": "https://www.realexpayments.com/"
+    },
+    {
+      "name": "Victor Palomares",
+      "homepage": "http://www.softwaredesign.ie",
+      "role": "Developer"
+    }
+  ],
+  "license": "MIT",
+  "require": {
+    "php": ">=5.3.9",
+    "apache/log4php": "2.3.0",
+    "symfony/validator": "2.7.3",
+    "doctrine/annotations":"1.2.6",
+    "doctrine/cache":"1.4.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "com\\realexpayments\\hpp\\sdk\\": [
+        "src/main/php/com-realexpayments-hpp-sdk",
+        "test/main/php/com-realexpayments-hpp-sdk"
+      ]
+    }
+  }
+}
