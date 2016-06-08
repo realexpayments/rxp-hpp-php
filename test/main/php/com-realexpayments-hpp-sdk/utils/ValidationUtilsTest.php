@@ -1910,5 +1910,117 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 
 	}
 
+	/**
+	 * Test HPP Version
+	 */
+	public function testHppVersion() {
+
+		$hppRequest = SampleJsonData::generateValidHppRequest( false );
+		$hppRequest->generateDefaults( SampleJsonData::SECRET );
+
+		$hppRequest->setHppVersion(1);
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
+
+		$hppRequest->setHppVersion("2");
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
+
+
+		$hppRequest->setHppVersion(0);
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_hppVersion_pattern, $validationMessages[0] );
+		}
+
+		$hppRequest->setHppVersion(12);
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_hppVersion_size, $validationMessages[0] );
+		}
+
+		$hppRequest->setHppVersion('a');
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_hppVersion_pattern, $validationMessages[0] );
+		}
+
+		$hppRequest->setHppVersion('1 a');
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_hppVersion_size, $validationMessages[0] );
+		}
+	}
+
+	/**
+	 * Test HPP Version
+	 */
+	public function testHppSelectedStoredCard() {
+
+		$hppRequest = SampleJsonData::generateValidHppRequest( false );
+		$hppRequest->generateDefaults( SampleJsonData::SECRET );
+
+		$hppRequest->setHppSelectedStoredCard("payerref123");
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
+
+		$hppRequest->setHppSelectedStoredCard(str_repeat('a',50));
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
+
+
+		$hppRequest->setHppSelectedStoredCard(str_repeat('a',51));
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_hppSelectStoredCard_size, $validationMessages[0] );
+		}
+
+		$hppRequest->setHppSelectedStoredCard("!!!");
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_hppSelectStoredCard_pattern, $validationMessages[0] );
+		}
+
+	}
 
 }

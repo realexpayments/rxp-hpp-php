@@ -29,6 +29,9 @@ class SampleJsonData
     const VALID_HPP_RESPONSE_NO_ECI_FIELD_ENCODED_JSON_PATH = "/sample-json/hpp-response-no-ECI-field-encoded.json";
     const VALID_HPP_RESPONSE_NO_TSS_JSON_PATH = "/sample-json/hpp-response-no-TSS.json";
     const VALID_HPP_RESPONSE_NO_TSS_ENCODED_JSON_PATH = "/sample-json/hpp-response-no-TSS-encoded.json";
+    const VALID_HPP_REQUEST_HPP_VERSION_JSON_PATH = "/sample-json/hpp-request-hpp-version-valid.json";
+    const INVALID_HPP_REQUEST_HPP_VERSION_JSON_PATH = "/sample-json/hpp-request-hpp-version-fail.json";
+    const VALID_HPP_REQUEST_HPP_VERSION_JSON_PATH2 = "/sample-json/hpp-request-hpp-version-fail2.json";
     //valid JSON constants
     const SECRET = "mysecret";
     const ACCOUNT = "myAccount";
@@ -96,6 +99,9 @@ class SampleJsonData
     const AVS_ADDRESS = "M";
     const AVS_POSTCODE = "P";
 
+    const HPP_VERSION = "1";
+    const HPP_SELECT_STORED_CARD = "PayerRef";
+
 
     /**
      * Generates {@link HppRequest} object.
@@ -148,7 +154,9 @@ class SampleJsonData
             ->addShippingCountry(self::SHIPPING_COUNTRY)
             ->addVariableReference(self::VARIABLE_REFERENCE)
             ->addValidateCardOnly(self::VALIDATE_CARD_ONLY)
-            ->addDccEnable(self::DCC_ENABLE);
+            ->addDccEnable(self::DCC_ENABLE)
+            ->addHppVersion(self::HPP_VERSION)
+            ->addHppSelectedStoredCard(self::HPP_SELECT_STORED_CARD);
 
 
 

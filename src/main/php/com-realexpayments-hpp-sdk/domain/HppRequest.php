@@ -278,6 +278,25 @@ class HppRequest {
 	private $dccEnable;
 
 	/**
+	 * @var As per the commit reference, can only have the value 1 or 2. Passing 2 enables the new skin for the HPP.
+	 * It also allows HPP_SELECT_STORED_CARD to be sent.
+	 *
+	 * @Assert\Length(min = 0, max = 1, maxMessage = ValidationMessages::hppRequest_hppVersion_size)
+	 * @Assert\Regex(pattern="/^[1-2]*$/", message=ValidationMessages::hppRequest_hppVersion_pattern )
+	 */
+	private $hppVersion;
+
+	/**
+	 * @var As per the commit reference, must contain the Payer reference of the customer whose cards the merchant wishes
+	 * to display on the HPP. If sent correctly, all of the customer’s saved cards will be displayed and they can choose
+	 * which one they wish to complete the payment with.
+	 *
+	 * @Assert\Length(min = 0, max = 50, maxMessage = ValidationMessages::hppRequest_hppSelectStoredCard_size)
+	 * @Assert\Regex(pattern="/^[A-Za-z0-9\_\-\\ ]*$/", message=ValidationMessages::hppRequest_hppSelectStoredCard_pattern )
+	 */
+	private $hppSelectedStoredCard;
+
+	/**
 	 * Getter for merchantId
 	 *
 	 * @return String
@@ -1201,6 +1220,74 @@ class HppRequest {
 		return $this;
 	}
 
+	/**
+	 * Helper method for adding the Hpp Version
+	 *
+	 * @param string|bool $hppVersion
+	 *
+	 * @return HppRequest
+	 */
+	public function addHppVersion( $hppVersion ){
+		$this->hppVersion = $hppVersion;
+
+		return $this;
+	}
+
+	/**
+	 * Helper method for setting the Hpp Version
+	 *
+	 * @param string|bool $hppVersion
+	 *
+	 * @return void
+	 */
+	public function setHppVersion( $hppVersion ){
+		$this->hppVersion = $hppVersion;
+
+	}
+
+	/**
+	 * Helper method for adding the Hpp Version
+	 *
+	 * @return hppVersion
+	 */
+	public function getHppVersion(){
+		return $this->hppVersion ;
+	}
+	/**
+	 * Helper method for adding the Hpp Selected Stored Card
+	 *
+	 * @param string|bool $hppSelectedStoredCard
+	 *
+	 * @return HppRequest
+	 */
+	public function addHppSelectedStoredCard( $hppSelectedStoredCard ){
+		if(isset($this->hppVersion) && !empty($this->hppVersion))
+			$this->hppSelectedStoredCard = $hppSelectedStoredCard;
+
+		return $this;
+	}
+
+	/**
+	 * Helper method for setting the Hpp Selected Stored Card
+	 *
+	 * @param string|bool $hppSelectedStoredCard
+	 *
+	 * @return void
+	 */
+	public function setHppSelectedStoredCard( $hppSelectedStoredCard ){
+		if(isset($this->hppVersion) && !empty($this->hppVersion))
+			$this->hppSelectedStoredCard = $hppSelectedStoredCard;
+
+	}
+
+	/**
+	 * Helper method for adding the Hpp Selected Stored Card
+	 *
+	 * @return hppSelectedStoredCard
+	 */
+	public function getHppSelectedStoredCard( ){
+		return $this->hppSelectedStoredCard ;
+	}
 
 	/**
 	 * Generates default values for fields such as hash, timestamp and order ID.
@@ -1314,6 +1401,7 @@ class HppRequest {
 		$this->timeStamp             = base64_encode( $this->timeStamp );
 		$this->variableReference     = base64_encode( $this->variableReference );
 
+
 		if ( is_array( $this->supplementaryData ) ) {
 			foreach ( $this->supplementaryData as $key => $value ) {
 				$this->supplementaryData[ $key ] = base64_encode( $value );
@@ -1321,6 +1409,9 @@ class HppRequest {
 		}
 		$this->validateCardOnly = base64_encode( $this->validateCardOnly );
 		$this->dccEnable        = base64_encode( $this->dccEnable );
+
+		$this->hppVersion     			= base64_encode( $this->hppVersion );
+		$this->hppSelectedStoredCard    = base64_encode( $this->hppSelectedStoredCard );
 
 		return $this;
 	}
@@ -1365,6 +1456,9 @@ class HppRequest {
 		}
 		$this->validateCardOnly = base64_decode( $this->validateCardOnly );
 		$this->dccEnable        = base64_decode( $this->dccEnable );
+
+		$this->hppVersion     			= base64_decode( $this->hppVersion );
+		$this->hppSelectedStoredCard   	= base64_decode( $this->hppSelectedStoredCard );
 
 		return $this;
 	}

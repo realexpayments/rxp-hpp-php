@@ -133,6 +133,7 @@ class RequestMapper implements iMapper {
 			$hppRequest->setPaymentReference( $array['PMT_REF'] );
 			$hppRequest->setPayerExists( $array['PAYER_EXIST'] );
 
+
 			$supplementaryData = array();
 
 			foreach ( $array->getUnderLayingArray() as $key => $value ) {
@@ -143,6 +144,9 @@ class RequestMapper implements iMapper {
 			}
 
 			$hppRequest->setSupplementaryData( $supplementaryData );
+			
+			$hppRequest->setHppVersion( $array['HPP_VERSION'] );
+			$hppRequest->setHppSelectedStoredCard( $array['HPP_SELECT_STORED_CARD'] );
 
 			return $hppRequest;
 		}

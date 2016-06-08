@@ -1,1 +1,13 @@
-
+vendor/*
+vm-config/*
+.vagrant/
+Vagrantfile
+composer.lock
+composer.phar
+phpunit.phar
+Would skip repository vendor/apache/log4php
+vendor/autoload.php
+vendor/composer
+vendor/doctrine
+vendor/symfony
+vm-config/

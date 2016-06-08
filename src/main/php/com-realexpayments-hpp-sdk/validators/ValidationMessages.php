@@ -89,4 +89,9 @@ class ValidationMessages {
 	const hppRequest_supplementary_data_pattern = "Supplementary data text must only contain the characters a-z A-Z 0-9 ' , + \\u201C \\u201D ._ - & \\ / @!? % ( ) * :� $ & \\u20AC # [] | =\"";
 	const hppRequest_supplementary_data_size = "Supplementary data must not be more than 255 character in length";
 
+	const hppRequest_hppVersion_size = "Version flag must not be more than 1 character in length";
+	const hppRequest_hppVersion_pattern = "Version must only contain the numbers between 1 and 2";
+
+ 	const hppRequest_hppSelectStoredCard_size = "Select stored card must not be more than 50 characters in length";
+ 	const hppRequest_hppSelectStoredCard_pattern = "Select stored card must only contain the characters a-z A-Z/0-9 _ spaces";
 }
