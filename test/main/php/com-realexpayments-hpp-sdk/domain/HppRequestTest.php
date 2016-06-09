@@ -19,6 +19,7 @@ class HppRequestTest extends \PHPUnit_Framework_TestCase
     const CURRENCY = "EUR";
     const PAYER_REFERENCE = "newpayer1";
     const PAYMENT_REFERENCE = "mycard1";
+    const SELECTED_STORED_CARD =  "newpayer1";
 
     public function  testHash()
     {
@@ -29,15 +30,45 @@ class HppRequestTest extends \PHPUnit_Framework_TestCase
         $hppRequest->setAmount(self::AMOUNT);
         $hppRequest->setCurrency(self::CURRENCY);
 
-        $expectedHash = "cc72c08e529b3bc153481eda9533b815cef29de3";
+        $expectedHash = "e96eed4869a6d682e8fdbb88703ed81faa58f4df";
         $actualHash = $hppRequest->hash("mysecret")->getHash();
 
         $this->assertEquals($expectedHash, $actualHash,"Card storage hash does not match expected.");
     }
 
-    /*
-     * TODO: Next iteration: cardStoreHashTest
-     */
+    
+    public function  testHashHppSelectedCard()
+    {
+        $hppRequest = new HppRequest();
+        $hppRequest = $hppRequest->addTimeStamp(self::TIMESTAMP)
+        ->addMerchantId(self::MERCHANT_ID)
+        ->addOrderId(self::ORDER_ID)
+        ->addAmount(self::AMOUNT)
+        ->addCurrency(self::CURRENCY)
+        ->addHppSelectedStoredCard(self::SELECTED_STORED_CARD);
+
+        $expectedHash = "099b6ef236391d8bdc642488fc5e9c54ac31cd80";
+        $actualHash = $hppRequest->hash("mysecret")->getHash();
+
+        $this->assertEquals($expectedHash, $actualHash,"Card storage hash does not match expected.");
+    }
+    
+    public function  testHashHppSelectedCardAndPaymentReference()
+    {
+        $hppRequest = new HppRequest();
+        $hppRequest = $hppRequest->addTimeStamp(self::TIMESTAMP)
+        ->addMerchantId(self::MERCHANT_ID)
+        ->addOrderId(self::ORDER_ID)
+        ->addAmount(self::AMOUNT)
+        ->addCurrency(self::CURRENCY)
+        ->addHppSelectedStoredCard(self::SELECTED_STORED_CARD)
+        ->addPaymentReference(self::PAYMENT_REFERENCE);
+
+        $expectedHash = "4106afc4666c6145b623089b1ad4098846badba2";
+        $actualHash = $hppRequest->hash("mysecret")->getHash();
+
+        $this->assertEquals($expectedHash, $actualHash,"Card storage hash does not match expected.");
+    }
 
 }
 

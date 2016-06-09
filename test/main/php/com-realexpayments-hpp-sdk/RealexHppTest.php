@@ -150,4 +150,6 @@ class RealexHppTest extends \PHPUnit_Framework_TestCase
         SampleJsonData::checkValidHppResponse($hppResponseExpected, $hppResponseConverted, $this);
         SampleJsonData::checkValidHppResponseSupplementaryData($hppResponseConverted, $this);
     }
+
+    
 }

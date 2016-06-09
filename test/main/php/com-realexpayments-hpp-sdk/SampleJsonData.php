@@ -32,6 +32,14 @@ class SampleJsonData
     const VALID_HPP_REQUEST_HPP_VERSION_JSON_PATH = "/sample-json/hpp-request-hpp-version-valid.json";
     const INVALID_HPP_REQUEST_HPP_VERSION_JSON_PATH = "/sample-json/hpp-request-hpp-version-fail.json";
     const VALID_HPP_REQUEST_HPP_VERSION_JSON_PATH2 = "/sample-json/hpp-request-hpp-version-fail2.json";
+    const VALID_HPP_REQUEST_HPP_POST_DIMENSIONS_JSON_PATH = "/sample-json/hpp-request-post-dimensions-valid.json";
+    const INVALID_SIZE_HPP_REQUEST_HPP_POST_DIMENSIONS_JSON_PATH = "/sample-json/hpp-request-post-dimensions-invalid-size.json";
+    const INVALID_PATTERN_HPP_REQUEST_HPP_POST_DIMENSIONS_JSON_PATH = "/sample-json/hpp-request-post-dimensions-invalid-pattern.json";
+    const VALID_HPP_REQUEST_HPP_POST_RESPONSE_JSON_PATH = "/sample-json/hpp-request-post-response-valid.json";
+    const INVALID_HPP_REQUEST_HPP_POST_RESPONSE_JSON_PATH = "/sample-json/hpp-request-post-response-invalid-size.json";
+    const INVALID_HPP_REQUEST_HPP_POST_BOTH_JSON_PATH = "/sample-json/hpp-request-post-both-invalid-both.json";
+    const VALID_HPP_REQUEST_HPP_POST_BOTH_JSON_PATH = "/sample-json/hpp-request-post-both-valid-both.json";
+
     //valid JSON constants
     const SECRET = "mysecret";
     const ACCOUNT = "myAccount";
@@ -96,12 +104,13 @@ class SampleJsonData
     const UNKNOWN_FOUR_VALUE = "Unknown value 4";
     private static $SUPPLEMENTARY_DATA;
 
+    const POST_DIMENSIONS = "{\"iframe\":{\"height\":\"544px\",\"width\":\"768px\"}}";
+
     const AVS_ADDRESS = "M";
     const AVS_POSTCODE = "P";
 
     const HPP_VERSION = "1";
     const HPP_SELECT_STORED_CARD = "PayerRef";
-
 
     /**
      * Generates {@link HppRequest} object.
@@ -159,6 +168,8 @@ class SampleJsonData
             ->addHppSelectedStoredCard(self::HPP_SELECT_STORED_CARD);
 
 
+        $hppRequest->setTimeStamp(self::TIMESTAMP);
+        $hppRequest->setHash(self::HASH_REQUEST);
 
         if ($cardStorage) {
             $hppRequest->setCardStorageEnable(Flag::TRUE);
@@ -203,6 +214,7 @@ class SampleJsonData
 
         return $data;
     }
+
 
 
     /**
@@ -396,6 +408,32 @@ class SampleJsonData
         $testCase->assertEquals(sizeof(self::$SUPPLEMENTARY_DATA),
             sizeof($supplementaryData), "Json conversion incorrect size");
     }
+
+
+
+    /**
+     * Checks request post dimensions matches expected values.
+     *
+     * @param HppRequest $hppRequestConverted
+     * @param PHPUnit_Framework_TestCase $testCase
+     */
+    public static function checkValidHppRequestPostDimensions(HppRequest $hppRequestConverted, PHPUnit_Framework_TestCase $testCase){
+
+        $postDimensions = $hppRequestConverted->getPostDimensions();
+
+        $testCase->assertEquals(self::POST_DIMENSIONS, $postDimensions, "Json conversion incorrect ");
+        $testCase->assertEquals(sizeof(self::POST_DIMENSIONS), sizeof($postDimensions), "Json conversion incorrect size");
+
+        $hppRequestConverted = $hppRequestConverted->encode(RealexHpp::ENCODING_CHARSET);
+        $hppRequestConverted = $hppRequestConverted->decode(RealexHpp::ENCODING_CHARSET);
+
+        $postDimensions = $hppRequestConverted->getPostDimensions();
+        $testCase->assertEquals(self::POST_DIMENSIONS, $postDimensions, "Json conversion incorrect ");
+
+
+    }
+
+
 
 
 }

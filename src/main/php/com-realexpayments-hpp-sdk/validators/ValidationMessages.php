@@ -94,4 +94,11 @@ class ValidationMessages {
 
  	const hppRequest_hppSelectStoredCard_size = "Select stored card must not be more than 50 characters in length";
  	const hppRequest_hppSelectStoredCard_pattern = "Select stored card must only contain the characters a-z A-Z/0-9 _ spaces";
+
+	const hppRequest_postDimensions_size = "Post Dimensions must be less than 255 characters in length";
+	const hppRequest_postDimensions_pattern =  "Post Dimensions must only contain the characters a-z A-Z 0-9 ' \", + \\u201C\\u201D ._ - & \\ / @ ! ? % ( ) * : £ $ & \\u20AC # [ ] | = ; ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷ø¤ùúûüýþÿ\\u0152\\u017D\\u0161\\u0153\\u017E\\u0178¥";
+
+	const hppRequest_postResponse_size = "Post Response must be less than 255 characters in length";
+	const hppRequest_postResponse_pattern =  "Post Dimensions must only contain the characters a-z A-Z 0-9 ' \", + \\u201C\\u201D ._ - & \\ / @ ! ? % ( ) * : £ $ & \\u20AC # [ ] | = ; ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷ø¤ùúûüýþÿ\\u0152\\u017D\\u0161\\u0153\\u017E\\u0178¥";
+
 }

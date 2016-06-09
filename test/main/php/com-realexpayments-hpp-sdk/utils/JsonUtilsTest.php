@@ -196,51 +196,7 @@ class JsonUtilsTest extends \PHPUnit_Framework_TestCase {
 
 	}
 
-	/**
-	 * Test converting {@link HppRequest} to JSON.
-	 * Testing import from json, validate errors
-	 */
-	public function testToJsonHppRequestWithHppVersionFail() {
-
-		$path   = SampleJsonData::INVALID_HPP_REQUEST_HPP_VERSION_JSON_PATH;
-		$prefix = __DIR__ . '/../../../resources';
-		$json   = file_get_contents( $prefix . $path );
-
-
-		$hppRequestConverted = JsonUtils::fromJsonHppRequest( $json );
-
-		try {
-			ValidationUtils::validate( $hppRequestConverted );
-			$this->fail( "This HppRequest should have validation errors." );
-		} catch ( RealexValidationException $e ) {
-			$validationMessages = $e->getValidationMessages();
-			$this->assertEquals( ValidationMessages::hppRequest_hppVersion_pattern, $validationMessages[0] );
-			$this->assertEquals( ValidationMessages::hppRequest_hppSelectStoredCard_size, $validationMessages[1] );
-		}
-	}
-
-	/**
-	 * Test converting {@link HppRequest} to JSON.
-	 * Testing import from json, NO Hpp_version => so you are not allow to put the hpp selected stored card
-	 */
-	public function testToJsonHppRequestWithHppVersion2() {
-
-		$path   = SampleJsonData::VALID_HPP_REQUEST_HPP_VERSION_JSON_PATH2;
-		$prefix = __DIR__ . '/../../../resources';
-		$json   = file_get_contents( $prefix . $path );
-
-
-		$hppRequestConverted = JsonUtils::fromJsonHppRequest( $json );
-
-		try {
-			ValidationUtils::validate( $hppRequestConverted );
-		} catch ( RealexValidationException $e ) {
-			$this->fail( "This HppRequest should not have validation errors." );
-		}
-
-		$this->assertEmpty( $hppRequestConverted->getHppVersion());
-		$this->assertEmpty( $hppRequestConverted->getHppSelectedStoredCard());
-	}
+	
 
 
 }
