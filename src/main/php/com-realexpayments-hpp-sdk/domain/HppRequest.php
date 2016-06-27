@@ -278,6 +278,48 @@ class HppRequest {
 	private $dccEnable;
 
 	/**
+	 * @var As per the commit reference, can only have the value 1 or 2. Passing 2 enables the new skin for the HPP.
+	 * It also allows HPP_SELECT_STORED_CARD to be sent.
+	 *
+	 * @Assert\Length(min = 0, max = 1, maxMessage = ValidationMessages::hppRequest_hppVersion_size)
+	 * @Assert\Regex(pattern="/^[1-2]*$/", message=ValidationMessages::hppRequest_hppVersion_pattern )
+	 */
+	private $hppVersion;
+
+	/**
+	 * @var As per the commit reference, must contain the Payer reference of the customer whose cards the merchant wishes
+	 * to display on the HPP. If sent correctly, all of the customer’s saved cards will be displayed and they can choose
+	 * which one they wish to complete the payment with.
+	 *
+	 * @Assert\Length(min = 0, max = 50, maxMessage = ValidationMessages::hppRequest_hppSelectStoredCard_size)
+	 * @Assert\Regex(pattern="/^[A-Za-z0-9\_\-\\ ]*$/", message=ValidationMessages::hppRequest_hppSelectStoredCard_pattern )
+	 */
+	private $hppSelectedStoredCard;
+
+	/**
+	 * @var string This field should contain the domain of the page hosting the iFrame calling HPP. If sent correctly,
+	 * every time the height or width of the card form changes (e.g. an error message appears),
+	 * the HPP will send this back as a JSON string to the parent iFrame.
+	 * This is to facilitate developers who wish to resize their iFrame accordingly on increases or decreases of the HPP form’s size.
+	 * @Assert\Length(min = 0, max = 255, maxMessage = ValidationMessages::hppRequest_postDimensions_size, charset="ISO-8859-1")
+	 * @Assert\Regex(pattern="/^[\s \x{0020}-\x{003B} \x{003D} \x{003F}-\x{007E} \x{00A1}-\x{00FF}\x{20AC}\x{201A}\x{0192}\x{201E}\x{2026}\x{2020}\x{2021}\x{02C6}\x{2030}\x{0160}\x{2039}\x{0152}\x{017D}\x{2018}\x{2019}\x{201C}\x{201D}\x{2022}\x{2013}\x{2014}\x{02DC}\x{2122}\x{0161}\x{203A}\x{0153}\x{017E}\x{0178}]*$/iu", message=ValidationMessages::hppRequest_postDimensions_pattern )
+
+	 */
+	private $postDimensions ;
+
+	/**
+	 * @var string This field should contain the domain of the page hosting the iFrame calling HPP. If sent correctly,
+	 * every time the height or width of the card form changes (e.g. an error message appears),
+	 * the HPP will send this back as a JSON string to the parent iFrame.
+	 * This is to facilitate developers who wish to resize their iFrame accordingly on increases or decreases of the HPP form’s size.
+	 *
+	 * @Assert\Length(min = 0, max = 255, maxMessage = ValidationMessages::hppRequest_postResponse_size, charset="ISO-8859-1")
+	 * @Assert\Regex(pattern="/^[\s \x{0020}-\x{003B} \x{003D} \x{003F}-\x{007E} \x{00A1}-\x{00FF}\x{20AC}\x{201A}\x{0192}\x{201E}\x{2026}\x{2020}\x{2021}\x{02C6}\x{2030}\x{0160}\x{2039}\x{0152}\x{017D}\x{2018}\x{2019}\x{201C}\x{201D}\x{2022}\x{2013}\x{2014}\x{02DC}\x{2122}\x{0161}\x{203A}\x{0153}\x{017E}\x{0178}]*$/iu", message=ValidationMessages::hppRequest_postResponse_pattern )
+	 */
+
+	private $postResponse;
+
+	/**
 	 * Getter for merchantId
 	 *
 	 * @return String
@@ -1201,6 +1243,151 @@ class HppRequest {
 		return $this;
 	}
 
+	/**
+	 * Helper method for adding the Hpp Version
+	 *
+	 * @param string $hppVersion
+	 *
+	 * @return HppRequest
+	 */
+	public function addHppVersion( $hppVersion ){
+		if ( is_bool( $hppVersion ) ) {
+			$this->cardStorageEnable = $hppVersion ? Flag::TRUE : Flag::FALSE;
+		} else {
+			$this->hppVersion = $hppVersion;
+		}
+
+
+		return $this;
+	}
+
+	/**
+	 * Helper method for setting the Hpp Version
+	 *
+	 * @param string $hppVersion
+	 *
+	 * @return void
+	 */
+	public function setHppVersion( $hppVersion ){
+		$this->hppVersion = $hppVersion;
+
+	}
+
+	/**
+	 * Helper method for adding the Hpp Version
+	 *
+	 * @return hppVersion
+	 */
+	public function getHppVersion(){
+		return $this->hppVersion ;
+
+	}
+
+	/**
+	 * Helper method for adding the Hpp Selected Stored Card
+	 *
+	 * @param string $hppSelectedStoredCard
+	 *
+	 * @return HppRequest
+	 */
+	public function addHppSelectedStoredCard( $hppSelectedStoredCard ){
+		$this->hppSelectedStoredCard = $hppSelectedStoredCard;
+
+		return $this;
+	}
+
+	/**
+	 * Helper method for setting the Hpp Selected Stored Card
+	 *
+	 * @param string $hppSelectedStoredCard
+	 *
+	 * @return void
+	 */
+	public function setHppSelectedStoredCard( $hppSelectedStoredCard ){
+		$this->hppSelectedStoredCard = $hppSelectedStoredCard;
+	}
+
+	/**
+	 * Helper method for adding the Hpp Selected Stored Card
+	 *
+	 * @return hppSelectedStoredCard
+	 */
+	public function getHppSelectedStoredCard( ){
+		return $this->hppSelectedStoredCard ;
+
+	}
+
+	/**
+	 * Helper method for adding the Hpp Post Dimension
+	 *
+	 * @param string $postDimensions
+	 *
+	 * @return HppRequest
+	 */
+	public function addPostDimensions( $postDimensions ){
+		$this->postDimensions = $postDimensions;
+
+		return $this;
+	}
+
+	/**
+	 * Helper method for setting the Hpp Post Dimension
+	 *
+	 * @param string $postDimensions
+	 *
+	 * @return void
+	 */
+	public function setPostDimensions( $postDimensions ){
+		$this->postDimensions = $postDimensions;
+
+	}
+
+	/**
+	 * Helper method for adding the Hpp Post Dimension
+	 *
+	 * @return postDimensions
+	 */
+	public function getPostDimensions( ){
+		return $this->postDimensions ;
+
+	}
+
+	/**
+	 * Helper method for adding the Hpp Post Dimension
+	 *
+	 * @param string $postResponse
+	 *
+	 * @return HppRequest
+	 */
+	public function addPostResponse(  $postResponse ){
+		$this->postResponse = $postResponse;
+
+		return $this;
+	}
+
+	/**
+	 * Helper method for setting the Hpp Post Dimension
+	 *
+	 * @param string $postResponse
+	 *
+	 * @return void
+	 */
+	public function setPostResponse( $postResponse ){
+		$this->postResponse = $postResponse;
+
+	}
+
+	/**
+	 * Helper method for adding the Hpp Post Dimension
+	 *
+	 * @return postDimensions
+	 */
+	public function getPostResponse(){
+		return $this->postResponse ;
+
+	}
+
+
 
 	/**
 	 * Generates default values for fields such as hash, timestamp and order ID.
@@ -1244,34 +1431,66 @@ class HppRequest {
 		$currency         = null == $this->currency ? "" : $this->currency;
 		$payerReference   = null == $this->payerReference ? "" : $this->payerReference;
 		$paymentReference = null == $this->paymentReference ? "" : $this->paymentReference;
+		$hppSelectedStoredCard = null == $this->hppSelectedStoredCard ? "" : $this->hppSelectedStoredCard;
 
 		//create String to hash
+
+		$payRefORStoredCard =  empty($hppSelectedStoredCard) ?  $payerReference : $hppSelectedStoredCard;
 
 
 		if ( $this->cardStorageEnable ) {
 			$toHash = $timeStamp
-			          . "."
-			          . $merchantId
-			          . "."
-			          . $orderId
-			          . "."
-			          . $amount
-			          . "."
-			          . $currency
-			          . "."
-			          . $payerReference
-			          . "."
-			          . $paymentReference;
-		} else {
+				. "."
+				. $merchantId
+				. "."
+				. $orderId
+				. "."
+				. $amount
+				. "."
+				. $currency
+				. "."
+				. $payerReference
+				. "."
+				. $paymentReference;
+		} else	if ($payRefORStoredCard && empty($paymentReference) ) {
 			$toHash = $timeStamp
-			          . "."
-			          . $merchantId
-			          . "."
-			          . $orderId
-			          . "."
-			          . $amount
-			          . "."
-			          . $currency;
+			. "."
+			. $merchantId
+			. "."
+			. $orderId
+			. "."
+			. $amount
+			. "."
+			. $currency
+			. "."
+			. $payRefORStoredCard
+			. ".";
+
+		} else	if ( $payRefORStoredCard && !empty($paymentReference) ) {
+			$toHash = $timeStamp
+			. "."
+			. $merchantId
+			. "."
+			. $orderId
+			. "."
+			. $amount
+			. "."
+			. $currency
+			. "."
+			. $payRefORStoredCard
+			. "."
+			. $paymentReference;
+
+		}else {
+			$toHash = $timeStamp
+				. "."
+				. $merchantId
+				. "."
+				. $orderId
+				. "."
+				. $amount
+				. "."
+				. $currency;
 		}
 
 		$this->hash = GenerationUtils::generateHash( $toHash, $secret );
@@ -1279,6 +1498,7 @@ class HppRequest {
 		return $this;
 
 	}
+
 
 	/**
 	 * Base64 encodes all Hpp Request values.
@@ -1313,14 +1533,21 @@ class HppRequest {
 		$this->shippingCountry       = base64_encode( $this->shippingCountry );
 		$this->timeStamp             = base64_encode( $this->timeStamp );
 		$this->variableReference     = base64_encode( $this->variableReference );
+		$this->validateCardOnly 	 = base64_encode( $this->validateCardOnly );
+		$this->dccEnable         	 = base64_encode( $this->dccEnable );
+		$this->hppVersion     		 = base64_encode( $this->hppVersion );
+		$this->hppSelectedStoredCard    = base64_encode( $this->hppSelectedStoredCard );
+		$this->postResponse   		 = base64_encode( $this->postResponse );
+		$this->postDimensions   	 = base64_encode( $this->postDimensions );
 
 		if ( is_array( $this->supplementaryData ) ) {
 			foreach ( $this->supplementaryData as $key => $value ) {
 				$this->supplementaryData[ $key ] = base64_encode( $value );
 			}
 		}
-		$this->validateCardOnly = base64_encode( $this->validateCardOnly );
-		$this->dccEnable        = base64_encode( $this->dccEnable );
+
+
+
 
 		return $this;
 	}
@@ -1358,13 +1585,21 @@ class HppRequest {
 		$this->shippingCountry       = base64_decode( $this->shippingCountry );
 		$this->timeStamp             = base64_decode( $this->timeStamp );
 		$this->variableReference     = base64_decode( $this->variableReference );
+		$this->validateCardOnly      = base64_decode( $this->validateCardOnly );
+		$this->dccEnable       		 = base64_decode( $this->dccEnable );
+		$this->hppVersion     		 = base64_decode( $this->hppVersion );
+		$this->hppSelectedStoredCard   	= base64_decode( $this->hppSelectedStoredCard );
+		$this->postResponse   		= base64_decode( $this->postResponse );
+		$this->postDimensions   	= base64_decode( $this->postDimensions );
+
+
 		if ( is_array( $this->supplementaryData ) ) {
 			foreach ( $this->supplementaryData as $key => $value ) {
 				$this->supplementaryData[ $key ] = base64_decode( $value );
 			}
 		}
-		$this->validateCardOnly = base64_decode( $this->validateCardOnly );
-		$this->dccEnable        = base64_decode( $this->dccEnable );
+
+
 
 		return $this;
 	}

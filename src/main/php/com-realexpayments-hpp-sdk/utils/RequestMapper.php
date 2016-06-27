@@ -35,7 +35,11 @@ class RequestMapper implements iMapper {
 		'PMT_REF',
 		'PAYER_EXIST',
 		'VALIDATE_CARD_ONLY',
-		'DCC_ENABLE'
+		'DCC_ENABLE',
+		'HPP_VERSION',
+		'HPP_SELECT_STORED_CARD',
+		'HPP_POST_DIMENSIONS',
+		'HPP_POST_RESPONSE',
 	);
 
 	/**
@@ -85,6 +89,18 @@ class RequestMapper implements iMapper {
 			}
 		}
 
+		if($hppRequest->getHppVersion() != null)
+			$prop['HPP_VERSION'] = $hppRequest->getHppVersion();
+
+		if($hppRequest->getHppSelectedStoredCard() != null)
+			$prop['HPP_SELECT_STORED_CARD'] = $hppRequest->getHppSelectedStoredCard();
+
+		if($hppRequest->getPostDimensions() != null)
+			$prop['HPP_POST_DIMENSIONS'] = $hppRequest->getPostDimensions();
+
+		if($hppRequest->getPostResponse() != null)
+			$prop['HPP_POST_RESPONSE'] = $hppRequest->getPostResponse();
+
 		return json_encode( $prop );
 	}
 
@@ -132,6 +148,10 @@ class RequestMapper implements iMapper {
 			$hppRequest->setPayerReference( $array['PAYER_REF'] );
 			$hppRequest->setPaymentReference( $array['PMT_REF'] );
 			$hppRequest->setPayerExists( $array['PAYER_EXIST'] );
+			$hppRequest->setHppVersion( $array['HPP_VERSION'] );
+			$hppRequest->setHppSelectedStoredCard( $array['HPP_SELECT_STORED_CARD'] );
+			$hppRequest->setPostDimensions( $array['HPP_POST_DIMENSIONS'] );
+			$hppRequest->setPostResponse( $array['HPP_POST_RESPONSE'] );
 
 			$supplementaryData = array();
 
@@ -144,6 +164,7 @@ class RequestMapper implements iMapper {
 
 			$hppRequest->setSupplementaryData( $supplementaryData );
 
+
 			return $hppRequest;
 		}
 
@@ -153,5 +174,6 @@ class RequestMapper implements iMapper {
 	private function isKnownProperty( $key ) {
 		return in_array( strtoupper( $key ), self::$KNOWN_FIELDS );
 	}
+
 
 }
