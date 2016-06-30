@@ -82,7 +82,39 @@ use com\realexpayments\hpp\sdk\RealexHpp;
 $realexHpp = new RealexHpp( "mySecret" );
 $hppResponse = $realexHpp->responseFromJson( responseJson );
 ```
-
+### HPP Version and HPP Selected Stored Card
+```php
+$hppRequest = new HppRequest();
+$hppRequest
+	        ->addAmount("1001")
+	        ->addCurrency("EUR")
+	        ->addAccount("accountId")
+	        ->addMerchantId("merchantId")
+	        ->addAutoSettleFlag("1")
+			->addPayerExists("1")
+			->addPayerReference("payerRef")
+			->addHppSelectedStoredCard("storedCardRef");
+			
+$realexHpp = new RealexHpp("secret");
+$requestJson = $realexHpp->requestToJson($hppRequest);
+```
+### HPP Post Dimension and  HPP Post Response
+```php
+$hppRequest = new HppRequest();
+$hppRequest
+	        ->addAmount("1001")
+	        ->addCurrency("EUR")
+	        ->addAccount("accountId")
+	        ->addMerchantId("merchantId")
+	        ->addAutoSettleFlag("1")
+			->addPayerExists("payerRef")
+			->addPayerReference("payerRef")
+			->addPostDimensions("{\"iframe\":{\"height\":\"544px\",\"width\":\"768px\"}}")
+			->addPostResponse("{ DCCCOMMISSIONPERCENTAGE: \"MA==\", BATCHID: \"MjAyNzc2\"}");
+			
+$realexHpp = new RealexHpp("secret");
+$requestJson = $realexHpp->requestToJson($hppRequest);
+```
 ## License
 
 See the LICENSE file.
