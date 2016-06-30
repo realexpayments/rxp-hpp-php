@@ -25,6 +25,44 @@ use Symfony\Component\Validator\Constraints as Assert;
  * </pre></code>
  * </p>
  *
+ * <p>
+ * HPP Version and HPP Selected Stored Card
+ * </p>
+ * <p>
+ * Example usage:
+ * <code><pre>
+ * $hppRequest = new HppRequest();
+ * $hppRequest
+ *   ->addAmount("1001")
+ *   ->addCurrency("EUR")
+ *   ->addAccount("accountId")
+ *   ->addMerchantId("merchantId")
+ *   ->addAutoSettleFlag("1")
+ *   ->addPayerExists("1")
+ *   ->addPayerReference("payerRef")
+ *   ->addHppSelectedStoredCard("storedCardRef");
+ * </pre></code>
+ * </p>
+ *
+ * <p>
+ * HPP Post Dimension and  HPP Post Response
+ * </p>
+ * <p>
+ * Example usage:
+ * <code><pre>
+ * $hppRequest = new HppRequest();
+ * $hppRequest
+ *   ->addAmount("1001")
+ *   ->addCurrency("EUR")
+ *   ->addAccount("accountId")
+ *   ->addMerchantId("merchantId")
+ *   ->addAutoSettleFlag("1")
+ *   ->addPayerExists("payerRef")
+ *   ->addPayerReference("payerRef")
+ *   ->addPostDimensions("{\"iframe\":{\"height\":\"544px\",\"width\":\"768px\"}}")
+ *   ->addPostResponse("{ DCCCOMMISSIONPERCENTAGE: \"MA==\", BATCHID: \"MjAyNzc2\"}");
+ * </pre></code>
+ * </p>
  * @author vicpada
  * @AssertHPP\OtbAmount
  * @AssertHPP\SupplementaryDataLength
