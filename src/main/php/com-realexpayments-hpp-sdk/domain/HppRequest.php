@@ -59,8 +59,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *   ->addAutoSettleFlag("1")
  *   ->addPayerExists("payerRef")
  *   ->addPayerReference("payerRef")
- *   ->addPostDimensions("{\"iframe\":{\"height\":\"544px\",\"width\":\"768px\"}}")
- *   ->addPostResponse("{ DCCCOMMISSIONPERCENTAGE: \"MA==\", BATCHID: \"MjAyNzc2\"}");
+ *   ->addPostDimensions("https://www.example.com")
+ *   ->addPostResponse("https://www.example.com");
  * </pre></code>
  * </p>
  * @author vicpada
@@ -71,7 +71,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class HppRequest {
 
 	/**
-	 * @var String The merchant ID supplied by Realex Payments – note this is not the merchant number
+	 * @var String The merchant or client ID supplied by Realex Payments – note this is not the merchant number
 	 * supplied by your bank.
 	 *
 	 * @Assert\Length(min = 1, max = 50, minMessage = ValidationMessages::hppRequest_merchantId_size, maxMessage = ValidationMessages::hppRequest_merchantId_size)
@@ -299,7 +299,7 @@ class HppRequest {
 	private $supplementaryData = array();
 
 	/**
-	 * @var String Used to identify an OTB transaction.
+	 * @var string Used to identify an OTB transaction.
 	 *
 	 * @Assert\Length(min = 0, max = 1, maxMessage = ValidationMessages::hppRequest_validateCardOnly_size)
 	 * @Assert\Regex(pattern="/^[01]*$/", message=ValidationMessages::hppRequest_validateCardOnly_pattern )
@@ -307,7 +307,7 @@ class HppRequest {
 	private $validateCardOnly;
 
 	/**
-	 * @var String Transaction level configuration to enable/disable a DCC request.
+	 * @var string Transaction level configuration to enable/disable a DCC request.
 	 * (Only if the merchant is configured).
 	 *
 	 * @Assert\Length(min = 0, max = 1, maxMessage = ValidationMessages::hppRequest_dccEnable_size)
@@ -316,7 +316,7 @@ class HppRequest {
 	private $dccEnable;
 
 	/**
-	 * @var As per the commit reference, can only have the value 1 or 2. Passing 2 enables the new skin for the HPP.
+	 * @var string Can only have the value 1 or 2. Passing 2 enables the new skin for the HPP.
 	 * It also allows HPP_SELECT_STORED_CARD to be sent.
 	 *
 	 * @Assert\Length(min = 0, max = 1, maxMessage = ValidationMessages::hppRequest_hppVersion_size)
@@ -325,7 +325,7 @@ class HppRequest {
 	private $hppVersion;
 
 	/**
-	 * @var As per the commit reference, must contain the Payer reference of the customer whose cards the merchant wishes
+	 * @var string Must contain the Payer reference of the customer whose cards the merchant wishes
 	 * to display on the HPP. If sent correctly, all of the customer’s saved cards will be displayed and they can choose
 	 * which one they wish to complete the payment with.
 	 *
@@ -336,7 +336,7 @@ class HppRequest {
 
 	/**
 	 * @var string This field should contain the domain of the page hosting the iFrame calling HPP. If sent correctly,
-	 * every time the height or width of the card form changes (e.g. an error message appears),
+	 * every time the height or width of the card form changes (e.g. an error message is displayed),
 	 * the HPP will send this back as a JSON string to the parent iFrame.
 	 * This is to facilitate developers who wish to resize their iFrame accordingly on increases or decreases of the HPP form’s size.
 	 * @Assert\Length(min = 0, max = 255, maxMessage = ValidationMessages::hppRequest_postDimensions_size, charset="ISO-8859-1")
@@ -347,9 +347,10 @@ class HppRequest {
 
 	/**
 	 * @var string This field should contain the domain of the page hosting the iFrame calling HPP. If sent correctly,
-	 * every time the height or width of the card form changes (e.g. an error message appears),
-	 * the HPP will send this back as a JSON string to the parent iFrame.
-	 * This is to facilitate developers who wish to resize their iFrame accordingly on increases or decreases of the HPP form’s size.
+	 * when the transaction is complete the HPP will send the response as a
+	 * Base64 encoded JSON string to the parent iFrame.
+	 * This is to facilitate developers who wish to not have to rely on a Response URL
+	 * to accept the transaction response and would prefer to have the parent iFrame capture it
 	 *
 	 * @Assert\Length(min = 0, max = 255, maxMessage = ValidationMessages::hppRequest_postResponse_size, charset="ISO-8859-1")
 	 * @Assert\Regex(pattern="/^[\s \x{0020}-\x{003B} \x{003D} \x{003F}-\x{007E} \x{00A1}-\x{00FF}\x{20AC}\x{201A}\x{0192}\x{201E}\x{2026}\x{2020}\x{2021}\x{02C6}\x{2030}\x{0160}\x{2039}\x{0152}\x{017D}\x{2018}\x{2019}\x{201C}\x{201D}\x{2022}\x{2013}\x{2014}\x{02DC}\x{2122}\x{0161}\x{203A}\x{0153}\x{017E}\x{0178}]*$/iu", message=ValidationMessages::hppRequest_postResponse_pattern )
