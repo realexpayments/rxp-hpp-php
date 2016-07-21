@@ -57,7 +57,7 @@ $hppRequest
 	        ->addAutoSettleFlag("1")
 			->addPayerExists("1")
 			->addPayerReference("payerRef")
-			->addHppSelectedStoredCard("storedCardRef");
+			->addHppSelectStoredCard("storedCardRef");
 			
 $realexHpp = new RealexHpp("secret");
 $requestJson = $realexHpp->requestToJson($hppRequest);

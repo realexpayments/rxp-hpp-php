@@ -37,7 +37,7 @@ class HppRequestTest extends \PHPUnit_Framework_TestCase
     }
 
     
-    public function  testHashHppSelectedCard()
+    public function  testHashHppSelectCard()
     {
         $hppRequest = new HppRequest();
         $hppRequest = $hppRequest->addTimeStamp(self::TIMESTAMP)
@@ -45,7 +45,7 @@ class HppRequestTest extends \PHPUnit_Framework_TestCase
         ->addOrderId(self::ORDER_ID)
         ->addAmount(self::AMOUNT)
         ->addCurrency(self::CURRENCY)
-        ->addHppSelectedStoredCard(self::SELECTED_STORED_CARD);
+        ->addHppSelectStoredCard(self::SELECTED_STORED_CARD);
 
         $expectedHash = "099b6ef236391d8bdc642488fc5e9c54ac31cd80";
         $actualHash = $hppRequest->hash("mysecret")->getHash();
@@ -53,7 +53,7 @@ class HppRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedHash, $actualHash,"Card storage hash does not match expected.");
     }
     
-    public function  testHashHppSelectedCardAndPaymentReference()
+    public function  testHashHppSelectCardAndPaymentReference()
     {
         $hppRequest = new HppRequest();
         $hppRequest = $hppRequest->addTimeStamp(self::TIMESTAMP)
@@ -61,7 +61,7 @@ class HppRequestTest extends \PHPUnit_Framework_TestCase
         ->addOrderId(self::ORDER_ID)
         ->addAmount(self::AMOUNT)
         ->addCurrency(self::CURRENCY)
-        ->addHppSelectedStoredCard(self::SELECTED_STORED_CARD)
+        ->addHppSelectStoredCard(self::SELECTED_STORED_CARD)
         ->addPaymentReference(self::PAYMENT_REFERENCE);
 
         $expectedHash = "4106afc4666c6145b623089b1ad4098846badba2";

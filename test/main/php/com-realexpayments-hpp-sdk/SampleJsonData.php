@@ -165,7 +165,7 @@ class SampleJsonData
             ->addValidateCardOnly(self::VALIDATE_CARD_ONLY)
             ->addDccEnable(self::DCC_ENABLE)
             ->addHppVersion(self::HPP_VERSION)
-            ->addHppSelectedStoredCard(self::HPP_SELECT_STORED_CARD);
+            ->addhppSelectStoredCard(self::HPP_SELECT_STORED_CARD);
 
 
         $hppRequest->setTimeStamp(self::TIMESTAMP);
