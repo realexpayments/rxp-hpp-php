@@ -40,7 +40,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *   ->addAutoSettleFlag("1")
  *   ->addPayerExists("1")
  *   ->addPayerReference("payerRef")
- *   ->addHppSelectedStoredCard("storedCardRef");
+ *   ->addHppSelectStoredCard("storedCardRef");
  * </pre></code>
  * </p>
  *
@@ -316,7 +316,7 @@ class HppRequest {
 	private $dccEnable;
 
 	/**
-	 * @var string Can only have the value 1 or 2. Passing 2 enables the new skin for the HPP.
+	 * @var string Used to indicate the SDK version. Can only have the value 1 or 2. Passing 2 enables the new skin for the HPP.
 	 * It also allows HPP_SELECT_STORED_CARD to be sent.
 	 *
 	 * @Assert\Length(min = 0, max = 1, maxMessage = ValidationMessages::hppRequest_hppVersion_size)
@@ -326,13 +326,13 @@ class HppRequest {
 
 	/**
 	 * @var string Must contain the Payer reference of the customer whose cards the merchant wishes
-	 * to display on the HPP. If sent correctly, all of the customer’s saved cards will be displayed and they can choose
+	 * to display on the HPP. If sent correctly, all of the customer's saved cards will be displayed and they can choose
 	 * which one they wish to complete the payment with.
 	 *
 	 * @Assert\Length(min = 0, max = 50, maxMessage = ValidationMessages::hppRequest_hppSelectStoredCard_size)
 	 * @Assert\Regex(pattern="/^[A-Za-z0-9\_\-\\ ]*$/", message=ValidationMessages::hppRequest_hppSelectStoredCard_pattern )
 	 */
-	private $hppSelectedStoredCard;
+	private $hppSelectStoredCard;
 
 	/**
 	 * @var string This field should contain the domain of the page hosting the iFrame calling HPP. If sent correctly,
@@ -1315,7 +1315,7 @@ class HppRequest {
 	/**
 	 * Helper method for adding the Hpp Version
 	 *
-	 * @return hppVersion
+	 * @return string
 	 */
 	public function getHppVersion(){
 		return $this->hppVersion ;
@@ -1325,12 +1325,12 @@ class HppRequest {
 	/**
 	 * Helper method for adding the Hpp Selected Stored Card
 	 *
-	 * @param string $hppSelectedStoredCard
+	 * @param string $hppSelectStoredCard
 	 *
 	 * @return HppRequest
 	 */
-	public function addHppSelectedStoredCard( $hppSelectedStoredCard ){
-		$this->hppSelectedStoredCard = $hppSelectedStoredCard;
+	public function addHppSelectStoredCard( $hppSelectStoredCard ){
+		$this->hppSelectStoredCard = $hppSelectStoredCard;
 
 		return $this;
 	}
@@ -1338,21 +1338,21 @@ class HppRequest {
 	/**
 	 * Helper method for setting the Hpp Selected Stored Card
 	 *
-	 * @param string $hppSelectedStoredCard
+	 * @param string $hppSelectStoredCard
 	 *
 	 * @return void
 	 */
-	public function setHppSelectedStoredCard( $hppSelectedStoredCard ){
-		$this->hppSelectedStoredCard = $hppSelectedStoredCard;
+	public function setHppSelectStoredCard( $hppSelectStoredCard ){
+		$this->hppSelectStoredCard = $hppSelectStoredCard;
 	}
 
 	/**
 	 * Helper method for adding the Hpp Selected Stored Card
 	 *
-	 * @return hppSelectedStoredCard
+	 * @return string
 	 */
-	public function getHppSelectedStoredCard( ){
-		return $this->hppSelectedStoredCard ;
+	public function getHppSelectStoredCard( ){
+		return $this->hppSelectStoredCard ;
 
 	}
 
@@ -1384,7 +1384,7 @@ class HppRequest {
 	/**
 	 * Helper method for adding the Hpp Post Dimension
 	 *
-	 * @return postDimensions
+	 * @return string
 	 */
 	public function getPostDimensions( ){
 		return $this->postDimensions ;
@@ -1419,7 +1419,7 @@ class HppRequest {
 	/**
 	 * Helper method for adding the Hpp Post Dimension
 	 *
-	 * @return postDimensions
+	 * @return string
 	 */
 	public function getPostResponse(){
 		return $this->postResponse ;
@@ -1470,13 +1470,13 @@ class HppRequest {
 		$currency         = null == $this->currency ? "" : $this->currency;
 		$payerReference   = null == $this->payerReference ? "" : $this->payerReference;
 		$paymentReference = null == $this->paymentReference ? "" : $this->paymentReference;
-		$hppSelectedStoredCard = null == $this->hppSelectedStoredCard ? "" : $this->hppSelectedStoredCard;
-
-		//create String to hash
-
-		$payRefORStoredCard =  empty($hppSelectedStoredCard) ?  $payerReference : $hppSelectedStoredCard;
+		$hppSelectStoredCard = null == $this->hppSelectStoredCard ? "" : $this->hppSelectStoredCard;
 
 
+        // Override payerRef with hppSelectStoredCard if present.
+		$payRefORStoredCard =  empty($hppSelectStoredCard) ?  $payerReference : $hppSelectStoredCard;
+
+        //create String to hash
 		if ( $this->cardStorageEnable ) {
 			$toHash = $timeStamp
 				. "."
@@ -1575,7 +1575,7 @@ class HppRequest {
 		$this->validateCardOnly 	 = base64_encode( $this->validateCardOnly );
 		$this->dccEnable         	 = base64_encode( $this->dccEnable );
 		$this->hppVersion     		 = base64_encode( $this->hppVersion );
-		$this->hppSelectedStoredCard    = base64_encode( $this->hppSelectedStoredCard );
+		$this->hppSelectStoredCard    = base64_encode( $this->hppSelectStoredCard );
 		$this->postResponse   		 = base64_encode( $this->postResponse );
 		$this->postDimensions   	 = base64_encode( $this->postDimensions );
 
@@ -1627,7 +1627,7 @@ class HppRequest {
 		$this->validateCardOnly      = base64_decode( $this->validateCardOnly );
 		$this->dccEnable       		 = base64_decode( $this->dccEnable );
 		$this->hppVersion     		 = base64_decode( $this->hppVersion );
-		$this->hppSelectedStoredCard   	= base64_decode( $this->hppSelectedStoredCard );
+		$this->hppSelectStoredCard   	= base64_decode( $this->hppSelectStoredCard );
 		$this->postResponse   		= base64_decode( $this->postResponse );
 		$this->postDimensions   	= base64_decode( $this->postDimensions );
 

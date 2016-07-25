@@ -3,6 +3,7 @@
 
 namespace com\realexpayments\hpp\sdk\utils;
 
+use com\realexpayments\hpp\sdk\domain\HppRequest;
 use com\realexpayments\hpp\sdk\RealexHpp;
 use com\realexpayments\hpp\sdk\RealexValidationException;
 use com\realexpayments\hpp\sdk\SampleJsonData;
@@ -183,16 +184,19 @@ class JsonUtilsTest extends \PHPUnit_Framework_TestCase {
 		$json   = file_get_contents( $prefix . $path );
 
 
+		/**
+		 * @var HppRequest $hppRequestConverted
+		 */
 		$hppRequestConverted = JsonUtils::fromJsonHppRequest( $json );
 
 		$this->assertEquals( SampleJsonData::HPP_VERSION, $hppRequestConverted->getHppVersion() );
-		$this->assertEquals( SampleJsonData::HPP_SELECT_STORED_CARD, $hppRequestConverted->getHppSelectedStoredCard() );
+		$this->assertEquals( SampleJsonData::HPP_SELECT_STORED_CARD, $hppRequestConverted->getHppSelectStoredCard() );
 
 		$hppRequestConverted = $hppRequestConverted->encode(RealexHpp::ENCODING_CHARSET);
 		$hppRequestConverted = $hppRequestConverted->decode(RealexHpp::ENCODING_CHARSET);
 
 		$this->assertEquals( SampleJsonData::HPP_VERSION, $hppRequestConverted->getHppVersion() );
-		$this->assertEquals( SampleJsonData::HPP_SELECT_STORED_CARD, $hppRequestConverted->getHppSelectedStoredCard() );
+		$this->assertEquals( SampleJsonData::HPP_SELECT_STORED_CARD, $hppRequestConverted->getHppSelectStoredCard() );
 
 	}
 

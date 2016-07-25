@@ -92,8 +92,8 @@ class RequestMapper implements iMapper {
 		if($hppRequest->getHppVersion() != null)
 			$prop['HPP_VERSION'] = $hppRequest->getHppVersion();
 
-		if($hppRequest->getHppSelectedStoredCard() != null)
-			$prop['HPP_SELECT_STORED_CARD'] = $hppRequest->getHppSelectedStoredCard();
+		if($hppRequest->getHppSelectStoredCard() != null)
+			$prop['HPP_SELECT_STORED_CARD'] = $hppRequest->getHppSelectStoredCard();
 
 		if($hppRequest->getPostDimensions() != null)
 			$prop['HPP_POST_DIMENSIONS'] = $hppRequest->getPostDimensions();
@@ -149,7 +149,7 @@ class RequestMapper implements iMapper {
 			$hppRequest->setPaymentReference( $array['PMT_REF'] );
 			$hppRequest->setPayerExists( $array['PAYER_EXIST'] );
 			$hppRequest->setHppVersion( $array['HPP_VERSION'] );
-			$hppRequest->setHppSelectedStoredCard( $array['HPP_SELECT_STORED_CARD'] );
+			$hppRequest->setHppSelectStoredCard( $array['HPP_SELECT_STORED_CARD'] );
 			$hppRequest->setPostDimensions( $array['HPP_POST_DIMENSIONS'] );
 			$hppRequest->setPostResponse( $array['HPP_POST_RESPONSE'] );
 

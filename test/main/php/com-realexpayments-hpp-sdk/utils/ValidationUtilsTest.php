@@ -1980,12 +1980,12 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * Test HPP Version
 	 */
-	public function testHppSelectedStoredCard() {
+	public function testHppSelectStoredCard() {
 
 		$hppRequest = SampleJsonData::generateValidHppRequest( false );
 		$hppRequest->generateDefaults( SampleJsonData::SECRET );
 
-		$hppRequest->setHppSelectedStoredCard("payerref123");
+		$hppRequest->setHppSelectStoredCard("payerref123");
 
 		try {
 			ValidationUtils::validate( $hppRequest );
@@ -1993,7 +1993,7 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 			$this->fail( "This HppRequest should not have validation errors." );
 		}
 
-		$hppRequest->setHppSelectedStoredCard(str_repeat('a',50));
+		$hppRequest->setHppSelectStoredCard(str_repeat('a',50));
 
 		try {
 			ValidationUtils::validate( $hppRequest );
@@ -2002,7 +2002,7 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 		}
 
 
-		$hppRequest->setHppSelectedStoredCard(str_repeat('a',51));
+		$hppRequest->setHppSelectStoredCard(str_repeat('a',51));
 
 		try {
 			ValidationUtils::validate( $hppRequest );
@@ -2012,7 +2012,7 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 			$this->assertEquals( ValidationMessages::hppRequest_hppSelectStoredCard_size, $validationMessages[0] );
 		}
 
-		$hppRequest->setHppSelectedStoredCard("!!!");
+		$hppRequest->setHppSelectStoredCard("!!!");
 
 		try {
 			ValidationUtils::validate( $hppRequest );
@@ -2066,7 +2066,7 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 		}
 
 		$this->assertEmpty( $hppRequestConverted->getHppVersion());
-		$this->assertNotEmpty( $hppRequestConverted->getHppSelectedStoredCard());
+		$this->assertNotEmpty( $hppRequestConverted->getHppSelectStoredCard());
 	}
 
 	/**
