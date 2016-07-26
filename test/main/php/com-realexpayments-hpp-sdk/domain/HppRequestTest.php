@@ -19,7 +19,7 @@ class HppRequestTest extends \PHPUnit_Framework_TestCase
     const CURRENCY = "EUR";
     const PAYER_REFERENCE = "newpayer1";
     const PAYMENT_REFERENCE = "mycard1";
-    const SELECTED_STORED_CARD =  "newpayer1";
+    const SELECT_STORED_CARD =  "newpayer1";
 
     public function  testHash()
     {
@@ -45,7 +45,7 @@ class HppRequestTest extends \PHPUnit_Framework_TestCase
         ->addOrderId(self::ORDER_ID)
         ->addAmount(self::AMOUNT)
         ->addCurrency(self::CURRENCY)
-        ->addHppSelectStoredCard(self::SELECTED_STORED_CARD);
+        ->addHppSelectStoredCard(self::SELECT_STORED_CARD);
 
         $expectedHash = "099b6ef236391d8bdc642488fc5e9c54ac31cd80";
         $actualHash = $hppRequest->hash("mysecret")->getHash();
@@ -61,7 +61,7 @@ class HppRequestTest extends \PHPUnit_Framework_TestCase
         ->addOrderId(self::ORDER_ID)
         ->addAmount(self::AMOUNT)
         ->addCurrency(self::CURRENCY)
-        ->addHppSelectStoredCard(self::SELECTED_STORED_CARD)
+        ->addHppSelectStoredCard(self::SELECT_STORED_CARD)
         ->addPaymentReference(self::PAYMENT_REFERENCE);
 
         $expectedHash = "4106afc4666c6145b623089b1ad4098846badba2";

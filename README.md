@@ -46,7 +46,7 @@ $requestJson = $realexHpp->requestToJson($hppRequest);
 $realexHpp = new RealexHpp("secret");
 $hppResponse = $realexHpp->responseFromJson(responseJson);
 ```
-### HPP Version and HPP Selected Stored Card
+### HPP Version and HPP Select Stored Card
 ```php
 $hppRequest = new HppRequest();
 $hppRequest

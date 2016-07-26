@@ -26,7 +26,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * </p>
  *
  * <p>
- * HPP Version and HPP Selected Stored Card
+ * HPP Version and HPP Select Stored Card
  * </p>
  * <p>
  * Example usage:
@@ -1322,7 +1322,7 @@ class HppRequest {
 	}
 
 	/**
-	 * Helper method for adding the Hpp Selected Stored Card
+	 * Helper method for adding the Hpp Select Stored Card
 	 *
 	 * @param string $hppSelectStoredCard
 	 *
@@ -1335,7 +1335,7 @@ class HppRequest {
 	}
 
 	/**
-	 * Helper method for setting the Hpp Selected Stored Card
+	 * Helper method for setting the Hpp Select Stored Card
 	 *
 	 * @param string $hppSelectStoredCard
 	 *
@@ -1346,7 +1346,7 @@ class HppRequest {
 	}
 
 	/**
-	 * Helper method for adding the Hpp Selected Stored Card
+	 * Helper method for adding the Hpp Select Stored Card
 	 *
 	 * @return string
 	 */
