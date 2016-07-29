@@ -82,7 +82,7 @@ use com\realexpayments\hpp\sdk\RealexHpp;
 $realexHpp = new RealexHpp( "mySecret" );
 $hppResponse = $realexHpp->responseFromJson( responseJson );
 ```
-### HPP Version and HPP Selected Stored Card
+### HPP Version and HPP Select Stored Card
 ```php
 $hppRequest = new HppRequest();
 $hppRequest

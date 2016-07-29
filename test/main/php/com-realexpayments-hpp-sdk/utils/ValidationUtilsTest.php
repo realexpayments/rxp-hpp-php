@@ -2048,7 +2048,7 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 
 	/**
 	 * Test converting {@link HppRequest} to JSON.
-	 * Testing import from json, NO Hpp_version => so you are not allow to put the hpp selected stored card
+	 * Testing import from json, NO Hpp_version => so you are not allow to put the hpp select stored card
 	 */
 	public function testToJsonHppRequestWithHppVersion2() {
 
