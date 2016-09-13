@@ -82,7 +82,7 @@ use com\realexpayments\hpp\sdk\RealexHpp;
 $realexHpp = new RealexHpp( "mySecret" );
 $hppResponse = $realexHpp->responseFromJson( responseJson );
 ```
-### HPP Version and HPP Select Stored Card
+### HPP Select Stored Card
 ```php
 $hppRequest = new HppRequest();
 $hppRequest
@@ -91,26 +91,9 @@ $hppRequest
 	        ->addAccount("accountId")
 	        ->addMerchantId("merchantId")
 	        ->addAutoSettleFlag("1")
-			->addPayerExists("1")
-			->addPayerReference("payerRef")
-			->addHppSelectStoredCard("storedCardRef");
-			
-$realexHpp = new RealexHpp("secret");
-$requestJson = $realexHpp->requestToJson($hppRequest);
-```
-### HPP Post Dimension and  HPP Post Response
-```php
-$hppRequest = new HppRequest();
-$hppRequest
-	        ->addAmount("1001")
-	        ->addCurrency("EUR")
-	        ->addAccount("accountId")
-	        ->addMerchantId("merchantId")
-	        ->addAutoSettleFlag("1")
-			->addPayerExists("payerRef")
-			->addPayerReference("payerRef")
-			->addPostDimensions("{\"iframe\":{\"height\":\"544px\",\"width\":\"768px\"}}")
-			->addPostResponse("{ DCCCOMMISSIONPERCENTAGE: \"MA==\", BATCHID: \"MjAyNzc2\"}");
+		    ->addHppSelectStoredCard("payerRef")
+		    ->addPayerExists("1")
+		    ->addOfferSaveCard("1");
 			
 $realexHpp = new RealexHpp("secret");
 $requestJson = $realexHpp->requestToJson($hppRequest);
