@@ -1911,4 +1911,295 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 	}
 
 
+	/**
+	 * Test HPP Version
+	 */
+	public function testHppVersion() {
+
+		$hppRequest = SampleJsonData::generateValidHppRequest( false );
+		$hppRequest->generateDefaults( SampleJsonData::SECRET );
+
+		$hppRequest->setHppVersion(1);
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
+
+		$hppRequest->setHppVersion("2");
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
+
+
+		$hppRequest->setHppVersion(0);
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_hppVersion_pattern, $validationMessages[0] );
+		}
+
+		$hppRequest->setHppVersion(12);
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_hppVersion_size, $validationMessages[0] );
+		}
+
+		$hppRequest->setHppVersion('a');
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_hppVersion_pattern, $validationMessages[0] );
+		}
+
+		$hppRequest->setHppVersion('1 a');
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_hppVersion_size, $validationMessages[0] );
+		}
+	}
+
+	/**
+	 * Test HPP Version
+	 */
+	public function testHppSelectStoredCard() {
+
+		$hppRequest = SampleJsonData::generateValidHppRequest( false );
+		$hppRequest->generateDefaults( SampleJsonData::SECRET );
+
+		$hppRequest->setHppSelectStoredCard("payerref123");
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
+
+		$hppRequest->setHppSelectStoredCard(str_repeat('a',50));
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
+
+
+		$hppRequest->setHppSelectStoredCard(str_repeat('a',51));
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_hppSelectStoredCard_size, $validationMessages[0] );
+		}
+
+		$hppRequest->setHppSelectStoredCard("!!!");
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_hppSelectStoredCard_pattern, $validationMessages[0] );
+		}
+
+	}
+	/**
+	 * Test converting {@link HppRequest} to JSON.
+	 * Testing import from json, validate errors
+	 */
+	public function testToJsonHppRequestWithHppVersionFail() {
+
+		$path   = SampleJsonData::INVALID_HPP_REQUEST_HPP_VERSION_JSON_PATH;
+		$prefix = __DIR__ . '/../../../resources';
+		$json   = file_get_contents( $prefix . $path );
+
+
+		$hppRequestConverted = JsonUtils::fromJsonHppRequest( $json );
+
+		try {
+			ValidationUtils::validate( $hppRequestConverted );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_hppVersion_pattern, $validationMessages[0] );
+			$this->assertEquals( ValidationMessages::hppRequest_hppSelectStoredCard_size, $validationMessages[1] );
+		}
+	}
+
+	/**
+	 * Test converting {@link HppRequest} to JSON.
+	 * Testing import from json, NO Hpp_version => so you are not allow to put the hpp select stored card
+	 */
+	public function testToJsonHppRequestWithHppVersion2() {
+
+		$path   = SampleJsonData::VALID_HPP_REQUEST_HPP_VERSION_JSON_PATH2;
+		$prefix = __DIR__ . '/../../../resources';
+		$json   = file_get_contents( $prefix . $path );
+
+
+		$hppRequestConverted = JsonUtils::fromJsonHppRequest( $json );
+
+		try {
+			ValidationUtils::validate( $hppRequestConverted );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should not have validation errors." );
+		}
+
+		$this->assertEmpty( $hppRequestConverted->getHppVersion());
+		$this->assertNotEmpty( $hppRequestConverted->getHppSelectStoredCard());
+	}
+
+	/**
+	 * Test converting {@link HppRequest} to JSON.
+	 * Testing import from json
+	 */
+	public function testToJsonPostDimensions2() {
+
+		$path   = SampleJsonData::VALID_HPP_REQUEST_HPP_POST_DIMENSIONS_JSON_PATH;
+		$prefix = __DIR__ . '/../../../resources';
+		$json   = file_get_contents( $prefix . $path );
+
+		$hppRequestConverted = JsonUtils::fromJsonHppRequest( $json );
+
+		SampleJsonData::checkValidHppRequestPostDimensions($hppRequestConverted,$this);
+
+	}
+	
+	/**
+	 * Test validation post dimensions pass
+	 */
+	public function testValidationPassedPostDimensions() {
+		$path   = SampleJsonData::VALID_HPP_REQUEST_HPP_POST_DIMENSIONS_JSON_PATH;
+		$prefix = __DIR__ . '/../../../resources';
+		$json   = file_get_contents( $prefix . $path );
+
+		$hppRequestConverted = JsonUtils::fromJsonHppRequest( $json );
+		$hppRequestConverted->generateDefaults( SampleJsonData::SECRET );
+
+		try {
+			ValidationUtils::validate( $hppRequestConverted );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should have no validation errors." );
+		}
+	}
+
+	/**
+	 * Test converting a {@link HppRequest} object to JSON. Includes validation and generation of defaults.
+	 */
+	public function testValidationFailsPostDimensions()
+	{
+		$hppRequest = SampleJsonData::generateValidHppRequestWithEmptyDefaults(false);
+		//limit is 255
+		$postDimensions = str_repeat('a',256);
+		//testing add method
+		$hppRequest = $hppRequest->addPostDimensions($postDimensions);
+
+
+		try {
+			ValidationUtils::validate( $hppRequest );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_postDimensions_size, $validationMessages[0] );
+		}
+	}
+
+	/**
+	 * Test validation post dimensions pass
+	 */
+	public function testValidationPassedPostResponse() {
+		$path   = SampleJsonData::VALID_HPP_REQUEST_HPP_POST_RESPONSE_JSON_PATH;
+		$prefix = __DIR__ . '/../../../resources';
+		$json   = file_get_contents( $prefix . $path );
+
+		$hppRequestConverted = JsonUtils::fromJsonHppRequest( $json );
+		$hppRequestConverted->generateDefaults( SampleJsonData::SECRET );
+
+		try {
+			ValidationUtils::validate( $hppRequestConverted );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest should have no validation errors." );
+		}
+	}
+
+	/**
+	 * Test validation post dimensions fails
+	 */
+	public function testValidationPassedPostResponseFails() {
+		$path   = SampleJsonData::INVALID_HPP_REQUEST_HPP_POST_RESPONSE_JSON_PATH;
+		$prefix = __DIR__ . '/../../../resources';
+		$json   = file_get_contents( $prefix . $path );
+
+		$hppRequestConverted = JsonUtils::fromJsonHppRequest( $json );
+		$hppRequestConverted->generateDefaults( SampleJsonData::SECRET );
+
+		try {
+			ValidationUtils::validate( $hppRequestConverted );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_postResponse_size, $validationMessages[0] );
+		}
+	}
+
+	/**
+	 * Test validation post dimensions fails
+	 */
+	public function testValidationPassedFails() {
+		$path   = SampleJsonData::INVALID_HPP_REQUEST_HPP_POST_BOTH_JSON_PATH;
+		$prefix = __DIR__ . '/../../../resources';
+		$json   = file_get_contents( $prefix . $path );
+
+		$hppRequestConverted = JsonUtils::fromJsonHppRequest( $json );
+		$hppRequestConverted->generateDefaults( SampleJsonData::SECRET );
+
+		try {
+			ValidationUtils::validate( $hppRequestConverted );
+			$this->fail( "This HppRequest should have validation errors." );
+		} catch ( RealexValidationException $e ) {
+			$validationMessages = $e->getValidationMessages();
+			$this->assertEquals( ValidationMessages::hppRequest_postDimensions_size, $validationMessages[0] );
+			$this->assertEquals( ValidationMessages::hppRequest_postResponse_size, $validationMessages[1] );
+		}
+	}
+
+
+	/**
+	 * Test validation post dimensions fails
+	 */
+	public function testValidationPassedSuccess() {
+		$path   = SampleJsonData::VALID_HPP_REQUEST_HPP_POST_BOTH_JSON_PATH;
+		$prefix = __DIR__ . '/../../../resources';
+		$json   = file_get_contents( $prefix . $path );
+
+		$hppRequestConverted = JsonUtils::fromJsonHppRequest( $json );
+		$hppRequestConverted->generateDefaults( SampleJsonData::SECRET );
+
+		try {
+			ValidationUtils::validate( $hppRequestConverted );
+		} catch ( RealexValidationException $e ) {
+			$this->fail( "This HppRequest shouldn't have validation errors." );
+		}
+
+	}
 }
