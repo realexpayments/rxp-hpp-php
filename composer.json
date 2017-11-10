@@ -21,10 +21,10 @@
   "license": "MIT",
   "require": {
     "php": ">=5.3.9",
-    "apache/log4php": "2.3.0",
-    "symfony/validator": "2.7.3",
-    "doctrine/annotations":"1.2.6",
-    "doctrine/cache":"1.4.1"
+    "apache/log4php": "2.3.*",
+    "symfony/validator": "2.7.*",
+    "doctrine/annotations":"1.2.*",
+    "doctrine/cache":"1.4.*"
   },
   "autoload": {
     "psr-4": {
