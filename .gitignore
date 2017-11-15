@@ -12,3 +12,5 @@ vendor/doctrine
 vendor/symfony
 vm-config/
 adhoc/
+.idea
+bin/
