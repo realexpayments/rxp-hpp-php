@@ -74,25 +74,25 @@ class HppRequest {
 	 * @var String The merchant or client ID supplied by Realex Payments – note this is not the merchant number
 	 * supplied by your bank.
 	 *
-	 * @Assert\Length(min = 1, max = 50, minMessage = ValidationMessages::hppRequest_merchantId_size, maxMessage = ValidationMessages::hppRequest_merchantId_size)
-	 * @Assert\NotBlank(message= ValidationMessages::hppRequest_merchantId_size)
-	 * @Assert\Regex(pattern="/^[a-zA-Z0-9\.]*$/", message=ValidationMessages::hppRequest_merchantId_pattern )
+	 * @Assert\Length(min = 1, max = 50, minMessage = com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_merchantId_size, maxMessage = com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_merchantId_size)
+	 * @Assert\NotBlank(message= com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_merchantId_size)
+	 * @Assert\Regex(pattern="/^[a-zA-Z0-9\.]*$/", message=com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_merchantId_pattern )
 	 */
 	private $merchantId;
 
 	/**
 	 * @var String The sub-account to use for this transaction. If not present, the default sub-account will be used.
 	 *
-	 * @Assert\Length(min = 0, max = 30, maxMessage = ValidationMessages::hppRequest_account_size)
-	 * @Assert\Regex(pattern="/^[a-zA-Z0-9\s]*$/", message=ValidationMessages::hppRequest_account_pattern )
+	 * @Assert\Length(min = 0, max = 30, maxMessage = com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_account_size)
+	 * @Assert\Regex(pattern="/^[a-zA-Z0-9\s]*$/", message=com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_account_pattern )
 	 */
 	private $account;
 
 	/**
 	 * @var String A unique alphanumeric id that’s used to identify the transaction. No spaces are allowed.
 	 *
-	 * @Assert\Length(min = 0, max = 50, maxMessage = ValidationMessages::hppRequest_orderId_size)
-	 * @Assert\Regex(pattern="/^[a-zA-Z0-9_\-]*$/", message=ValidationMessages::hppRequest_orderId_pattern )
+	 * @Assert\Length(min = 0, max = 50, maxMessage = com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_orderId_size)
+	 * @Assert\Regex(pattern="/^[a-zA-Z0-9_\-]*$/", message=com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_orderId_pattern )
 	 */
 	private $orderId;
 
@@ -101,9 +101,9 @@ class HppRequest {
 	 * If there is no decimal in the currency (e.g. JPY Yen) then contact Realex Payments. No decimal points are allowed.
 	 * Amount should be set to 0 for OTB transactions (i.e. where validate card only is set to 1).
 	 *
-	 * @Assert\Length(min = 1, max = 11, minMessage = ValidationMessages::hppRequest_amount_size, maxMessage = ValidationMessages::hppRequest_amount_size)
-	 * @Assert\NotBlank(message= ValidationMessages::hppRequest_amount_size)
-	 * @Assert\Regex(pattern="/^[0-9]*$/", message=ValidationMessages::hppRequest_amount_pattern )
+	 * @Assert\Length(min = 1, max = 11, minMessage = com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_amount_size, maxMessage = com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_amount_size)
+	 * @Assert\NotBlank(message= com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_amount_size)
+	 * @Assert\Regex(pattern="/^[0-9]*$/", message=com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_amount_pattern )
 	 */
 	private $amount;
 
@@ -111,9 +111,9 @@ class HppRequest {
 	 * @var String A three-letter currency code (Eg. EUR, GBP). A list of currency codes can be provided
 	 * by your account manager.
 	 *
-	 * @Assert\Length(min = 3, max = 3, exactMessage = ValidationMessages::hppRequest_currency_size)
-	 * @Assert\NotBlank(message= ValidationMessages::hppRequest_currency_size)
-	 * @Assert\Regex(pattern="/^[a-zA-Z]*$/", message=ValidationMessages::hppRequest_currency_pattern )
+	 * @Assert\Length(min = 3, max = 3, exactMessage = com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_currency_size)
+	 * @Assert\NotBlank(message= com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_currency_size)
+	 * @Assert\Regex(pattern="/^[a-zA-Z]*$/", message=com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_currency_pattern )
 	 */
 	private $currency;
 
@@ -121,18 +121,18 @@ class HppRequest {
 	 * @var String Date and time of the transaction. Entered in the following format: YYYYMMDDHHMMSS.
 	 * Must be within 24 hours of the current time.
 	 *
-	 * @Assert\Length(min = 14, max = 14, exactMessage = ValidationMessages::hppRequest_timestamp_size)
-	 * @Assert\NotBlank(message= ValidationMessages::hppRequest_timestamp_size)
-	 * @Assert\Regex(pattern="/^[0-9]*$/", message=ValidationMessages::hppRequest_timestamp_pattern )
+	 * @Assert\Length(min = 14, max = 14, exactMessage = com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_timestamp_size)
+	 * @Assert\NotBlank(message= com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_timestamp_size)
+	 * @Assert\Regex(pattern="/^[0-9]*$/", message=com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_timestamp_pattern )
 	 */
 	private $timeStamp;
 
 	/**
 	 * @var String A digital signature generated using the SHA-1 algorithm.
 	 *
-	 * @Assert\Length(min = 40, max =40, exactMessage = ValidationMessages::hppRequest_hash_size)
-	 * @Assert\NotBlank(message= ValidationMessages::hppRequest_hash_size)
-	 * @Assert\Regex(pattern="/^[a-f0-9]*$/", message=ValidationMessages::hppRequest_hash_pattern )
+	 * @Assert\Length(min = 40, max =40, exactMessage = com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_hash_size)
+	 * @Assert\NotBlank(message= com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_hash_size)
+	 * @Assert\Regex(pattern="/^[a-f0-9]*$/", message=com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_hash_pattern )
 	 */
 	private $hash;
 
@@ -144,23 +144,23 @@ class HppRequest {
 	 * Transactions can be settled for up to 115% of the original amount and must be settled within a certain period
 	 * of time agreed with your issuing bank.
 	 *
-	 * @Assert\Regex(pattern="/(?i)^on$|^off$|^$|^multi$|^1$|^0$/", message=ValidationMessages::hppRequest_autoSettleFlag_pattern )
+	 * @Assert\Regex(pattern="/(?i)^on$|^off$|^$|^multi$|^1$|^0$/", message=com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_autoSettleFlag_pattern )
 	 *
 	 */
 	private $autoSettleFlag;
 
 	/**
 	 * @var String A freeform comment to describe the transaction.
-	 * @Assert\Length(min = 0, max = 255, maxMessage = ValidationMessages::hppRequest_comment1_size, charset="ISO-8859-1")
-	 * @Assert\Regex(pattern="/^[\s \x{0020}-\x{003B} \x{003D} \x{003F}-\x{007E} \x{00A1}-\x{00FF}\x{20AC}\x{201A}\x{0192}\x{201E}\x{2026}\x{2020}\x{2021}\x{02C6}\x{2030}\x{0160}\x{2039}\x{0152}\x{017D}\x{2018}\x{2019}\x{201C}\x{201D}\x{2022}\x{2013}\x{2014}\x{02DC}\x{2122}\x{0161}\x{203A}\x{0153}\x{017E}\x{0178}]*$/iu", message=ValidationMessages::hppRequest_comment1_pattern )
+	 * @Assert\Length(min = 0, max = 255, maxMessage = com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_comment1_size, charset="ISO-8859-1")
+	 * @Assert\Regex(pattern="/^[\s \x{0020}-\x{003B} \x{003D} \x{003F}-\x{007E} \x{00A1}-\x{00FF}\x{20AC}\x{201A}\x{0192}\x{201E}\x{2026}\x{2020}\x{2021}\x{02C6}\x{2030}\x{0160}\x{2039}\x{0152}\x{017D}\x{2018}\x{2019}\x{201C}\x{201D}\x{2022}\x{2013}\x{2014}\x{02DC}\x{2122}\x{0161}\x{203A}\x{0153}\x{017E}\x{0178}]*$/iu", message=com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_comment1_pattern )
 	 */
 	private $commentOne;
 
 	/**
 	 * @var String A freeform comment to describe the transaction.
 	 *
-	 * @Assert\Length(min = 0, max = 255, maxMessage = ValidationMessages::hppRequest_comment2_size, charset="ISO-8859-1")
-	 * @Assert\Regex(pattern="/^[\s \x{0020}-\x{003B} \x{003D} \x{003F}-\x{007E} \x{00A1}-\x{00FF}\x{20AC}\x{201A}\x{0192}\x{201E}\x{2026}\x{2020}\x{2021}\x{02C6}\x{2030}\x{0160}\x{2039}\x{0152}\x{017D}\x{2018}\x{2019}\x{201C}\x{201D}\x{2022}\x{2013}\x{2014}\x{02DC}\x{2122}\x{0161}\x{203A}\x{0153}\x{017E}\x{0178}]*$/iu", message=ValidationMessages::hppRequest_comment2_pattern )
+	 * @Assert\Length(min = 0, max = 255, maxMessage = com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_comment2_size, charset="ISO-8859-1")
+	 * @Assert\Regex(pattern="/^[\s \x{0020}-\x{003B} \x{003D} \x{003F}-\x{007E} \x{00A1}-\x{00FF}\x{20AC}\x{201A}\x{0192}\x{201E}\x{2026}\x{2020}\x{2021}\x{02C6}\x{2030}\x{0160}\x{2039}\x{0152}\x{017D}\x{2018}\x{2019}\x{201C}\x{201D}\x{2022}\x{2013}\x{2014}\x{02DC}\x{2122}\x{0161}\x{203A}\x{0153}\x{017E}\x{0178}]*$/iu", message=com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_comment2_pattern )
 	 */
 	private $commentTwo;
 
@@ -168,40 +168,40 @@ class HppRequest {
 	 * @var String Used to signify whether or not you want a Transaction Suitability Score for this transaction.
 	 * Can be "0" for no and "1" for yes.
 	 *
-	 * @Assert\Length(min = 0, max = 1, maxMessage = ValidationMessages::hppRequest_returnTss_size)
-	 * @Assert\Regex(pattern="/^[01]*$/", message=ValidationMessages::hppRequest_returnTss_pattern )
+	 * @Assert\Length(min = 0, max = 1, maxMessage = com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_returnTss_size)
+	 * @Assert\Regex(pattern="/^[01]*$/", message=com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_returnTss_pattern )
 	 */
 	private $returnTss;
 
 	/**
 	 * @var String The postcode or ZIP of the shipping address.
 	 *
-	 * @Assert\Length(min = 0, max = 30, maxMessage = ValidationMessages::hppRequest_shippingCode_size)
-	 * @Assert\Regex(pattern="/^[A-Za-z0-9\,\.\-\/\| ]*$/", message=ValidationMessages::hppRequest_shippingCode_pattern )
+	 * @Assert\Length(min = 0, max = 30, maxMessage = com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_shippingCode_size)
+	 * @Assert\Regex(pattern="/^[A-Za-z0-9\,\.\-\/\| ]*$/", message=com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_shippingCode_pattern )
 	 */
 	private $shippingCode;
 
 	/**
 	 * @var String The country of the shipping address.
 	 *
-	 * @Assert\Length(min = 0, max = 50, maxMessage = ValidationMessages::hppRequest_shippingCountry_size)
-	 * @Assert\Regex(pattern="/^[A-Za-z0-9\,\.\- ]*$/", message=ValidationMessages::hppRequest_shippingCountry_pattern )
+	 * @Assert\Length(min = 0, max = 50, maxMessage = com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_shippingCountry_size)
+	 * @Assert\Regex(pattern="/^[A-Za-z0-9\,\.\- ]*$/", message=com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_shippingCountry_pattern )
 	 */
 	private $shippingCountry;
 
 	/**
 	 * @var String The postcode or ZIP of the billing address.
 	 *
-	 * @Assert\Length(min = 0, max = 60, maxMessage = ValidationMessages::hppRequest_billingCode_size)
-	 * @Assert\Regex(pattern="/^[A-Za-z0-9\,\.\-\/\| ]*$/", message=ValidationMessages::hppRequest_billingCode_pattern )
+	 * @Assert\Length(min = 0, max = 60, maxMessage = com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_billingCode_size)
+	 * @Assert\Regex(pattern="/^[A-Za-z0-9\,\.\-\/\| ]*$/", message=com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_billingCode_pattern )
 	 */
 	private $billingCode;
 
 	/**
 	 * @var String The country of the billing address.
 	 *
-	 * @Assert\Length(min = 0, max = 50, maxMessage = ValidationMessages::hppRequest_billingCountry_size)
-	 * @Assert\Regex(pattern="/^[A-Za-z0-9\,\.\- ]*$/", message=ValidationMessages::hppRequest_billingCountry_pattern )
+	 * @Assert\Length(min = 0, max = 50, maxMessage = com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_billingCountry_size)
+	 * @Assert\Regex(pattern="/^[A-Za-z0-9\,\.\- ]*$/", message=com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_billingCountry_pattern )
 	 */
 	private $billingCountry;
 
@@ -209,8 +209,8 @@ class HppRequest {
 	 * @var String The customer number of the customer. You can send in any additional information about
 	 * the transaction in this field, which will be visible under the transaction in the RealControl application.
 	 *
-	 * @Assert\Length(min = 0, max = 50, maxMessage = ValidationMessages::hppRequest_customerNumber_size)
-	 * @Assert\Regex(pattern="/^[a-zA-Z0-9\.\_\-\,\+\@ \s]*$/", message=ValidationMessages::hppRequest_customerNumber_pattern )
+	 * @Assert\Length(min = 0, max = 50, maxMessage = com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_customerNumber_size)
+	 * @Assert\Regex(pattern="/^[a-zA-Z0-9\.\_\-\,\+\@ \s]*$/", message=com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_customerNumber_pattern )
 	 */
 	private $customerNumber;
 
@@ -219,8 +219,8 @@ class HppRequest {
 	 * information about the transaction in this field, which will be visible under the transaction in
 	 * the RealControl application.
 	 *
-	 * @Assert\Length(min = 0, max = 50, maxMessage = ValidationMessages::hppRequest_variableReference_size)
-	 * @Assert\Regex(pattern="/^[a-zA-Z0-9\.\_\-\,\+\@ \s]*$/", message=ValidationMessages::hppRequest_variableReference_pattern )
+	 * @Assert\Length(min = 0, max = 50, maxMessage = com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_variableReference_size)
+	 * @Assert\Regex(pattern="/^[a-zA-Z0-9\.\_\-\,\+\@ \s]*$/", message=com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_variableReference_pattern )
 	 */
 	private $variableReference;
 
@@ -228,8 +228,8 @@ class HppRequest {
 	 * @var String A product id associated with this product. You can send in any additional information about
 	 * the transaction in this field, which will be visible under the transaction in the RealControl application.
 	 *
-	 * @Assert\Length(min = 0, max = 50, maxMessage = ValidationMessages::hppRequest_productId_size)
-	 * @Assert\Regex(pattern="/^[a-zA-Z0-9\.\_\-\,\+\@ \s]*$/", message=ValidationMessages::hppRequest_productId_pattern )
+	 * @Assert\Length(min = 0, max = 50, maxMessage = com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_productId_size)
+	 * @Assert\Regex(pattern="/^[a-zA-Z0-9\.\_\-\,\+\@ \s]*$/", message=com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_productId_pattern )
 	 */
 	private $productId;
 
@@ -238,7 +238,7 @@ class HppRequest {
 	 * German, with other languages to follow. If the field is not sent in, the default language is the language
 	 * that is set in your account configuration. This can be set by your account manager.
 	 *
-	 * @Assert\Regex(pattern="/^[a-zA-Z]{2}$|^[a-zA-Z]{0}$/", message=ValidationMessages::hppRequest_language_pattern )
+	 * @Assert\Regex(pattern="/^[a-zA-Z]{2}$|^[a-zA-Z]{0}$/", message=com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_language_pattern )
 	 */
 	private $language;
 
@@ -246,8 +246,8 @@ class HppRequest {
 	 * @var String Used to set what text is displayed on the payment button for card transactions.
 	 * If this field is not sent in, "Pay Now" is displayed on the button by default.
 	 *
-	 * @Assert\Length(min = 0, max = 25, maxMessage = ValidationMessages::hppRequest_cardPaymentButtonText_size)
-	 * @Assert\Regex(pattern = "/^[\x{00C0}\x{00C1}\x{00C2}\x{00C3}\x{00C4}\x{00C5}\x{00C6}\x{00C7}\x{00C8}\x{00C9}\x{00CA}\x{00CB}\x{00CC}\x{00CD}\x{00CE}\x{00CF}\x{00D0}\x{00D1}\x{00D2}\x{00D3}\x{00D4}\x{00D5}\x{00D6}\x{00D7}\x{00D8}\x{00D9}\x{00DA}\x{00DB}\x{00DC}\x{00DD}\x{00DE}\x{00DF}\x{00E0}\x{00E1}\x{00E2}\x{00E3}\x{00E4}\x{00E5}\x{00E6}\x{00E7}\x{00E8}\x{00E9}\x{00EA}\x{00EB}\x{00EC}\x{00ED}\x{00EE}\x{00EF}\x{00F0}\x{00F1}\x{00F2}\x{00F3}\x{00F4}\x{00F5}\x{00F6}\x{00F7}\x{00F8}\x{00A4}\x{00F9}\x{00FA}\x{00FB}\x{00FC}\x{00FD}\x{00FE}\x{00FF}\x{0152}\x{017D}\x{0161}\x{0153}\x{017E}\x{0178}\x{00A5}a-zA-Z0-9\'\,\+\x{0022}\.\_\-\&\/\@\!\?\%\()\*\:\x{00A3}\$\&\x{20AC}\#\[\]\|\=\\\x{201C}\x{201D}\x{201C} ]*$/iu" , message=ValidationMessages::hppRequest_cardPaymentButtonText_pattern )
+	 * @Assert\Length(min = 0, max = 25, maxMessage = com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_cardPaymentButtonText_size)
+	 * @Assert\Regex(pattern = "/^[\x{00C0}\x{00C1}\x{00C2}\x{00C3}\x{00C4}\x{00C5}\x{00C6}\x{00C7}\x{00C8}\x{00C9}\x{00CA}\x{00CB}\x{00CC}\x{00CD}\x{00CE}\x{00CF}\x{00D0}\x{00D1}\x{00D2}\x{00D3}\x{00D4}\x{00D5}\x{00D6}\x{00D7}\x{00D8}\x{00D9}\x{00DA}\x{00DB}\x{00DC}\x{00DD}\x{00DE}\x{00DF}\x{00E0}\x{00E1}\x{00E2}\x{00E3}\x{00E4}\x{00E5}\x{00E6}\x{00E7}\x{00E8}\x{00E9}\x{00EA}\x{00EB}\x{00EC}\x{00ED}\x{00EE}\x{00EF}\x{00F0}\x{00F1}\x{00F2}\x{00F3}\x{00F4}\x{00F5}\x{00F6}\x{00F7}\x{00F8}\x{00A4}\x{00F9}\x{00FA}\x{00FB}\x{00FC}\x{00FD}\x{00FE}\x{00FF}\x{0152}\x{017D}\x{0161}\x{0153}\x{017E}\x{0178}\x{00A5}a-zA-Z0-9\'\,\+\x{0022}\.\_\-\&\/\@\!\?\%\()\*\:\x{00A3}\$\&\x{20AC}\#\[\]\|\=\\\x{201C}\x{201D}\x{201C} ]*$/iu" , message=com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_cardPaymentButtonText_pattern )
 	 */
 	private $cardPaymentButtonText;
 
@@ -255,40 +255,40 @@ class HppRequest {
 	/**
 	 * @var string Enable card storage.
 	 *
-	 * @Assert\Length(min = 0, max = 1, maxMessage = ValidationMessages::hppRequest_cardStorageEnable_size)
-	 * @Assert\Regex(pattern = "/^[10]*$/" , message=ValidationMessages::hppRequest_cardStorageEnable_pattern )
+	 * @Assert\Length(min = 0, max = 1, maxMessage = com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_cardStorageEnable_size)
+	 * @Assert\Regex(pattern = "/^[10]*$/" , message=com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_cardStorageEnable_pattern )
 	 */
 	private $cardStorageEnable;
 
 	/**
 	 * @var string Offer to save the card.
 	 *
-	 * @Assert\Length(min = 0, max = 1, maxMessage = ValidationMessages::hppRequest_offerSaveCard_size)
-	 * @Assert\Regex(pattern = "/^[10]*$/" , message=ValidationMessages::hppRequest_offerSaveCard_pattern )
+	 * @Assert\Length(min = 0, max = 1, maxMessage = com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_offerSaveCard_size)
+	 * @Assert\Regex(pattern = "/^[10]*$/" , message=com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_offerSaveCard_pattern )
 	 */
 	private $offerSaveCard;
 
 	/**
 	 * @var string The payer reference.
 	 *
-	 * @Assert\Length(min = 0, max = 50, maxMessage = ValidationMessages::hppRequest_payerReference_size)
-	 * @Assert\Regex(pattern = "/^[A-Za-z0-9\_\-\\ ]*$/" , message=ValidationMessages::hppRequest_payerReference_pattern )
+	 * @Assert\Length(min = 0, max = 50, maxMessage = com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_payerReference_size)
+	 * @Assert\Regex(pattern = "/^[A-Za-z0-9\_\-\\ ]*$/" , message=com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_payerReference_pattern )
 	 */
 	private $payerReference;
 
 	/**
 	 * @var string The payment reference.
 	 *
-	 * @Assert\Length(min = 0, max = 50, maxMessage = ValidationMessages::hppRequest_paymentReference_size)
-	 * @Assert\Regex(pattern = "/^[A-Za-z0-9\_\-]*$/" , message=ValidationMessages::hppRequest_paymentReference_pattern )
+	 * @Assert\Length(min = 0, max = 50, maxMessage = com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_paymentReference_size)
+	 * @Assert\Regex(pattern = "/^[A-Za-z0-9\_\-]*$/" , message=com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_paymentReference_pattern )
 	 */
 	private $paymentReference;
 
 	/**
 	 * @var string Flag to indicate if the payer exists.
 	 *
-	 * @Assert\Length(min = 0, max = 1, maxMessage = ValidationMessages::hppRequest_payerExists_size)
-	 * @Assert\Regex(pattern = "/^[102]*$/" , message=ValidationMessages::hppRequest_payerExists_pattern )
+	 * @Assert\Length(min = 0, max = 1, maxMessage = com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_payerExists_size)
+	 * @Assert\Regex(pattern = "/^[102]*$/" , message=com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_payerExists_pattern )
 	 */
 	private $payerExists;
 
@@ -301,8 +301,8 @@ class HppRequest {
 	/**
 	 * @var string Used to identify an OTB transaction.
 	 *
-	 * @Assert\Length(min = 0, max = 1, maxMessage = ValidationMessages::hppRequest_validateCardOnly_size)
-	 * @Assert\Regex(pattern="/^[01]*$/", message=ValidationMessages::hppRequest_validateCardOnly_pattern )
+	 * @Assert\Length(min = 0, max = 1, maxMessage = com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_validateCardOnly_size)
+	 * @Assert\Regex(pattern="/^[01]*$/", message=com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_validateCardOnly_pattern )
 	 */
 	private $validateCardOnly;
 
@@ -310,8 +310,8 @@ class HppRequest {
 	 * @var string Transaction level configuration to enable/disable a DCC request.
 	 * (Only if the merchant is configured).
 	 *
-	 * @Assert\Length(min = 0, max = 1, maxMessage = ValidationMessages::hppRequest_dccEnable_size)
-	 * @Assert\Regex(pattern="/^[01]*$/", message=ValidationMessages::hppRequest_dccEnable_pattern )
+	 * @Assert\Length(min = 0, max = 1, maxMessage = com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_dccEnable_size)
+	 * @Assert\Regex(pattern="/^[01]*$/", message=com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_dccEnable_pattern )
 	 */
 	private $dccEnable;
 
@@ -319,8 +319,8 @@ class HppRequest {
 	 * @var string Used to indicate the SDK version. Can only have the value 1 or 2. Passing 2 enables the new skin for the HPP.
 	 * It also allows HPP_SELECT_STORED_CARD to be sent.
 	 *
-	 * @Assert\Length(min = 0, max = 1, maxMessage = ValidationMessages::hppRequest_hppVersion_size)
-	 * @Assert\Regex(pattern="/^[1-2]*$/", message=ValidationMessages::hppRequest_hppVersion_pattern )
+	 * @Assert\Length(min = 0, max = 1, maxMessage = com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_hppVersion_size)
+	 * @Assert\Regex(pattern="/^[1-2]*$/", message=com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_hppVersion_pattern )
 	 */
 	private $hppVersion;
 
@@ -329,8 +329,8 @@ class HppRequest {
 	 * to display on the HPP. If sent correctly, all of the customer's saved cards will be displayed and they can choose
 	 * which one they wish to complete the payment with.
 	 *
-	 * @Assert\Length(min = 0, max = 50, maxMessage = ValidationMessages::hppRequest_hppSelectStoredCard_size)
-	 * @Assert\Regex(pattern="/^[A-Za-z0-9\_\-\\ ]*$/", message=ValidationMessages::hppRequest_hppSelectStoredCard_pattern )
+	 * @Assert\Length(min = 0, max = 50, maxMessage = com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_hppSelectStoredCard_size)
+	 * @Assert\Regex(pattern="/^[A-Za-z0-9\_\-\\ ]*$/", message=com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_hppSelectStoredCard_pattern )
 	 */
 	private $hppSelectStoredCard;
 
@@ -339,8 +339,8 @@ class HppRequest {
 	 * every time the height or width of the card form changes (e.g. an error message is displayed),
 	 * the HPP will send this back as a JSON string to the parent iFrame.
 	 * This is to facilitate developers who wish to resize their iFrame accordingly on increases or decreases of the HPP form’s size.
-	 * @Assert\Length(min = 0, max = 255, maxMessage = ValidationMessages::hppRequest_postDimensions_size, charset="ISO-8859-1")
-	 * @Assert\Regex(pattern="/^[\s \x{0020}-\x{003B} \x{003D} \x{003F}-\x{007E} \x{00A1}-\x{00FF}\x{20AC}\x{201A}\x{0192}\x{201E}\x{2026}\x{2020}\x{2021}\x{02C6}\x{2030}\x{0160}\x{2039}\x{0152}\x{017D}\x{2018}\x{2019}\x{201C}\x{201D}\x{2022}\x{2013}\x{2014}\x{02DC}\x{2122}\x{0161}\x{203A}\x{0153}\x{017E}\x{0178}]*$/iu", message=ValidationMessages::hppRequest_postDimensions_pattern )
+	 * @Assert\Length(min = 0, max = 255, maxMessage = com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_postDimensions_size, charset="ISO-8859-1")
+	 * @Assert\Regex(pattern="/^[\s \x{0020}-\x{003B} \x{003D} \x{003F}-\x{007E} \x{00A1}-\x{00FF}\x{20AC}\x{201A}\x{0192}\x{201E}\x{2026}\x{2020}\x{2021}\x{02C6}\x{2030}\x{0160}\x{2039}\x{0152}\x{017D}\x{2018}\x{2019}\x{201C}\x{201D}\x{2022}\x{2013}\x{2014}\x{02DC}\x{2122}\x{0161}\x{203A}\x{0153}\x{017E}\x{0178}]*$/iu", message=com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_postDimensions_pattern )
 
 	 */
 	private $postDimensions ;
@@ -352,8 +352,8 @@ class HppRequest {
 	 * This is to facilitate developers who wish to not have to rely on a Response URL
 	 * to accept the transaction response and would prefer to have the parent iFrame capture it
 	 *
-	 * @Assert\Length(min = 0, max = 255, maxMessage = ValidationMessages::hppRequest_postResponse_size, charset="ISO-8859-1")
-	 * @Assert\Regex(pattern="/^[\s \x{0020}-\x{003B} \x{003D} \x{003F}-\x{007E} \x{00A1}-\x{00FF}\x{20AC}\x{201A}\x{0192}\x{201E}\x{2026}\x{2020}\x{2021}\x{02C6}\x{2030}\x{0160}\x{2039}\x{0152}\x{017D}\x{2018}\x{2019}\x{201C}\x{201D}\x{2022}\x{2013}\x{2014}\x{02DC}\x{2122}\x{0161}\x{203A}\x{0153}\x{017E}\x{0178}]*$/iu", message=ValidationMessages::hppRequest_postResponse_pattern )
+	 * @Assert\Length(min = 0, max = 255, maxMessage = com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_postResponse_size, charset="ISO-8859-1")
+	 * @Assert\Regex(pattern="/^[\s \x{0020}-\x{003B} \x{003D} \x{003F}-\x{007E} \x{00A1}-\x{00FF}\x{20AC}\x{201A}\x{0192}\x{201E}\x{2026}\x{2020}\x{2021}\x{02C6}\x{2030}\x{0160}\x{2039}\x{0152}\x{017D}\x{2018}\x{2019}\x{201C}\x{201D}\x{2022}\x{2013}\x{2014}\x{02DC}\x{2122}\x{0161}\x{203A}\x{0153}\x{017E}\x{0178}]*$/iu", message=com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_postResponse_pattern )
 	 */
 
 	private $postResponse;
