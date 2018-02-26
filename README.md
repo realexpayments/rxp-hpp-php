@@ -1,5 +1,5 @@
 # Realex Payments HPP PHP SDK
-You can sign up for a free Realex Payments sandbox account at https://www.realexpayments.co.uk/developers
+You can sign up for a free Realex Payments sandbox account at https://developer.realexpayments.com
 
 ## Requirements ##
 - PHP >= 5.3.9
@@ -12,7 +12,7 @@ You can sign up for a free Realex Payments sandbox account at https://www.realex
     ```
     {
         "require": {
-            "realexpayments/rxp-hpp-php": "1.0.0"
+            "realexpayments/rxp-hpp-php": "1.1.1"
         }    
     }
     ```
@@ -82,7 +82,22 @@ use com\realexpayments\hpp\sdk\RealexHpp;
 $realexHpp = new RealexHpp( "mySecret" );
 $hppResponse = $realexHpp->responseFromJson( responseJson );
 ```
-
+### HPP Select Stored Card
+```php
+$hppRequest = new HppRequest();
+$hppRequest
+	        ->addAmount("1001")
+	        ->addCurrency("EUR")
+	        ->addAccount("accountId")
+	        ->addMerchantId("merchantId")
+	        ->addAutoSettleFlag("1")
+		    ->addHppSelectStoredCard("payerRef")
+		    ->addPayerExists("1")
+		    ->addOfferSaveCard("1");
+			
+$realexHpp = new RealexHpp("secret");
+$requestJson = $realexHpp->requestToJson($hppRequest);
+```
 ## License
 
 See the LICENSE file.
