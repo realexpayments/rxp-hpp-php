@@ -357,7 +357,7 @@ class HppRequest {
 	 */
 
 	private $postResponse;
-
+	
 	/**
 	 * Getter for merchantId
 	 *
@@ -1426,8 +1426,6 @@ class HppRequest {
 
 	}
 
-
-
 	/**
 	 * Generates default values for fields such as hash, timestamp and order ID.
 	 *
@@ -1638,11 +1636,75 @@ class HppRequest {
 			}
 		}
 
-
-
 		return $this;
 	}
 
+	/**
+	 * Format (non-encoded) request, remove null values
+	 *
+	 * @param string $charSet
+	 *
+	 * @return HppRequest
+	 */
+	public function formatRequest($charSet)
+	{
+	    $this->account = $this->nullToEmptyString($this->account);
+	    $this->amount = $this->nullToEmptyString($this->amount);
+	    $this->autoSettleFlag = $this->nullToEmptyString($this->autoSettleFlag);
+	    $this->billingCode = $this->nullToEmptyString($this->billingCode);
+	    $this->billingCountry = $this->nullToEmptyString($this->billingCountry);
+	    $this->cardPaymentButtonText = $this->nullToEmptyString($this->cardPaymentButtonText);
+	    $this->cardStorageEnable = $this->nullToEmptyString($this->cardStorageEnable);
+	    $this->commentOne = $this->nullToEmptyString($this->commentOne);
+	    $this->commentTwo = $this->nullToEmptyString($this->commentTwo);
+	    $this->currency = $this->nullToEmptyString($this->currency);
+	    $this->customerNumber = $this->nullToEmptyString($this->customerNumber);
+	    $this->hash = $this->nullToEmptyString($this->hash);
+	    $this->language = $this->nullToEmptyString($this->language);
+	    $this->merchantId = $this->nullToEmptyString($this->merchantId);
+	    $this->offerSaveCard = $this->nullToEmptyString($this->offerSaveCard);
+	    $this->orderId = $this->nullToEmptyString($this->orderId);
+	    $this->payerExists = $this->nullToEmptyString($this->payerExists);
+	    $this->payerReference = $this->nullToEmptyString($this->payerReference);
+	    $this->paymentReference = $this->nullToEmptyString($this->paymentReference);
+	    $this->productId = $this->nullToEmptyString($this->productId);
+	    $this->returnTss = $this->nullToEmptyString($this->returnTss);
+	    $this->shippingCode = $this->nullToEmptyString($this->shippingCode);
+	    $this->shippingCountry = $this->nullToEmptyString($this->shippingCountry);
+	    $this->timeStamp = $this->nullToEmptyString($this->timeStamp);
+	    $this->variableReference = $this->nullToEmptyString($this->variableReference);
+	    $this->validateCardOnly = $this->nullToEmptyString($this->validateCardOnly);
+	    $this->dccEnable = $this->nullToEmptyString($this->dccEnable);
+	    $this->hppVersion = $this->nullToEmptyString($this->hppVersion);
+	    $this->hppSelectStoredCard = $this->nullToEmptyString($this->hppSelectStoredCard);
+	    $this->postResponse = $this->nullToEmptyString($this->postResponse);
+	    $this->postDimensions = $this->nullToEmptyString($this->postDimensions);
+	    
+	    if (is_array($this->supplementaryData)) {
+	        foreach ($this->supplementaryData as $key => $value) {
+	            $this->supplementaryData[$key] = $this->nullToEmptyString($value);
+	        }
+	    }
+	    
+	    return $this;
+	}
+	
+	/**
+	 * Convert null values to empty strings
+	 *
+	 * @param string request $parameter
+	 *           
+	 * @return $parameter
+	 */
+	public function nullToEmptyString($parameter)
+	{
+	    if (is_null($parameter)) {
+	        $parameter = "";
+	    }
+	    
+	    return $parameter;
+	}
+	
 	/**
 	 * @return string The class name
 	 */
@@ -1652,4 +1714,3 @@ class HppRequest {
 
 
 }
-
