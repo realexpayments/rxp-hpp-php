@@ -44,7 +44,7 @@ You can sign up for a free Realex Payments sandbox account at https://developer.
         ....
 	```
 
-##SDK Example##
+## SDK Example ##
 
 ### Creating Request JSON for Realex JS SDK
 
