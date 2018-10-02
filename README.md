@@ -12,7 +12,7 @@ You can sign up for a free Realex Payments sandbox account at https://developer.
     ```
     {
         "require": {
-            "realexpayments/rxp-hpp-php": "1.1.1"
+            "realexpayments/rxp-hpp-php": "1.1.2"
         }    
     }
     ```
