@@ -22,7 +22,6 @@
   "require": {
     "php": ">=5.3.9",
     "apache/log4php": "2.3.*",
-    "symfony/validator": "3.*",
     "doctrine/annotations":"1.2.*",
     "doctrine/cache":"1.4.*"
   },
