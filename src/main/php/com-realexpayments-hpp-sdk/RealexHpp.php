@@ -53,7 +53,6 @@ class RealexHpp
      */
     private $secret;
 
-
     /**
      * RealexHpp constructor
      *
@@ -78,9 +77,10 @@ class RealexHpp
      * </p>
      *
      * @param HppRequest $hppRequest
-     * @return string
+     * @param bool $encoded <code>true</code> if the JSON values will be encoded.
+     * @return HppRequest
      */
-    public function requestToJson(HppRequest $hppRequest)
+    public function requestToJson(HppRequest $hppRequest, $encoded = true)
     {
 
         $this->logger->info("Converting HppRequest to JSON.");
@@ -95,10 +95,15 @@ class RealexHpp
         $this->logger->debug("Validating request.");
         ValidationUtils::validate($hppRequest);
 
-        //encode
+        // build request
         $this->logger->debug("Encoding object.");
         try {
-            $hppRequest = $hppRequest->encode(self::ENCODING_CHARSET);
+            if ($encoded === true) {
+                $hppRequest = $hppRequest->encode(self::ENCODING_CHARSET);              
+            }
+            else {
+                $hppRequest = $hppRequest->formatRequest(self::ENCODING_CHARSET);
+            }
         } catch (Exception $e) {
             $this->logger->error("Exception encoding HPP request.", $e);
             throw new RealexException("Exception encoding HPP request.", $e);
