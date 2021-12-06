@@ -16,7 +16,7 @@ use com\realexpayments\hpp\sdk\validators\ValidationMessages;
  * @author vicpada
  *
  */
-class JsonUtilsTest extends \PHPUnit_Framework_TestCase {
+class JsonUtilsTest extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * Test converting {@link HppRequest} to JSON.
@@ -85,7 +85,6 @@ class JsonUtilsTest extends \PHPUnit_Framework_TestCase {
 		SampleJsonData::checkValidHppResponse( $hppResponseExpected, $hppResponseConverted, $this );
 	}
 
-
 	/**
 	 * Test converting JSON with unknown data to {@link HppResponse}.
 	 */
@@ -100,7 +99,6 @@ class JsonUtilsTest extends \PHPUnit_Framework_TestCase {
 		SampleJsonData::checkValidHppResponseSupplementaryData( $hppResponseConverted, $this );
 	}
 
-
 	/**
 	 * Test converting JSON with empty ECI to {@link HppResponse}.
 	 */
@@ -108,7 +106,6 @@ class JsonUtilsTest extends \PHPUnit_Framework_TestCase {
 		$path   = SampleJsonData::VALID_HPP_RESPONSE_EMPTY_ECI_JSON_PATH;
 		$prefix = __DIR__ . '/../../../resources';
 		$json   = file_get_contents( $prefix . $path );
-
 
 		$hppResponseConverted = JsonUtils::fromJsonHppResponse( $json );
 

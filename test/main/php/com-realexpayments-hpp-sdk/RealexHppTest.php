@@ -9,7 +9,7 @@ namespace com\realexpayments\hpp\sdk;
  * @author vicpada
  *
  */
-class RealexHppTest extends \PHPUnit_Framework_TestCase
+class RealexHppTest extends \PHPUnit\Framework\TestCase
 {
 
     /**

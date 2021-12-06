@@ -14,7 +14,7 @@ use com\realexpayments\hpp\sdk\validators\ValidationMessages;
  *
  * @author vicpada
  */
-class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
+class ValidationUtilsTest extends \PHPUnit\Framework\TestCase {
 
 
 	/**
@@ -26,10 +26,10 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 
 		try {
 			ValidationUtils::validate( $hppRequest );
+            $this->assertTrue(true);
 		} catch ( RealexValidationException $e ) {
 			$this->fail( "This HppRequest should have no validation errors." );
 		}
-
 	}
 
 	/**
@@ -2077,6 +2077,7 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 
 		try {
 			ValidationUtils::validate( $hppRequestConverted );
+            $this->assertTrue(true);
 		} catch ( RealexValidationException $e ) {
 			$this->fail( "This HppRequest should have no validation errors." );
 		}
@@ -2115,6 +2116,7 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 
 		try {
 			ValidationUtils::validate( $hppRequestConverted );
+            $this->assertTrue(true);
 		} catch ( RealexValidationException $e ) {
 			$this->fail( "This HppRequest should have no validation errors." );
 		}
@@ -2174,9 +2176,9 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 
 		try {
 			ValidationUtils::validate( $hppRequestConverted );
+            $this->assertTrue(true);
 		} catch ( RealexValidationException $e ) {
 			$this->fail( "This HppRequest shouldn't have validation errors." );
 		}
-
 	}
 }

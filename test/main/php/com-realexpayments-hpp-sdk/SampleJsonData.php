@@ -6,7 +6,7 @@ namespace com\realexpayments\hpp\sdk;
 use com\realexpayments\hpp\sdk\domain\Flag;
 use com\realexpayments\hpp\sdk\domain\HppRequest;
 use com\realexpayments\hpp\sdk\domain\HppResponse;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class containing sample JSON data and methods to check test data matches expected values.
@@ -223,11 +223,14 @@ class SampleJsonData
      * @param HppRequest $hppRequestExpected
      * @param HppRequest $hppRequestConverted
      * @param bool $defaultsGenerated
-     * @param PHPUnit_Framework_TestCase $testCase
+     * @param TestCase $testCase
      */
-    public static function checkValidHppRequest(HppRequest $hppRequestExpected, HppRequest $hppRequestConverted,
-                                                $defaultsGenerated, PHPUnit_Framework_TestCase $testCase)
-    {
+    public static function checkValidHppRequest(
+        HppRequest $hppRequestExpected,
+        HppRequest $hppRequestConverted,
+        $defaultsGenerated,
+        TestCase $testCase
+    ) {
         $testCase->assertEquals($hppRequestExpected->getAccount(), $hppRequestConverted->getAccount(), "Json conversion incorrect Account");
         $testCase->assertEquals($hppRequestExpected->getAmount(), $hppRequestConverted->getAmount(), "Json conversion incorrect Amount");
         $testCase->assertEquals($hppRequestExpected->getAutoSettleFlag(),
@@ -284,12 +287,12 @@ class SampleJsonData
      * Checks request supplementary data matches expected values.
      *
      * @param HppRequest $hppRequestConverted
-     * @param PHPUnit_Framework_TestCase $testCase
+     * @param TestCase $testCase
      */
-    public static function checkValidHppRequestSupplementaryData(HppRequest $hppRequestConverted,
-                                                                 PHPUnit_Framework_TestCase $testCase)
-    {
-
+    public static function checkValidHppRequestSupplementaryData(
+        HppRequest $hppRequestConverted,
+        TestCase $testCase
+    ) {
         $supplementaryData = $hppRequestConverted->getSupplementaryData();
 
         $testCase->assertEquals(self::UNKNOWN_ONE_VALUE,
@@ -345,11 +348,13 @@ class SampleJsonData
     /**
      * @param HppResponse $hppResponseExpected
      * @param HppResponse $hppResponseConverted
-     * @param PHPUnit_Framework_TestCase $testCase
+     * @param TestCase $testCase
      */
-    public static function checkValidHppResponse(HppResponse $hppResponseExpected, HppResponse $hppResponseConverted,
-                                                 PHPUnit_Framework_TestCase $testCase)
-    {
+    public static function checkValidHppResponse(
+        HppResponse $hppResponseExpected,
+        HppResponse $hppResponseConverted,
+        TestCase $testCase
+    ) {
         $testCase->assertEquals($hppResponseExpected->getAccount(), $hppResponseConverted->getAccount(), "Json conversion incorrect Account");
         $testCase->assertEquals($hppResponseExpected->getAmount(), $hppResponseConverted->getAmount(), "Json conversion incorrect Amount");
         $testCase->assertEquals($hppResponseExpected->getCommentOne(), $hppResponseConverted->getCommentOne(), "Json conversion incorrect Comment One");
@@ -389,11 +394,12 @@ class SampleJsonData
      * Checks request supplementary data matches expected values.
      *
      * @param HppResponse $hppResponse
-     * @param PHPUnit_Framework_TestCase $testCase
+     * @param TestCase $testCase
      */
-    public static function checkValidHppResponseSupplementaryData(HppResponse $hppResponse,
-                                                                  PHPUnit_Framework_TestCase $testCase)
-    {
+    public static function checkValidHppResponseSupplementaryData(
+        HppResponse $hppResponse,
+        TestCase $testCase
+    ) {
         $supplementaryData = $hppResponse->getSupplementaryData();
 
         $testCase->assertEquals(self::UNKNOWN_ONE_VALUE,
@@ -409,15 +415,13 @@ class SampleJsonData
             sizeof($supplementaryData), "Json conversion incorrect size");
     }
 
-
-
     /**
      * Checks request post dimensions matches expected values.
      *
      * @param HppRequest $hppRequestConverted
-     * @param PHPUnit_Framework_TestCase $testCase
+     * @param TestCase $testCase
      */
-    public static function checkValidHppRequestPostDimensions(HppRequest $hppRequestConverted, PHPUnit_Framework_TestCase $testCase){
+    public static function checkValidHppRequestPostDimensions(HppRequest $hppRequestConverted, TestCase $testCase){
 
         $postDimensions = $hppRequestConverted->getPostDimensions();
 
@@ -429,12 +433,7 @@ class SampleJsonData
 
         $postDimensions = $hppRequestConverted->getPostDimensions();
         $testCase->assertEquals(self::POST_DIMENSIONS, $postDimensions, "Json conversion incorrect ");
-
-
     }
-
-
-
 
 }
 

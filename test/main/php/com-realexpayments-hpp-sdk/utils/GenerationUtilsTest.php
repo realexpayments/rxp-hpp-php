@@ -9,7 +9,7 @@ namespace com\realexpayments\hpp\sdk\utils;
  * @package com\realexpayments\hpp\sdk\utils
  * @author vicpada
  */
-class GenerationUtilsTest extends \PHPUnit_Framework_TestCase {
+class GenerationUtilsTest extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * Test Hash generation success case.
