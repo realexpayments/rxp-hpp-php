@@ -2,7 +2,7 @@
 You can sign up for a free Realex Payments sandbox account at https://developer.realexpayments.com
 
 ## Requirements ##
-- PHP >= 5.3.9
+- PHP >= 7.1
 - Composer (https://getcomposer.org/)
 
 ## Instructions ##
