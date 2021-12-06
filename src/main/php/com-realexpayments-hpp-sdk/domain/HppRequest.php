@@ -355,9 +355,144 @@ class HppRequest {
 	 * @Assert\Length(min = 0, max = 255, maxMessage = com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_postResponse_size, charset="ISO-8859-1")
 	 * @Assert\Regex(pattern="/^[\s \x{0020}-\x{003B} \x{003D} \x{003F}-\x{007E} \x{00A1}-\x{00FF}\x{20AC}\x{201A}\x{0192}\x{201E}\x{2026}\x{2020}\x{2021}\x{02C6}\x{2030}\x{0160}\x{2039}\x{0152}\x{017D}\x{2018}\x{2019}\x{201C}\x{201D}\x{2022}\x{2013}\x{2014}\x{02DC}\x{2122}\x{0161}\x{203A}\x{0153}\x{017E}\x{0178}]*$/iu", message=com\realexpayments\hpp\sdk\validators\ValidationMessages::hppRequest_postResponse_pattern )
 	 */
-
 	private $postResponse;
 
+	/**
+	 * @var string Customer's email address, including the full domain name. The field must be submitted in the form
+	 * `name@host.domain` (for example, `james.mason@example.com`).
+	 * 
+	 * European merchants: mandatory for SCA.
+	 */
+	private $customerEmailAddress;
+
+	/**
+	 * @var string The mobile phone number provided by the Cardholder. Should be in format `CountryCallingCode|Number`
+	 * (for example, `1|123456789`).
+	 * 
+	 * European merchants: mandatory for SCA if captured by your application or website. Global Payments recommend you send at least one phone number (Mobile, Home or Work).
+	 */
+	private $customerMobilePhoneNumber;
+
+	/**
+	 * @var string First line of the customer's billing address.
+	 * 
+	 * European merchants: mandatory for SCA.
+	 */
+	private $billingAddressLine1;
+
+	/**
+	 * @var string Second line of the customer's billing address. Can be submitted as blank if not relevant for the particular customer.
+	 * 
+	 * European merchants: mandatory for SCA.
+	 */
+	private $billingAddressLine2;
+
+	/**
+	 * @var string Third line of the customer's billing address. Can be submitted as blank if not relevant for the particular customer.
+	 * 
+	 * European merchants: mandatory for SCA.
+	 */
+	private $billingAddressLine3;
+
+	/**
+	 * @var string The city of the customer's billing address.
+	 * 
+	 * European merchants: mandatory for SCA.
+	 */
+	private $billingCity;
+
+	/**
+	 * @var string The state of the customer's billing address. Should be the country subdivision code defined in ISO 3166-2.
+	 * 
+	 * European merchants: if state applicable for the billing address country, required for SCA.
+	 */ 
+	private $billingState;
+
+	/**
+	 * @var string ZIP or other postal code customer's billing address.
+	 * 
+	 * European merchants: mandatory for SCA.
+	 */
+	private $billingPostalCode;
+
+	/**
+	 * @var string The country of the customer's billing address. ISO 3166-1 numeric three-digit country code.
+	 * 
+	 * European merchants: mandatory for SCA.
+	 */
+	private $billingCountryCode;
+
+	/**
+	 * @var string First line of the customer's shipping address.
+	 * 
+	 * European merchants: optional for SCA.
+	 */
+	private $shippingAddressLine1;
+
+	/**
+	 * @var string Second line of the customer's shipping address.
+	 * 
+	 * European merchants: optional for SCA.
+	 */
+	private $shippingAddressLine2;
+
+	/**
+	 * @var string Third line of the customer's shipping address.
+	 * 
+	 * European merchants: optional for SCA.
+	 */
+	private $shippingAddressLine3;
+
+	/**
+	 * @var string The city of the customer's shipping address.
+	 * 
+	 * European merchants: optional for SCA.
+	 */
+	private $shippingCity;
+
+	/**
+	 * @var string The state of the customer's shipping address. Should be the country subdivision code defined in ISO 3166-2.
+	 * 
+	 * European merchants: if applicable for the shipping address country, optional for SCA.
+	 */
+	private $shippingState;
+
+	/**
+	 * @var string ZIP or other postal code customer's shipping address.
+	 * 
+	 * European merchants: optional for SCA.
+	 */
+	private $shippingPostalCode;
+
+	/**
+	 * @var string The country of the customer's shipping address. ISO 3166-1 numeric three-digit country code.
+	 * 
+	 * European merchants: optional for SCA.
+	 */
+	private $shippingCountryCode;
+
+	/**
+	 * @var boolean Indicates whether the shipping address matches the billing address. Allowed values:
+	 * 
+	 * `TRUE` - Shipping Address matches Billing Address
+	 * `FALSE` - Shipping Address does not match Billing Address
+	 * 
+	 * European merchants: optional for SCA.
+	 */
+	private $shippingAddressMatchIndicator;
+
+	/**
+	 * @var string Indicates whether a challenge is requested for this transaction. The Issuer may override whatever preference is specified in this field. Allowed values:
+	 * 
+	 * `NO_PREFERENCE` - No preference as to whether the customer is challenged
+	 * `NO_CHALLENGE_REQUESTED` - Preference is for the customer not be challenged.
+	 * `CHALLENGE_PREFERRED` - Preference is for the customer to be challenged.
+	 * `CHALLENGE_MANDATED` - A challenge is required for the transaction to be authorised due to local/regional mandates or other variables.
+	 * 
+	 * European merchants: optional for SCA.
+	 */
+	private $challengeRequestIndicator;
+	
 	/**
 	 * Getter for merchantId
 	 *
@@ -873,7 +1008,6 @@ class HppRequest {
 	public function setPayerExists( $payerExists ) {
 		$this->payerExists = $payerExists;
 	}
-
 
 	/**
 	 * Helper method for adding a merchantId
@@ -1426,6 +1560,527 @@ class HppRequest {
 
 	}
 
+	/**
+	 * Getter for customerEmailAddress
+	 *
+	 * @return string
+	 */
+	public function getCustomerEmailAddress() {
+		return $this->customerEmailAddress;
+	}
+
+	/**
+	 * Setter for customerEmailAddress
+	 * 
+	 * @param string $customerEmailAddress
+	 */
+	public function setCustomerEmailAddress( $customerEmailAddress ) {
+		$this->customerEmailAddress = $customerEmailAddress;
+	}
+
+	/**
+	 * Getter for customerMobilePhoneNumber
+	 *
+	 * @return string
+	 */
+	public function getCustomerMobilePhoneNumber() {
+		return $this->customerMobilePhoneNumber;
+	}
+
+	/**
+	 * Setter for customerMobilePhoneNumber
+	 * 
+	 * @param string $customerMobilePhoneNumber
+	 */
+	public function setCustomerMobilePhoneNumber( $customerMobilePhoneNumber ) {
+		$this->customerMobilePhoneNumber = $customerMobilePhoneNumber;
+	}
+
+	/**
+	 * Getter for billingAddressLine1
+	 *
+	 * @return string
+	 */
+	public function getBillingAddressLine1() {
+		return $this->billingAddressLine1;
+	}
+
+	/**
+	 * Setter for billingAddressLine1
+	 * 
+	 * @param string $billingAddressLine1
+	 */
+	public function setBillingAddressLine1( $billingAddressLine1 ) {
+		$this->billingAddressLine1 = $billingAddressLine1;
+	}
+
+	/**
+	 * Getter for billingAddressLine2
+	 *
+	 * @return string
+	 */
+	public function getBillingAddressLine2() {
+		return $this->billingAddressLine2;
+	}
+
+	/**
+	 * Setter for billingAddressLine2
+	 * 
+	 * @param string $billingAddressLine2
+	 */
+	public function setBillingAddressLine2( $billingAddressLine2 ) {
+		$this->billingAddressLine2 = $billingAddressLine2;
+	}
+
+	/**
+	 * Getter for billingAddressLine3
+	 *
+	 * @return string
+	 */
+	public function getBillingAddressLine3() {
+		return $this->billingAddressLine3;
+	}
+
+	/**
+	 * Setter for billingAddressLine3
+	 * 
+	 * @param string $billingAddressLine3
+	 */
+	public function setBillingAddressLine3( $billingAddressLine3 ) {
+		$this->billingAddressLine3 = $billingAddressLine3;
+	}
+
+	/**
+	 * Getter for billingCity
+	 *
+	 * @return string
+	 */
+	public function getBillingCity() {
+		return $this->billingCity;
+	}
+
+	/**
+	 * Setter for billingCity
+	 * 
+	 * @param string $billingCity
+	 */
+	public function setBillingCity( $billingCity ) {
+		$this->billingCity = $billingCity;
+	}
+
+	/**
+	 * Getter for billingState
+	 *
+	 * @return string
+	 */
+	public function getBillingState() {
+		return $this->billingState;
+	}
+
+	/**
+	 * Setter for billingState
+	 * 
+	 * @param string $billingState
+	 */
+	public function setBillingState( $billingState ) {
+		$this->billingState = $billingState;
+	}
+
+	/**
+	 * Getter for billingPostalCode
+	 *
+	 * @return string
+	 */
+	public function getBillingPostalCode() {
+		return $this->billingPostalCode;
+	}
+
+	/**
+	 * Setter for billingPostalCode
+	 * 
+	 * @param string $billingPostalCode
+	 */
+	public function setBillingPostalCode( $billingPostalCode ) {
+		$this->billingPostalCode = $billingPostalCode;
+	}
+
+	/**
+	 * Getter for billingCountryCode
+	 *
+	 * @return string
+	 */
+	public function getBillingCountryCode() {
+		return $this->billingCountryCode;
+	}
+
+	/**
+	 * Setter for billingCountryCode
+	 * 
+	 * @param string $billingCountryCode
+	 */
+	public function setBillingCountryCode( $billingCountryCode ) {
+		$this->billingCountryCode = $billingCountryCode;
+	}
+
+	/**
+	 * Getter for shippingAddressLine1
+	 *
+	 * @return string
+	 */
+	public function getShippingAddressLine1() {
+		return $this->shippingAddressLine1;
+	}
+
+	/**
+	 * Setter for shippingAddressLine1
+	 * 
+	 * @param string $shippingAddressLine1
+	 */
+	public function setShippingAddressLine1( $shippingAddressLine1 ) {
+		$this->shippingAddressLine1 = $shippingAddressLine1;
+	}
+
+	/**
+	 * Getter for shippingAddressLine2
+	 *
+	 * @return string
+	 */
+	public function getShippingAddressLine2() {
+		return $this->shippingAddressLine2;
+	}
+
+	/**
+	 * Setter for shippingAddressLine2
+	 * 
+	 * @param string $shippingAddressLine2
+	 */
+	public function setShippingAddressLine2( $shippingAddressLine2 ) {
+		$this->shippingAddressLine2 = $shippingAddressLine2;
+	}
+
+	/**
+	 * Getter for shippingAddressLine3
+	 *
+	 * @return string
+	 */
+	public function getShippingAddressLine3() {
+		return $this->shippingAddressLine3;
+	}
+
+	/**
+	 * Setter for shippingAddressLine3
+	 * 
+	 * @param string $shippingAddressLine3
+	 */
+	public function setShippingAddressLine3( $shippingAddressLine3 ) {
+		$this->shippingAddressLine3 = $shippingAddressLine3;
+	}
+
+	/**
+	 * Getter for shippingCity
+	 *
+	 * @return string
+	 */
+	public function getShippingCity() {
+		return $this->shippingCity;
+	}
+
+	/**
+	 * Setter for shippingCity
+	 * 
+	 * @param string $shippingCity
+	 */
+	public function setShippingCity( $shippingCity ) {
+		$this->shippingCity = $shippingCity;
+	}
+
+	/**
+	 * Getter for shippingState
+	 *
+	 * @return string
+	 */
+	public function getShippingState() {
+		return $this->shippingState;
+	}
+
+	/**
+	 * Setter for shippingState
+	 * 
+	 * @param string $shippingState
+	 */
+	public function setShippingState( $shippingState ) {
+		$this->shippingState = $shippingState;
+	}
+
+	/**
+	 * Getter for shippingPostalCode
+	 *
+	 * @return string
+	 */
+	public function getShippingPostalCode() {
+		return $this->shippingPostalCode;
+	}
+
+	/**
+	 * Setter for shippingPostalCode
+	 * 
+	 * @param string $shippingPostalCode
+	 */
+	public function setShippingPostalCode( $shippingPostalCode ) {
+		$this->shippingPostalCode = $shippingPostalCode;
+	}
+
+	/**
+	 * Getter for shippingCountryCode
+	 *
+	 * @return string
+	 */
+	public function getShippingCountryCode() {
+		return $this->shippingCountryCode;
+	}
+
+	/**
+	 * Setter for shippingCountryCode
+	 * 
+	 * @param string $shippingCountryCode
+	 */
+	public function setShippingCountryCode( $shippingCountryCode ) {
+		$this->shippingCountryCode = $shippingCountryCode;
+	}
+
+	/**
+	 * Getter for shippingAddressMatchIndicator
+	 *
+	 * @return boolean
+	 */
+	public function getShippingAddressMatchIndicator() {
+		return $this->shippingAddressMatchIndicator;
+	}
+
+	/**
+	 * Setter for shippingAddressMatchIndicator
+	 * 
+	 * @param boolean $shippingAddressMatchIndicator
+	 */
+	public function setShippingAddressMatchIndicator( $shippingAddressMatchIndicator ) {
+		$this->shippingAddressMatchIndicator = (bool)$shippingAddressMatchIndicator;
+	}
+
+	/**
+	 * Getter for challengeRequestIndicator
+	 *
+	 * @return string
+	 */
+	public function getChallengeRequestIndicator() {
+		return $this->challengeRequestIndicator;
+	}
+
+	/**
+	 * Setter for challengeRequestIndicator
+	 * 
+	 * @param string $challengeRequestIndicator
+	 */
+	public function setChallengeRequestIndicator( $challengeRequestIndicator ) {
+		$this->challengeRequestIndicator = $challengeRequestIndicator;
+	}
+
+	/**
+	 * Helper method for setting customerEmailAddress
+	 * 
+	 * @param string $customerEmailAddress
+	 * @return HppRequest
+	 */
+	public function addCustomerEmailAddress( $customerEmailAddress ) {
+		$this->setCustomerEmailAddress($customerEmailAddress);
+		return $this;
+	}
+
+	/**
+	 * Helper method for setting customerMobilePhoneNumber
+	 * 
+	 * @param string $customerMobilePhoneNumber
+	 * @return HppRequest
+	 */
+	public function addCustomerMobilePhoneNumber( $customerMobilePhoneNumber ) {
+		$this->setCustomerMobilePhoneNumber($customerMobilePhoneNumber);
+		return $this;
+	}
+
+	/**
+	 * Helper method for setting billingAddressLine1
+	 * 
+	 * @param string $billingAddressLine1
+	 * @return HppRequest
+	 */
+	public function addBillingAddressLine1( $billingAddressLine1 ) {
+		$this->setBillingAddressLine1($billingAddressLine1);
+		return $this;
+	}
+
+	/**
+	 * Helper method for setting billingAddressLine2
+	 * 
+	 * @param string $billingAddressLine2
+	 * @return HppRequest
+	 */
+	public function addBillingAddressLine2( $billingAddressLine2 ) {
+		$this->setBillingAddressLine2($billingAddressLine2);
+		return $this;
+	}
+
+	/**
+	 * Helper method for setting billingAddressLine3
+	 * 
+	 * @param string $billingAddressLine3
+	 * @return HppRequest
+	 */
+	public function addBillingAddressLine3( $billingAddressLine3 ) {
+		$this->setBillingAddressLine3($billingAddressLine3);
+		return $this;
+	}
+
+	/**
+	 * Helper method for setting billingCity
+	 * 
+	 * @param string $billingCity
+	 * @return HppRequest
+	 */
+	public function addBillingCity( $billingCity ) {
+		$this->setBillingCity($billingCity);
+		return $this;
+	}
+
+	/**
+	 * Helper method for setting billingState
+	 * 
+	 * @param string $billingState
+	 * @return HppRequest
+	 */
+	public function addBillingState( $billingState ) {
+		$this->setBillingState($billingState);
+		return $this;
+	}
+
+	/**
+	 * Helper method for setting billingPostalCode
+	 * 
+	 * @param string $billingPostalCode
+	 * @return HppRequest
+	 */
+	public function addBillingPostalCode( $billingPostalCode ) {
+		$this->setBillingPostalCode($billingPostalCode);
+		return $this;
+	}
+
+	/**
+	 * Helper method for setting billingCountryCode
+	 * 
+	 * @param string $billingCountryCode
+	 * @return HppRequest
+	 */
+	public function addBillingCountryCode( $billingCountryCode ) {
+		$this->setBillingCountryCode($billingCountryCode);
+		return $this;
+	}
+
+	/**
+	 * Helper method for setting shippingAddressLine1
+	 * 
+	 * @param string $shippingAddressLine1
+	 * @return HppRequest
+	 */
+	public function addShippingAddressLine1( $shippingAddressLine1 ) {
+		$this->setShippingAddressLine1($shippingAddressLine1);
+		return $this;
+	}
+
+	/**
+	 * Helper method for setting shippingAddressLine2
+	 * 
+	 * @param string $shippingAddressLine2
+	 * @return HppRequest
+	 */
+	public function addShippingAddressLine2( $shippingAddressLine2 ) {
+		$this->setShippingAddressLine2($shippingAddressLine2);
+		return $this;
+	}
+
+	/**
+	 * Helper method for setting shippingAddressLine3
+	 * 
+	 * @param string $shippingAddressLine3
+	 * @return HppRequest
+	 */
+	public function addShippingAddressLine3( $shippingAddressLine3 ) {
+		$this->setShippingAddressLine3($shippingAddressLine3);
+		return $this;
+	}
+
+	/**
+	 * Helper method for setting shippingCity
+	 * 
+	 * @param string $shippingCity
+	 * @return HppRequest
+	 */
+	public function addShippingCity( $shippingCity ) {
+		$this->setShippingCity($shippingCity);
+		return $this;
+	}
+
+	/**
+	 * Helper method for setting shippingState
+	 * 
+	 * @param string $shippingState
+	 * @return HppRequest
+	 */
+	public function addShippingState( $shippingState ) {
+		$this->setShippingState($shippingState);
+		return $this;
+	}
+
+	/**
+	 * Helper method for setting shippingPostalCode
+	 * 
+	 * @param string $shippingPostalCode
+	 * @return HppRequest
+	 */
+	public function addShippingPostalCode( $shippingPostalCode ) {
+		$this->setShippingPostalCode($shippingPostalCode);
+		return $this;
+	}
+
+	/**
+	 * Helper method for setting shippingCountryCode
+	 * 
+	 * @param string $shippingCountryCode
+	 * @return HppRequest
+	 */
+	public function addShippingCountryCode( $shippingCountryCode ) {
+		$this->setShippingCountryCode($shippingCountryCode);
+		return $this;
+	}
+
+	/**
+	 * Helper method for setting shippingAddressMatchIndicator
+	 * 
+	 * @param boolean $shippingAddressMatchIndicator
+	 * @return HppRequest
+	 */
+	public function addShippingAddressMatchIndicator( $shippingAddressMatchIndicator ) {
+		$this->setShippingAddressMatchIndicator($shippingAddressMatchIndicator);
+		return $this;
+	}
+
+	/**
+	 * Helper method for setting challengeRequestIndicator
+	 * 
+	 * @param string $challengeRequestIndicator
+	 * @return HppRequest
+	 */
+	public function addChallengeRequestIndicator( $challengeRequestIndicator ) {
+		$this->setChallengeRequestIndicator($challengeRequestIndicator);
+		return $this;
+	}
 
 
 	/**
@@ -1578,6 +2233,24 @@ class HppRequest {
 		$this->hppSelectStoredCard    = base64_encode( $this->hppSelectStoredCard );
 		$this->postResponse   		 = base64_encode( $this->postResponse );
 		$this->postDimensions   	 = base64_encode( $this->postDimensions );
+		$this->customerEmailAddress = base64_encode( $this->customerEmailAddress );
+		$this->customerMobilePhoneNumber = base64_encode( $this->customerMobilePhoneNumber );
+		$this->billingAddressLine1 = base64_encode( $this->billingAddressLine1 );
+		$this->billingAddressLine2 = base64_encode( $this->billingAddressLine2 );
+		$this->billingAddressLine3 = base64_encode( $this->billingAddressLine3 );
+		$this->billingCity = base64_encode( $this->billingCity );
+		$this->billingState = base64_encode( $this->billingState );
+		$this->billingPostalCode = base64_encode( $this->billingPostalCode );
+		$this->billingCountryCode = base64_encode( $this->billingCountryCode );
+		$this->shippingAddressLine1 = base64_encode( $this->shippingAddressLine1 );
+		$this->shippingAddressLine2 = base64_encode( $this->shippingAddressLine2 );
+		$this->shippingAddressLine3 = base64_encode( $this->shippingAddressLine3 );
+		$this->shippingCity = base64_encode( $this->shippingCity );
+		$this->shippingState = base64_encode( $this->shippingState );
+		$this->shippingPostalCode = base64_encode( $this->shippingPostalCode );
+		$this->shippingCountryCode = base64_encode( $this->shippingCountryCode );
+		$this->shippingAddressMatchIndicator = base64_encode( $this->shippingAddressMatchIndicator );
+		$this->challengeRequestIndicator = base64_encode( $this->challengeRequestIndicator );
 
 		if ( is_array( $this->supplementaryData ) ) {
 			foreach ( $this->supplementaryData as $key => $value ) {
@@ -1630,6 +2303,24 @@ class HppRequest {
 		$this->hppSelectStoredCard   	= base64_decode( $this->hppSelectStoredCard );
 		$this->postResponse   		= base64_decode( $this->postResponse );
 		$this->postDimensions   	= base64_decode( $this->postDimensions );
+		$this->customerEmailAddress = base64_decode( $this->customerEmailAddress );
+		$this->customerMobilePhoneNumber = base64_decode( $this->customerMobilePhoneNumber );
+		$this->billingAddressLine1 = base64_decode( $this->billingAddressLine1 );
+		$this->billingAddressLine2 = base64_decode( $this->billingAddressLine2 );
+		$this->billingAddressLine3 = base64_decode( $this->billingAddressLine3 );
+		$this->billingCity = base64_decode( $this->billingCity );
+		$this->billingState = base64_decode( $this->billingState );
+		$this->billingPostalCode = base64_decode( $this->billingPostalCode );
+		$this->billingCountryCode = base64_decode( $this->billingCountryCode );
+		$this->shippingAddressLine1 = base64_decode( $this->shippingAddressLine1 );
+		$this->shippingAddressLine2 = base64_decode( $this->shippingAddressLine2 );
+		$this->shippingAddressLine3 = base64_decode( $this->shippingAddressLine3 );
+		$this->shippingCity = base64_decode( $this->shippingCity );
+		$this->shippingState = base64_decode( $this->shippingState );
+		$this->shippingPostalCode = base64_decode( $this->shippingPostalCode );
+		$this->shippingCountryCode = base64_decode( $this->shippingCountryCode );
+		$this->shippingAddressMatchIndicator = base64_decode( $this->shippingAddressMatchIndicator );
+		$this->challengeRequestIndicator = base64_decode( $this->challengeRequestIndicator );
 
 
 		if ( is_array( $this->supplementaryData ) ) {
@@ -1638,11 +2329,93 @@ class HppRequest {
 			}
 		}
 
-
-
 		return $this;
 	}
 
+	/**
+	 * Format (non-encoded) request, remove null values
+	 *
+	 * @param string $charSet
+	 *
+	 * @return HppRequest
+	 */
+	public function formatRequest($charSet)
+	{
+	    $this->account = $this->nullToEmptyString($this->account);
+	    $this->amount = $this->nullToEmptyString($this->amount);
+	    $this->autoSettleFlag = $this->nullToEmptyString($this->autoSettleFlag);
+	    $this->billingCode = $this->nullToEmptyString($this->billingCode);
+	    $this->billingCountry = $this->nullToEmptyString($this->billingCountry);
+	    $this->cardPaymentButtonText = $this->nullToEmptyString($this->cardPaymentButtonText);
+	    $this->cardStorageEnable = $this->nullToEmptyString($this->cardStorageEnable);
+	    $this->commentOne = $this->nullToEmptyString($this->commentOne);
+	    $this->commentTwo = $this->nullToEmptyString($this->commentTwo);
+	    $this->currency = $this->nullToEmptyString($this->currency);
+	    $this->customerNumber = $this->nullToEmptyString($this->customerNumber);
+	    $this->hash = $this->nullToEmptyString($this->hash);
+	    $this->language = $this->nullToEmptyString($this->language);
+	    $this->merchantId = $this->nullToEmptyString($this->merchantId);
+	    $this->offerSaveCard = $this->nullToEmptyString($this->offerSaveCard);
+	    $this->orderId = $this->nullToEmptyString($this->orderId);
+	    $this->payerExists = $this->nullToEmptyString($this->payerExists);
+	    $this->payerReference = $this->nullToEmptyString($this->payerReference);
+	    $this->paymentReference = $this->nullToEmptyString($this->paymentReference);
+	    $this->productId = $this->nullToEmptyString($this->productId);
+	    $this->returnTss = $this->nullToEmptyString($this->returnTss);
+	    $this->shippingCode = $this->nullToEmptyString($this->shippingCode);
+	    $this->shippingCountry = $this->nullToEmptyString($this->shippingCountry);
+	    $this->timeStamp = $this->nullToEmptyString($this->timeStamp);
+	    $this->variableReference = $this->nullToEmptyString($this->variableReference);
+	    $this->validateCardOnly = $this->nullToEmptyString($this->validateCardOnly);
+	    $this->dccEnable = $this->nullToEmptyString($this->dccEnable);
+	    $this->hppVersion = $this->nullToEmptyString($this->hppVersion);
+	    $this->hppSelectStoredCard = $this->nullToEmptyString($this->hppSelectStoredCard);
+	    $this->postResponse = $this->nullToEmptyString($this->postResponse);
+			$this->postDimensions = $this->nullToEmptyString($this->postDimensions);
+			$this->customerEmailAddress = $this->nullToEmptyString($this->customerEmailAddress);
+			$this->customerMobilePhoneNumber = $this->nullToEmptyString($this->customerMobilePhoneNumber);
+			$this->billingAddressLine1 = $this->nullToEmptyString($this->billingAddressLine1);
+			$this->billingAddressLine2 = $this->nullToEmptyString($this->billingAddressLine2);
+			$this->billingAddressLine3 = $this->nullToEmptyString($this->billingAddressLine3);
+			$this->billingCity = $this->nullToEmptyString($this->billingCity);
+			$this->billingState = $this->nullToEmptyString($this->billingState);
+			$this->billingPostalCode = $this->nullToEmptyString($this->billingPostalCode);
+			$this->billingCountryCode = $this->nullToEmptyString($this->billingCountryCode);
+			$this->shippingAddressLine1 = $this->nullToEmptyString($this->shippingAddressLine1);
+			$this->shippingAddressLine2 = $this->nullToEmptyString($this->shippingAddressLine2);
+			$this->shippingAddressLine3 = $this->nullToEmptyString($this->shippingAddressLine3);
+			$this->shippingCity = $this->nullToEmptyString($this->shippingCity);
+			$this->shippingState = $this->nullToEmptyString($this->shippingState);
+			$this->shippingPostalCode = $this->nullToEmptyString($this->shippingPostalCode);
+			$this->shippingCountryCode = $this->nullToEmptyString($this->shippingCountryCode);
+			$this->shippingAddressMatchIndicator = $this->nullToEmptyString($this->shippingAddressMatchIndicator);
+			$this->challengeRequestIndicator = $this->nullToEmptyString($this->challengeRequestIndicator);
+	    
+	    if (is_array($this->supplementaryData)) {
+	        foreach ($this->supplementaryData as $key => $value) {
+	            $this->supplementaryData[$key] = $this->nullToEmptyString($value);
+	        }
+	    }
+	    
+	    return $this;
+	}
+	
+	/**
+	 * Convert null values to empty strings
+	 *
+	 * @param string request $parameter
+	 *           
+	 * @return $parameter
+	 */
+	public function nullToEmptyString($parameter)
+	{
+	    if (is_null($parameter)) {
+	        $parameter = "";
+	    }
+	    
+	    return $parameter;
+	}
+	
 	/**
 	 * @return string The class name
 	 */
@@ -1652,4 +2425,3 @@ class HppRequest {
 
 
 }
-

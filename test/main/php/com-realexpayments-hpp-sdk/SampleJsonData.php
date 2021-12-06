@@ -31,7 +31,7 @@ class SampleJsonData
     const VALID_HPP_RESPONSE_NO_TSS_ENCODED_JSON_PATH = "/sample-json/hpp-response-no-TSS-encoded.json";
     const VALID_HPP_REQUEST_HPP_VERSION_JSON_PATH = "/sample-json/hpp-request-hpp-version-valid.json";
     const INVALID_HPP_REQUEST_HPP_VERSION_JSON_PATH = "/sample-json/hpp-request-hpp-version-fail.json";
-    const VALID_HPP_REQUEST_HPP_VERSION_JSON_PATH2 = "/sample-json/hpp-request-hpp-version-fail2.json";
+    const VALID_HPP_REQUEST_HPP_VERSION_JSON_PATH2 = "/sample-json/hpp-request-hpp-version2.json";
     const VALID_HPP_REQUEST_HPP_POST_DIMENSIONS_JSON_PATH = "/sample-json/hpp-request-post-dimensions-valid.json";
     const INVALID_SIZE_HPP_REQUEST_HPP_POST_DIMENSIONS_JSON_PATH = "/sample-json/hpp-request-post-dimensions-invalid-size.json";
     const INVALID_PATTERN_HPP_REQUEST_HPP_POST_DIMENSIONS_JSON_PATH = "/sample-json/hpp-request-post-dimensions-invalid-pattern.json";
@@ -426,7 +426,7 @@ class SampleJsonData
         $postDimensions = $hppRequestConverted->getPostDimensions();
 
         $testCase->assertEquals(self::POST_DIMENSIONS, $postDimensions, "Json conversion incorrect ");
-        $testCase->assertEquals(sizeof(self::POST_DIMENSIONS), sizeof($postDimensions), "Json conversion incorrect size");
+        $testCase->assertEquals(strlen(self::POST_DIMENSIONS), strlen($postDimensions), "Json conversion incorrect size");
 
         $hppRequestConverted = $hppRequestConverted->encode(RealexHpp::ENCODING_CHARSET);
         $hppRequestConverted = $hppRequestConverted->decode(RealexHpp::ENCODING_CHARSET);

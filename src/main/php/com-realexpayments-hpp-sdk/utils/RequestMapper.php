@@ -40,6 +40,24 @@ class RequestMapper implements iMapper {
 		'HPP_SELECT_STORED_CARD',
 		'HPP_POST_DIMENSIONS',
 		'HPP_POST_RESPONSE',
+		'HPP_CUSTOMER_EMAIL',
+		'HPP_CUSTOMER_PHONENUMBER_MOBILE',
+		'HPP_BILLING_STREET1',
+		'HPP_BILLING_STREET2',
+		'HPP_BILLING_STREET3',
+		'HPP_BILLING_CITY',
+		'HPP_BILLING_STATE',
+		'HPP_BILLING_POSTALCODE',
+		'HPP_BILLING_COUNTRY',
+		'HPP_SHIPPING_STREET1',
+		'HPP_SHIPPING_STREET2',
+		'HPP_SHIPPING_STREET3',
+		'HPP_SHIPPING_CITY',
+		'HPP_SHIPPING_STATE',
+		'HPP_SHIPPING_POSTALCODE',
+		'HPP_SHIPPING_COUNTRY',
+		'HPP_ADDRESS_MATCH_INDICATOR',
+		'HPP_CHALLENGE_REQUEST_INDICATOR',
 	);
 
 	/**
@@ -101,6 +119,78 @@ class RequestMapper implements iMapper {
 		if($hppRequest->getPostResponse() != null)
 			$prop['HPP_POST_RESPONSE'] = $hppRequest->getPostResponse();
 
+		if ($hppRequest->getCustomerEmailAddress() != null) {
+			$prop['HPP_CUSTOMER_EMAIL'] = $hppRequest->getCustomerEmailAddress();
+		}
+
+		if ($hppRequest->getCustomerMobilePhoneNumber() != null) {
+			$prop['HPP_CUSTOMER_PHONENUMBER_MOBILE'] = $hppRequest->getCustomerMobilePhoneNumber();
+		}
+
+		if ($hppRequest->getBillingAddressLine1() != null) {
+			$prop['HPP_BILLING_STREET1'] = $hppRequest->getBillingAddressLine1();
+		}
+
+		if ($hppRequest->getBillingAddressLine2() != null) {
+			$prop['HPP_BILLING_STREET2'] = $hppRequest->getBillingAddressLine2();
+		}
+
+		if ($hppRequest->getBillingAddressLine3() != null) {
+			$prop['HPP_BILLING_STREET3'] = $hppRequest->getBillingAddressLine3();
+		}
+
+		if ($hppRequest->getBillingCity() != null) {
+			$prop['HPP_BILLING_CITY'] = $hppRequest->getBillingCity();
+		}
+
+		if ($hppRequest->getBillingState() != null) {
+			$prop['HPP_BILLING_STATE'] = $hppRequest->getBillingState();
+		}
+
+		if ($hppRequest->getBillingPostalCode() != null) {
+			$prop['HPP_BILLING_POSTALCODE'] = $hppRequest->getBillingPostalCode();
+		}
+
+		if ($hppRequest->getBillingCountryCode() != null) {
+			$prop['HPP_BILLING_COUNTRY'] = $hppRequest->getBillingCountryCode();
+		}
+
+		if ($hppRequest->getShippingAddressLine1() != null) {
+			$prop['HPP_SHIPPING_STREET1'] = $hppRequest->getShippingAddressLine1();
+		}
+
+		if ($hppRequest->getShippingAddressLine2() != null) {
+			$prop['HPP_SHIPPING_STREET2'] = $hppRequest->getShippingAddressLine2();
+		}
+
+		if ($hppRequest->getShippingAddressLine3() != null) {
+			$prop['HPP_SHIPPING_STREET3'] = $hppRequest->getShippingAddressLine3();
+		}
+
+		if ($hppRequest->getShippingCity() != null) {
+			$prop['HPP_SHIPPING_CITY'] = $hppRequest->getShippingCity();
+		}
+
+		if ($hppRequest->getShippingState() != null) {
+			$prop['HPP_SHIPPING_STATE'] = $hppRequest->getShippingState();
+		}
+
+		if ($hppRequest->getShippingPostalCode() != null) {
+			$prop['HPP_SHIPPING_POSTALCODE'] = $hppRequest->getShippingPostalCode();
+		}
+
+		if ($hppRequest->getShippingCountryCode() != null) {
+			$prop['HPP_SHIPPING_COUNTRY'] = $hppRequest->getShippingCountryCode();
+		}
+
+		if ($hppRequest->getShippingAddressMatchIndicator() != null) {
+			$prop['HPP_ADDRESS_MATCH_INDICATOR'] = $hppRequest->getShippingAddressMatchIndicator() ? 'TRUE' : 'FALSE';
+		}
+
+		if ($hppRequest->getChallengeRequestIndicator() != null) {
+			$prop['HPP_CHALLENGE_REQUEST_INDICATOR'] = $hppRequest->getChallengeRequestIndicator();
+		}
+
 		return json_encode( $prop );
 	}
 
@@ -152,6 +242,24 @@ class RequestMapper implements iMapper {
 			$hppRequest->setHppSelectStoredCard( $array['HPP_SELECT_STORED_CARD'] );
 			$hppRequest->setPostDimensions( $array['HPP_POST_DIMENSIONS'] );
 			$hppRequest->setPostResponse( $array['HPP_POST_RESPONSE'] );
+			$hppRequest->setCustomerEmailAddress( $array['HPP_CUSTOMER_EMAIL'] );
+			$hppRequest->setCustomerMobilePhoneNumber( $array['HPP_CUSTOMER_PHONENUMBER_MOBILE'] );
+			$hppRequest->setBillingAddressLine1( $array['HPP_BILLING_STREET1'] );
+			$hppRequest->setBillingAddressLine2( $array['HPP_BILLING_STREET2'] );
+			$hppRequest->setBillingAddressLine3( $array['HPP_BILLING_STREET3'] );
+			$hppRequest->setBillingCity( $array['HPP_BILLING_CITY'] );
+			$hppRequest->setBillingState( $array['HPP_BILLING_STATE'] );
+			$hppRequest->setBillingPostalCode( $array['HPP_BILLING_POSTALCODE'] );
+			$hppRequest->setBillingCountryCode( $array['HPP_BILLING_COUNTRY'] );
+			$hppRequest->setShippingAddressLine1( $array['HPP_SHIPPING_STREET1'] );
+			$hppRequest->setShippingAddressLine2( $array['HPP_SHIPPING_STREET2'] );
+			$hppRequest->setShippingAddressLine3( $array['HPP_SHIPPING_STREET3'] );
+			$hppRequest->setShippingCity( $array['HPP_SHIPPING_CITY'] );
+			$hppRequest->setShippingState( $array['HPP_SHIPPING_STATE'] );
+			$hppRequest->setShippingPostalCode( $array['HPP_SHIPPING_POSTALCODE'] );
+			$hppRequest->setShippingCountryCode( $array['HPP_SHIPPING_COUNTRY'] );
+			$hppRequest->setShippingAddressMatchIndicator( $array['HPP_ADDRESS_MATCH_INDICATOR'] );
+			$hppRequest->setChallengeRequestIndicator( $array['HPP_CHALLENGE_REQUEST_INDICATOR'] );
 
 			$supplementaryData = array();
 

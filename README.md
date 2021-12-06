@@ -1,8 +1,20 @@
+# Please use our new PHP SDK
+We've moved. We highly recommend you use the Global Payments PHP SDK
+which supports all the features of this SDK and will benefit from all future releases:
+https://github.com/globalpayments/php-sdk
+
+With the latest update (1.1.3) this SDK supports the mandatory and recommended HPP fields for 3D Secure 2. Going forward it will only receive critical security updates, no further feature updates will be released beyond 3D Secure 2.
+
 # Realex Payments HPP PHP SDK
-You can sign up for a free Realex Payments sandbox account at https://developer.realexpayments.com
+You can sign up for a Global Payments (formerly Realex Payments) account at https://developer.globalpay.com
 
 ## Requirements ##
+<<<<<<< HEAD
 - PHP >= 7.1
+=======
+- PHP >= 5.3.9
+- For security and support we highly recommend you use PHP 7
+>>>>>>> 5eb1e10990259e3488c7f59ea014d742b6388e79
 - Composer (https://getcomposer.org/)
 
 ## Instructions ##
@@ -12,7 +24,7 @@ You can sign up for a free Realex Payments sandbox account at https://developer.
     ```
     {
         "require": {
-            "realexpayments/rxp-hpp-php": "1.1.0"
+            "realexpayments/rxp-hpp-php": "1.1.3"
         }    
     }
     ```
@@ -32,71 +44,80 @@ You can sign up for a free Realex Payments sandbox account at https://developer.
 3. Add a reference to the autoloader class anywhere you need to use the sdk
 
     ```php
-    require_once ( 'vendor/autoload.php' );
+    require_once ('vendor/autoload.php');
     ```
 
 4. Use the sdk <br/>
 
     ```php
-	$hppRequest = ( new HppRequest() )
-		->addMerchantId( "myMerchantId" )
-		->addAccount( "mySubAccount" )
-        ....
+    $hppRequest = new HppRequest(); 
+    $hppRequest->addMerchantId("MerchantId");
+    $hppRequest->addAccount("internet");
+    ....
 	```
 
-##SDK Example##
+## Usage
 
-### Creating Request JSON for Realex JS SDK
+### Creating HPP Request JSON for Realex Payments JS Library
 
 ```php
-require_once ( 'vendor/autoload.php' );
+<?php
+require_once ('vendor/autoload.php');
 
 use com\realexpayments\hpp\sdk\domain\HppRequest;
 use com\realexpayments\hpp\sdk\RealexHpp;
+use com\realexpayments\hpp\sdk\RealexValidationException;
+use com\realexpayments\hpp\sdk\RealexException;
 
-$hppRequest = ( new HppRequest() )
-	->addMerchantId( "myMerchantId" )
-	->addAccount( "mySubAccount" )
-	->addAmount( "1001" )
-	->addCurrency( "EUR" )
-	->addAutoSettleFlag( "1" );
+$hppRequest = new HppRequest(); 
+$hppRequest->addMerchantId("MerchantId");
+$hppRequest->addAccount("internet");
+$hppRequest->addAmount("1001");
+$hppRequest->addCurrency("EUR");
+$hppRequest->addAutoSettleFlag(TRUE);
+$hppRequest->addHppVersion("2");
+// 3D Secure 2 Mandatory and Recommended Fields
+$hppRequest->addCustomerEmailAddress("james.mason@example.com");
+$hppRequest->addCustomerMobilePhoneNumber("44|07123456789");
+$hppRequest->addBillingAddressLine1("Flat 123");
+$hppRequest->addBillingAddressLine2("House 456");
+$hppRequest->addBillingAddressLine3("Unit 4");
+$hppRequest->addBillingCity("Halifax");
+$hppRequest->addBillingPostalCode("W5 9HR");
+$hppRequest->addBillingCountryCode("826");
+$hppRequest->addShippingAddressLine1("Apartment 825");
+$hppRequest->addShippingAddressLine2("Complex 741");
+$hppRequest->addShippingAddressLine3("House 963");
+$hppRequest->addShippingCity("Chicago");
+$hppRequest->addShippingState("IL");
+$hppRequest->addShippingPostalCode("50001");
+$hppRequest->addShippingCountryCode("840");
 
-$supplementaryData = array();
-$supplementaryData['key1'] = 'value1';
-$supplementaryData['key2'] = 'value2';
+$realexHpp = new RealexHpp("Shared Secret");
 
-$hppRequest->addSupplementaryData( $supplementaryData );	
-	
-$realexHpp = new RealexHpp( "mySecret" );
-$requestJson = $realexHpp->requestToJson( $hppRequest );
+try {
+    $requestJson = $realexHpp->requestToJson($hppRequest, false);
+    // TODO: pass the HPP request JSON to the JavaScript, iOS or Android Library
+}
+catch (RealexValidationException $e) {
+    // TODO: Add your error handling here
+}
+catch (RealexException $e) {
+    // TODO: Add your error handling here
+}
 ```
 
-### Consuming Response JSON from Realex Payments JS SDK
+### Consuming Response JSON from Realex Payments JS Library
 
 ```php
-require_once ( 'vendor/autoload.php' );
+<?php
+require_once ('vendor/autoload.php');
 
 use com\realexpayments\hpp\sdk\domain\HppResponse;
 use com\realexpayments\hpp\sdk\RealexHpp;
 
-$realexHpp = new RealexHpp( "mySecret" );
-$hppResponse = $realexHpp->responseFromJson( responseJson );
-```
-### HPP Select Stored Card
-```php
-$hppRequest = new HppRequest();
-$hppRequest
-	        ->addAmount("1001")
-	        ->addCurrency("EUR")
-	        ->addAccount("accountId")
-	        ->addMerchantId("merchantId")
-	        ->addAutoSettleFlag("1")
-		    ->addHppSelectStoredCard("payerRef")
-		    ->addPayerExists("1")
-		    ->addOfferSaveCard("1");
-			
-$realexHpp = new RealexHpp("secret");
-$requestJson = $realexHpp->requestToJson($hppRequest);
+$realexHpp = new RealexHpp("mySecret");
+$hppResponse = $realexHpp->responseFromJson(responseJson);
 ```
 ## License
 
