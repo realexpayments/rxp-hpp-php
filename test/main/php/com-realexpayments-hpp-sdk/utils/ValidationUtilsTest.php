@@ -1455,7 +1455,6 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 		}
 	}
 
-
 	/**
 	 * Test payer reference
 	 */
@@ -1502,7 +1501,6 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 			$this->assertEquals( ValidationMessages::hppRequest_payerReference_size, $validationMessages[0] );
 		}
 
-
 		$hppRequest->setPayerReference( "+" );
 
 		try {
@@ -1513,7 +1511,6 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 			$this->assertEquals( ValidationMessages::hppRequest_payerReference_pattern, $validationMessages[0] );
 		}
 	}
-
 
 	/**
 	 * Test payment reference
@@ -1531,7 +1528,6 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 			$this->fail( "This HppRequest should have no validation errors." );
 		}
 
-
 		$hppRequest->setPaymentReference( "azAZ09-_" );
 
 		try {
@@ -1539,7 +1535,6 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 		} catch ( RealexValidationException $e ) {
 			$this->fail( "This HppRequest should not have validation errors." );
 		}
-
 
 		$charsAtMax = str_repeat( "1", 50 );
 		$hppRequest->setPaymentReference( $charsAtMax );
@@ -1560,7 +1555,6 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 			$validationMessages = $e->getValidationMessages();
 			$this->assertEquals( ValidationMessages::hppRequest_paymentReference_size, $validationMessages[0] );
 		}
-
 
 		$hppRequest->setPaymentReference( "+" );
 
@@ -1626,7 +1620,6 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 			$this->assertEquals( ValidationMessages::hppRequest_payerExists_size, $validationMessages[0] );
 		}
 
-
 		$hppRequest->setPayerExists( "a" );
 
 		try {
@@ -1637,7 +1630,6 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 			$this->assertEquals( ValidationMessages::hppRequest_payerExists_pattern, $validationMessages[0] );
 		}
 	}
-
 
 	/**
 	 * Test supplementary data first field
@@ -1695,7 +1687,6 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 			$this->fail( "This HppRequest should not have validation errors." );
 		}
 
-
 		$supplementaryData1  = "ÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæ";
 		$supplementaryData   = array();
 		$supplementaryData[] = $supplementaryData1;
@@ -1720,7 +1711,6 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 			$this->fail( "This HppRequest should not have validation errors." );
 		}
 
-
 		$supplementaryData1  = "úûüýþÿŒŽšœžŸ¥";
 		$supplementaryData   = array();
 		$supplementaryData[] = $supplementaryData1;
@@ -1732,7 +1722,6 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 		} catch ( RealexValidationException $e ) {
 			$this->fail( "This HppRequest should not have validation errors." );
 		}
-
 
 		$charsAtMax          = str_repeat( "1", 255 );
 		$supplementaryData   = array();
@@ -1759,7 +1748,6 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 			$validationMessages = $e->getValidationMessages();
 			$this->assertEquals( ValidationMessages::hppRequest_supplementary_data_size, $validationMessages[0] );
 		}
-
 	}
 
 	/**
@@ -1829,7 +1817,6 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 		} catch ( RealexValidationException $e ) {
 			$this->fail( "This HppRequest should not have validation errors." );
 		}
-
 
 		$supplementaryData1 = "";
 		$supplementaryData2  = "ÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæ";
@@ -1907,9 +1894,7 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 			$validationMessages = $e->getValidationMessages();
 			$this->assertEquals( ValidationMessages::hppRequest_supplementary_data_size, $validationMessages[0] );
 		}
-
 	}
-
 
 	/**
 	 * Test HPP Version
@@ -1934,7 +1919,6 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 		} catch ( RealexValidationException $e ) {
 			$this->fail( "This HppRequest should not have validation errors." );
 		}
-
 
 		$hppRequest->setHppVersion(0);
 
@@ -2001,7 +1985,6 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 			$this->fail( "This HppRequest should not have validation errors." );
 		}
 
-
 		$hppRequest->setHppSelectStoredCard(str_repeat('a',51));
 
 		try {
@@ -2021,7 +2004,6 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 			$validationMessages = $e->getValidationMessages();
 			$this->assertEquals( ValidationMessages::hppRequest_hppSelectStoredCard_pattern, $validationMessages[0] );
 		}
-
 	}
 	/**
 	 * Test converting {@link HppRequest} to JSON.
@@ -2032,7 +2014,6 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 		$path   = SampleJsonData::INVALID_HPP_REQUEST_HPP_VERSION_JSON_PATH;
 		$prefix = __DIR__ . '/../../../resources';
 		$json   = file_get_contents( $prefix . $path );
-
 
 		$hppRequestConverted = JsonUtils::fromJsonHppRequest( $json );
 
@@ -2056,12 +2037,11 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 		$prefix = __DIR__ . '/../../../resources';
 		$json   = file_get_contents( $prefix . $path );
 
-
 		$hppRequestConverted = JsonUtils::fromJsonHppRequest( $json );
 
 		try {
 			ValidationUtils::validate( $hppRequestConverted );
-		} catch ( RealexValidationException $e ) {
+		} catch (RealexValidationException $e) {
 			$this->fail( "This HppRequest should not have validation errors." );
 		}
 
@@ -2082,7 +2062,6 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 		$hppRequestConverted = JsonUtils::fromJsonHppRequest( $json );
 
 		SampleJsonData::checkValidHppRequestPostDimensions($hppRequestConverted,$this);
-
 	}
 	
 	/**
@@ -2113,7 +2092,6 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 		$postDimensions = str_repeat('a',256);
 		//testing add method
 		$hppRequest = $hppRequest->addPostDimensions($postDimensions);
-
 
 		try {
 			ValidationUtils::validate( $hppRequest );
@@ -2182,7 +2160,6 @@ class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
 			$this->assertEquals( ValidationMessages::hppRequest_postResponse_size, $validationMessages[1] );
 		}
 	}
-
 
 	/**
 	 * Test validation post dimensions fails

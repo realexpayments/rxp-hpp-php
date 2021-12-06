@@ -40,7 +40,7 @@ class JsonUtils
     }
 
     /**
-     * Method deserialises JSON to <code>HppRequest</code>.
+     * Method deserializes JSON to <code>HppRequest</code>.
      *
      * @param $json
      * @return HppRequest
@@ -54,7 +54,7 @@ class JsonUtils
     }
 
     /**
-     * Method deserialises JSON to <code>HppResponse</code>.
+     * Method deserializes JSON to <code>HppResponse</code>.
      *
      * @param $json
      * @return HppResponse
@@ -67,14 +67,11 @@ class JsonUtils
         return $mapper->ReadValue($json);
     }
 
-
-
     private static function Initialise()
     {
         if (self::$initialised) {
             return;
         }
-
 
         self::$logger = RXPLogger::getLogger(__CLASS__);
 
