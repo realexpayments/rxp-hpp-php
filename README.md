@@ -9,12 +9,8 @@ With the latest update (1.1.3) this SDK supports the mandatory and recommended H
 You can sign up for a Global Payments (formerly Realex Payments) account at https://developer.globalpay.com
 
 ## Requirements ##
-<<<<<<< HEAD
 - PHP >= 7.1
-=======
-- PHP >= 5.3.9
 - For security and support we highly recommend you use PHP 7
->>>>>>> 5eb1e10990259e3488c7f59ea014d742b6388e79
 - Composer (https://getcomposer.org/)
 
 ## Instructions ##
