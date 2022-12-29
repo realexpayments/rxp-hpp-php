@@ -16,7 +16,7 @@ use com\realexpayments\hpp\sdk\validators\ValidationMessages;
  * @author vicpada
  *
  */
-class JsonUtilsTest extends \PHPUnit_Framework_TestCase {
+class JsonUtilsTest extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * Test converting {@link HppRequest} to JSON.

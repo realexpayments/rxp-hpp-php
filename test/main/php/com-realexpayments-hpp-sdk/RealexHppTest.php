@@ -9,7 +9,7 @@ namespace com\realexpayments\hpp\sdk;
  * @author vicpada
  *
  */
-class RealexHppTest extends \PHPUnit_Framework_TestCase
+class RealexHppTest extends \PHPUnit\Framework\TestCase
 {
 
     /**
@@ -17,7 +17,7 @@ class RealexHppTest extends \PHPUnit_Framework_TestCase
      */
     private static $realex_HPP;
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         self::$realex_HPP = new RealexHpp(SampleJsonData::SECRET);
     }

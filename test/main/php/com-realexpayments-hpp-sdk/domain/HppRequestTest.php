@@ -10,7 +10,7 @@ use com\realexpayments\hpp\sdk\SampleJsonData;
  * @author vicpada
  *
  */
-class HppRequestTest extends \PHPUnit_Framework_TestCase
+class HppRequestTest extends \PHPUnit\Framework\TestCase
 {
     const TIMESTAMP = "20130814122239";
     const MERCHANT_ID = "thestore";

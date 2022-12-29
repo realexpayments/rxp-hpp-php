@@ -12,3 +12,4 @@ vendor/doctrine
 vendor/symfony
 vm-config/
 adhoc/
+.phpunit.result.cache

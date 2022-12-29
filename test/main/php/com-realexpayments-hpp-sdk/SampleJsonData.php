@@ -6,7 +6,7 @@ namespace com\realexpayments\hpp\sdk;
 use com\realexpayments\hpp\sdk\domain\Flag;
 use com\realexpayments\hpp\sdk\domain\HppRequest;
 use com\realexpayments\hpp\sdk\domain\HppResponse;
-use PHPUnit_Framework_TestCase;
+use \PHPUnit\Framework\TestCase as PHPUnit_Framework_TestCase;
 
 /**
  * Class containing sample JSON data and methods to check test data matches expected values.
