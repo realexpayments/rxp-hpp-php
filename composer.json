@@ -1,47 +1,47 @@
 {
-  "name": "realexpayments/rxp-hpp-php",
-  "type": "library",
-  "description": "SDK to send requests and parse responses from Realex Payments using HPP",
-  "keywords": [
-    "realex",
-    "payments",
-    "HPP"
-  ],
-  "authors": [
-    {
-      "name": "Realex Payments",
-      "homepage": "https://www.realexpayments.com/"
+    "name": "realexpayments/rxp-hpp-php",
+    "type": "library",
+    "description": "SDK to send requests and parse responses from Realex Payments using HPP",
+    "keywords": [
+        "realex",
+        "payments",
+        "HPP"
+    ],
+    "authors": [
+        {
+            "name": "Realex Payments",
+            "homepage": "https://www.realexpayments.com/"
+        },
+        {
+            "name": "Victor Palomares",
+            "homepage": "http://www.softwaredesign.ie",
+            "role": "Developer"
+        }
+    ],
+    "license": "MIT",
+    "require": {
+        "php": ">=5.3.9",
+        "apache/log4php": "2.3.*",
+        "symfony/validator": "2.7.*",
+        "doctrine/annotations": "~1",
+        "doctrine/cache": "1.4.*"
     },
-    {
-      "name": "Victor Palomares",
-      "homepage": "http://www.softwaredesign.ie",
-      "role": "Developer"
+    "require-dev": {
+        "phpunit/phpunit": "^8.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "com\\realexpayments\\hpp\\sdk\\": [
+                "src/main/php/com-realexpayments-hpp-sdk"
+            ]
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "com\\realexpayments\\hpp\\sdk\\": [
+                "src/main/php/com-realexpayments-hpp-sdk",
+                "test/main/php/com-realexpayments-hpp-sdk"
+            ]
+        }
     }
-  ],
-  "license": "MIT",
-  "require": {
-    "php": ">=5.3.9",
-    "apache/log4php": "2.3.*",
-    "symfony/validator": "2.7.*",
-    "doctrine/annotations":"1.2.*",
-    "doctrine/cache":"1.4.*"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "^5.7"
-  },
-  "autoload": {
-    "psr-4": {
-      "com\\realexpayments\\hpp\\sdk\\": [
-        "src/main/php/com-realexpayments-hpp-sdk"
-      ]
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "com\\realexpayments\\hpp\\sdk\\": [
-        "src/main/php/com-realexpayments-hpp-sdk",
-        "test/main/php/com-realexpayments-hpp-sdk"
-      ]
-    }
-  }
 }

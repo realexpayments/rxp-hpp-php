@@ -1,3 +1,13 @@
+# Purpose of this fork
+
+This is a fork to update any incompatibilities with PHP8. Below list of known problems:
+- doctrine/annotations 1.2.x is incompatible with PHP8, requirement changed to accept any 1.x
+- phpunit/phpunit updated to 8.3, so that tests are runnable on newer version of PHP
+
+Contents of original README start below.
+
+---
+
 # Please use our new PHP SDK
 We've moved. We highly recommend you use the Global Payments PHP SDK
 which supports all the features of this SDK and will benefit from all future releases:

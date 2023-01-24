@@ -14,7 +14,7 @@ use com\realexpayments\hpp\sdk\validators\ValidationMessages;
  *
  * @author vicpada
  */
-class ValidationUtilsTest extends \PHPUnit_Framework_TestCase {
+class ValidationUtilsTest extends \PHPUnit\Framework\TestCase {
 
 
 	/**
